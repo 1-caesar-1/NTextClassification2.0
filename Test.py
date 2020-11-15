@@ -37,5 +37,5 @@ class Test:
 
 
 if __name__ == '__main__':
-    test = Test('test.json')
+    test = Test('test_config.json')
     x = 3
