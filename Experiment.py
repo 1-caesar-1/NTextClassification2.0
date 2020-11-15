@@ -4,14 +4,21 @@ from sklearn.pipeline import FeatureUnion
 
 from Utils import print_error
 
+
 def normal(file):
     pass
 
-class Test:
-    def __init__(self, path: str, test_name: str = ''):
+
+class Experiment:
+    def __init__(self, path: str, experiment_name: str = None):
         # load the JSON file into config
         with open(path, "r", encoding="utf8", errors="replace") as file:
             config = json.load(file)
+
+        # create name to the experiment
+        if not experiment_name:
+            experiment_name = 'un-named experiment'
+        self.experiment_name = experiment_name
 
         # create FeatureUnion for all the features transformers
         transformers = []
@@ -35,7 +42,6 @@ class Test:
                 print_error(str(e))
 
 
-
 if __name__ == '__main__':
-    test = Test('test_config.json')
+    experiment = Experiment('test_config.json')
     x = 3
