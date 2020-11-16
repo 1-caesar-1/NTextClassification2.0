@@ -29,6 +29,8 @@
                                                                 class="btn multisteps-form__progress-btn" role="button"
                                                                 title="User Info">other data&nbsp;</a><a
                                                                 class="btn multisteps-form__progress-btn" role="button"
+                                                                title="User Info">Measures&nbsp;</a><a
+                                                                class="btn multisteps-form__progress-btn" role="button"
                                                                 title="User Info">Filters&nbsp;</a></div>
                                         </div>
                                 </div>
@@ -48,7 +50,7 @@
                                                                                                 class="form-check-input"
                                                                                                 type="checkbox"
                                                                                                 id="formCheck-2"
-                                                                                                name="sc"><label
+                                                                                                name="Spelling_correction"><label
                                                                                                 class="form-check-label"
                                                                                                 for="formCheck-1">Spelling
                                                                                                 correction<br></label>
@@ -57,7 +59,7 @@
                                                                                                 class="form-check-input"
                                                                                                 type="checkbox"
                                                                                                 id="formCheck-4"
-                                                                                                name="html"><label
+                                                                                                name="html_tags"><label
                                                                                                 class="form-check-label"
                                                                                                 for="formCheck-1">HTML
                                                                                                 tags removal<br></label>
@@ -86,7 +88,7 @@
                                                                                                 class="form-check-input"
                                                                                                 type="checkbox"
                                                                                                 id="formCheck-5"
-                                                                                                name="rc"><label
+                                                                                                name="Repeated_characters"><label
                                                                                                 class="form-check-label"
                                                                                                 for="formCheck-1">Repeated
                                                                                                 characters
@@ -106,7 +108,7 @@
                                                                                                 class="form-check-input"
                                                                                                 type="checkbox"
                                                                                                 id="formCheck-7"
-                                                                                                name="stem"><label
+                                                                                                name="Stemming"><label
                                                                                                 class="form-check-label"
                                                                                                 for="formCheck-1">Stemming<br></label>
                                                                                 </div>
@@ -114,7 +116,7 @@
                                                                                                 class="form-check-input"
                                                                                                 type="checkbox"
                                                                                                 id="formCheck-6"
-                                                                                                name="lem"><label
+                                                                                                name="Lemmatizing"><label
                                                                                                 class="form-check-label"
                                                                                                 for="formCheck-1">Lemmatizing<br></label>
                                                                                 </div>
@@ -322,8 +324,105 @@
                                                 <div id="single-form-next-prev-3"
                                                         class="multisteps-form__panel shadow p-4 rounded bg-white"
                                                         data-animation="scaleIn">
-                                                        <h3 class="text-center multisteps-form__title">Filters</h3>
+                                                        <h3 class="text-center multisteps-form__title">Measures
+                                                        </h3>
                                                         <div id="form-content-4" class="multisteps-form__content">
+                                                                <div id="input-grp-double-2" class="form-row mt-4">
+                                                                        <div class="col-12 col-sm-6">
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="accuracy_score" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">accuracy<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="f1_score" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">f1<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="precision_score" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">precision<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="recall_score" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">recall<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="accuracy_confusion_matrix" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">accuracy
+                                                                                                & confusion
+                                                                                                matrix<br /></label>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="roc_auc_score" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">roc
+                                                                                                auc<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="confusion_matrix" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">confusion
+                                                                                                matrix<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="roc_curve_data" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">roc
+                                                                                                curve<br /></label>
+                                                                                </div>
+                                                                                <div class="form-check"><input
+                                                                                                type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="formCheck-13"
+                                                                                                name="precision_recall" /><label
+                                                                                                class="form-check-label"
+                                                                                                for="formCheck-1">precision
+                                                                                                recall<br /></label>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div id="next-prev-buttons-1" class="button-row d-flex mt-4">
+                                                                <button class="btn btn btn-primary js-btn-prev"
+                                                                        type="button" title="Prev">Prev</button><button
+                                                                        class="btn btn btn-primary ml-auto js-btn-next"
+                                                                        type="button" title="Next">Next</button></div>
+                                                </div>
+                                                <div id="single-form-next-prev-4"
+                                                        class="multisteps-form__panel shadow p-4 rounded bg-white"
+                                                        data-animation="scaleIn">
+                                                        <h3 class="text-center multisteps-form__title">Filters</h3>
+                                                        <div id="form-content-5" class="multisteps-form__content">
                                                                 <div id="input-grp-double-3" class="form-row mt-4">
                                                                         <div class="col-12 col-sm-6">
                                                                                 <div class="form-check"><input
