@@ -4,7 +4,10 @@ from flask import render_template
 from write_file import data_parsing
 
 app = Flask(__name__)
-ui = FlaskUI(app)  # feed the parameters
+ui = FlaskUI(app)
+ui.fullscreen = True
+ui.maximized = True
+# feed the parameters
 
 
 @app.route("/")
