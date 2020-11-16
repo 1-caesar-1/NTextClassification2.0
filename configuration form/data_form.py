@@ -2,7 +2,9 @@ from flask import Flask, request, url_for
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
 import json
-import os
+from os.path import dirname, abspath
+from os import mkdir
+
 
 app = Flask(__name__)
 ui = FlaskUI(app)  # feed the parameters
@@ -72,6 +74,9 @@ def data_parsing(request):
             text = "TfidfVectorizer(" + temp + ")"
             data["transformers"].append(text)
 
+    mkdir(dirname(dirname(abspath(__file__))) + "/configs")
+    with open(dirname(dirname(abspath(__file__))) + "/configs/config.json", "w") as f:
+        f.write(json.dumps(data))
     print(data)
 
 
