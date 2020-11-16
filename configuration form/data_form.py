@@ -1,11 +1,23 @@
 from flask import Flask, request, url_for
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
+import json
+import os
 
 app = Flask(__name__)
 ui = FlaskUI(app)  # feed the parameters
 
-classifiers = ["svc", "rf", "lr", "mnb"]
+classifiers = ["mlp", "svc", "rf", "lr", "mnb"]
+
+
+tfidf_parameters = {
+    "max_features": 1,
+    "analyzer": 2,
+    "lowercase": 3,
+    "ngram_range": 4,
+    "use_idf": 5,
+    "min_df": 6,
+}
 
 selection_type = {
     "chi2": "chi2",
@@ -34,15 +46,33 @@ def index():
 
 @app.route("/data", methods=["POST"])
 def get_data():
+    data_parsing(request)
+    return render_template("index.html")
 
-    for key in request.form:
+
+def data_parsing(request):
+    parameters = dict(request.form.items())
+    print(parameters)
+    for key, _ in parameters.items():
         if key in classifiers:
             data["classifiers"].append(key)
         if key in selection_type:
             data["features_selection"].append(selection_type[key])
+        if key == "tf":
+            tfidf_parameters["max_features"] = parameters["max"]
+            tfidf_parameters["analyzer"] = "False"
+            tfidf_parameters["lowercase"] = "False"
+            tfidf_parameters["ngram_range"] = (
+                "(" + parameters["grams"] + "," + parameters["grams"] + ")"
+            )
+            tfidf_parameters["use_idf"] = "False"
+            tfidf_parameters["min_df"] = "3"
+            temp = ["=".join(i) for i in tfidf_parameters.items()]
+            temp = ",".join(temp)
+            text = "TfidfVectorizer(" + temp + ")"
+            data["transformers"].append(text)
 
     print(data)
-    return render_template("index.html")
 
 
 ui.run()
