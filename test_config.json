@@ -1,5 +1,10 @@
 {
   "transformers": ["TfidfVectorizer(max_features=1000, analyzer='a', lowercase=False)",
                    "TfidfVectorizer(aaa=1, max_features=2000, analyzer='a', lowercase=True)"],
-  "preprocessing": ["normal", "aaa"]
+  "preprocessing": ["normal", "aaa"],
+  "language": "English",
+  "features_selection": ["abc", "efd"],
+  "measurements": ["accuracy"],
+  "classifiers": ["svc", "mlp", "abc"],
+  "classification_technique": "CrossValidation()"
 }
