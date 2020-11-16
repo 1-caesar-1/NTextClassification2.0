@@ -13,8 +13,7 @@ from utils import print_error
 
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
-_ = TfidfVectorizer
-_ = TrainTest
+_ = [TfidfVectorizer, TrainTest]
 
 classifiers_objects = {
     "svc": LinearSVC(),
@@ -62,6 +61,10 @@ class Experiment:
     extracted_features: np_array
         The features matrix of the documents in this experiment.
         This variable will be None before extracting the features and should contain the features matrix after extracting.
+
+    classification_results: dict
+        The classification results of this experiment.
+        This variable will be None before classification occurred and should contain the result afterwards.
     """
     def __init__(self, path: str, experiment_name: str = 'un-named experiment'):
         # load the JSON file into config
@@ -122,9 +125,10 @@ class Experiment:
                         ': ' + str(e), num_tabs=1)
             self.classification_technique = CrossValidation()
 
-        # initialize the labels and the extracted feature to be None
+        # initialize the labels, the extracted feature and the results dict to be None
         self.labels = None
         self.extracted_features = None
+        self.classification_results = None
 
     def __str__(self):
         result = self.experiment_name + ": "
@@ -137,5 +141,5 @@ class Experiment:
 
 
 if __name__ == '__main__':
-    experiment = Experiment('../test_config.json')
+    experiment = Experiment('../configs/config.json')
     print(experiment)
