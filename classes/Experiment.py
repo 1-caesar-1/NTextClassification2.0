@@ -1,14 +1,20 @@
 import json
 
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion
 from sklearn.svm import LinearSVC
-from classification_technique import TrainTest, CrossValidation
-from Utils import print_error
+from classes.CrossValidation import CrossValidation
+from classes.TrainTest import TrainTest
+from utils import print_error
+
+# ignore this section
+# this section is for not omit imports that come into use in 'eval'
+_ = TfidfVectorizer
+_ = TrainTest
 
 classifiers_objects = {
     "svc": LinearSVC(),
@@ -74,8 +80,7 @@ class Experiment:
             try:
                 self.preprocessing_functions += [eval(normalization)]
             except Exception as e:
-                print_error('cannot load pre-processing function ' + normalization + ':', end=' ')
-                print_error(str(e))
+                print_error('cannot load pre-processing function ' + normalization + ': ' + str(e), num_tabs=1)
 
         # create FeatureUnion for all the features transformers
         transformers = []
@@ -85,8 +90,7 @@ class Experiment:
                 transformers += [(transformer.split('(')[0] + str(counter), eval(transformer))]
                 counter += 1
             except Exception as e:
-                print_error('cannot create transformer ' + transformer.split('(')[0] + ':', end=' ')
-                print_error(str(e))
+                print_error('cannot create transformer ' + transformer.split('(')[0] + ': ' + str(e), num_tabs=1)
         self.features_extraction_transformers = FeatureUnion(transformers, n_jobs=-1)
 
         # create a list of features selection functions
@@ -95,8 +99,7 @@ class Experiment:
             try:
                 self.features_selection += [eval(selection)]
             except Exception as e:
-                print_error('cannot load features selection function ' + selection + ':', end=' ')
-                print_error(str(e))
+                print_error('cannot load features selection function ' + selection + ': ' + str(e), num_tabs=1)
 
         # create a list of measurements names (accuracy, precision etc.)
         self.measurements = config['measurements']
@@ -109,14 +112,14 @@ class Experiment:
             except:
                 print_error('cannot create classifiers ' + classifier + ': ' + classifier + ' is not a recognized '
                                                                                             'abbreviation of a '
-                                                                                            'classifier')
+                                                                                            'classifier', num_tabs=1)
 
         # create a classification technique object
         try:
             self.classification_technique = eval(config['classification_technique'])
         except Exception as e:
-            print_error('cannot load features selection function ' + config['classification_technique'].split('(')[0] + ':', end=' ')
-            print_error(str(e))
+            print_error('cannot load features selection function ' + config['classification_technique'].split('(')[0] +
+                        ': ' + str(e), num_tabs=1)
             self.classification_technique = CrossValidation()
 
         # initialize the labels and the extracted feature to be None
@@ -134,5 +137,5 @@ class Experiment:
 
 
 if __name__ == '__main__':
-    experiment = Experiment('test_config.json')
+    experiment = Experiment('../test_config.json')
     print(experiment)
