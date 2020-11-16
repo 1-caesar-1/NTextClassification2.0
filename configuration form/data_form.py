@@ -55,7 +55,7 @@ def get_data():
 def data_parsing(request):
     parameters = dict(request.form.items())
     print(parameters)
-    for key, _ in parameters.items():
+    for key, value in parameters.items():
         if key in classifiers:
             data["classifiers"].append(key)
         if key in selection_type:
@@ -73,6 +73,23 @@ def data_parsing(request):
             temp = ",".join(temp)
             text = "TfidfVectorizer(" + temp + ")"
             data["transformers"].append(text)
+        if key == "tfidf":
+            tfidf_parameters["max_features"] = parameters["max"]
+            tfidf_parameters["analyzer"] = "False"
+            tfidf_parameters["lowercase"] = "False"
+            tfidf_parameters["ngram_range"] = (
+                "(" + parameters["grams"] + "," + parameters["grams"] + ")"
+            )
+            tfidf_parameters["use_idf"] = "True"
+            tfidf_parameters["min_df"] = "3"
+            temp = ["=".join(i) for i in tfidf_parameters.items()]
+            temp = ",".join(temp)
+            text = "TfidfVectorizer(" + temp + ")"
+            data["transformers"].append(text)
+        if key == "Language":
+            data["language"] = value
+        if key == "technique":
+            data["classification_technique"] = value + "()"
 
     mkdir(dirname(dirname(abspath(__file__))) + "/configs")
     with open(dirname(dirname(abspath(__file__))) + "/configs/config.json", "w") as f:
