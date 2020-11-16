@@ -28,7 +28,7 @@ def run_file():
     from main import main
 
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
-    main.main(parent_dir)
+    main(parent_dir)
     return render_template("index.html")
 
 
