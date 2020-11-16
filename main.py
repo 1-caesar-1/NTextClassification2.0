@@ -1,25 +1,54 @@
 import os
+import threading
+
+from processes.classification import classify
+from processes.feature_extraction_selection import extract_feature, select_features
+from processes.normalization import normalize
+from processes.results_handling import handle_results
 from utils import print_title, print_message
 from classes.Experiment import Experiment
 
 
 def main(config_path):
+    # create the experiments
     print_title("Creating experiments")
     experiments = [Experiment(config_path + '\\' + config, config.replace('.json', '')) for config in os.listdir(config_path)]
+    for experiment in experiments:
+        print_message("experiment created - " + str(experiment), num_tabs=1)
     print_message("Total: " + str(len(experiments)) + " experiments", 1)
 
     # normalization
     print_title("Normalizing corpus")
+    for experiment in experiments:
+        normalize(experiment)
 
-    # feature extraction & feature selection
-    print_title("Extracting features")
+    def run_experiment(experiment: Experiment):
+        # feature extraction & feature selection
+        print_title("Extracting features")
+        extract_feature(experiment)
+        select_features(experiment)
 
-    # classification
-    print_title("Classifying")
+        # classification
+        print_title("Classifying")
+        classify(experiment)
 
-    # write results
-    print_title("Writing results")
+        # write results
+        print_title("Writing results")
+        handle_results(experiment)
+
+    # run all the experiments in different threads
+    threads = []
+    for experiment in experiments:
+        thread = threading.Thread(target=run_experiment, args=(experiment,))
+        threads.append(thread)
+        thread.start()
+
+    # wait for all threads
+    for thread in threads:
+        thread.join()
+
+    print_title("Done!")
 
 
 if __name__ == '__main__':
-    main(r'C:\Users\natan\OneDrive\שולחן העבודה\configs')
+    main(r'configs')

@@ -104,7 +104,7 @@ def data_parsing(request):
     if not exists(parent_dir):
         mkdir(parent_dir)
     with open(parent_dir + "/config.json", "w") as f:
-        f.write(json.dumps(data))
+        f.write(json.dumps(data, indent=4))
     print(data)
 
 
