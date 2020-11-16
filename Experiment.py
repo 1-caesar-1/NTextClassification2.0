@@ -123,7 +123,16 @@ class Experiment:
         self.labels = None
         self.extracted_features = None
 
+    def __str__(self):
+        result = self.experiment_name + ": "
+        result += str(len(self.features_extraction_transformers.transformer_list)) + " transformer, "
+        result += str(len(self.classifiers)) + " classifiers, "
+        result += str(len(self.features_selection)) if self.features_selection else "no"
+        result += " features selection, using " + str(self.classification_technique)
+        result += " in " + self.language
+        return result
+
 
 if __name__ == '__main__':
     experiment = Experiment('test_config.json')
-    print(bool)
+    print(experiment)

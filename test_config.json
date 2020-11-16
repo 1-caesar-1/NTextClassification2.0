@@ -6,5 +6,5 @@
   "features_selection": ["abc", "efd"],
   "measurements": ["accuracy"],
   "classifiers": ["svc", "mlp", "abc"],
-  "classification_technique": "CrossValidation()"
+  "classification_technique": "TrainTest()"
 }
