@@ -18,7 +18,10 @@ def main(config_path, max_threads=None):
 
     # create the experiments
     print_title("Creating experiments")
-    experiments = [Experiment(config_path + '\\' + config, config.replace('.json', '')) for config in os.listdir(config_path)]
+    experiments = [
+        Experiment(config_path + "\\" + config, config.replace(".json", ""))
+        for config in os.listdir(config_path)
+    ]
     for experiment in experiments:
         print_message("experiment created - " + str(experiment), num_tabs=1)
     print_message("Total: " + str(len(experiments)) + " experiments", 1)
@@ -60,5 +63,5 @@ def main(config_path, max_threads=None):
     print_title("Done!")
 
 
-if __name__ == '__main__':
-    main(r'configs')
+if __name__ == "__main__":
+    main(r"configs")

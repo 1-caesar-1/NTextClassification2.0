@@ -1,2 +1,5 @@
 # Project exclude paths
 /venv/
+/.vscode/
+setup.py
+/textclassification2.egg-info/
