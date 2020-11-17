@@ -1,3 +1,4 @@
+import multiprocessing
 import os
 import threading
 
@@ -9,7 +10,12 @@ from utils import print_title, print_message
 from classes.Experiment import Experiment
 
 
-def main(config_path):
+def main(config_path, max_threads=None):
+    # initialize the semaphore for multi-threading by the number of the cores
+    if not max_threads:
+        max_threads = multiprocessing.cpu_count()
+    semaphore = threading.Semaphore(max_threads)
+
     # create the experiments
     print_title("Creating experiments")
     experiments = [
@@ -26,6 +32,9 @@ def main(config_path):
         normalize(experiment)
 
     def run_experiment(experiment: Experiment):
+        # enter the semaphore
+        semaphore.acquire()
+
         # feature extraction & feature selection
         print_title("Extracting features")
         extract_feature(experiment)
@@ -38,6 +47,9 @@ def main(config_path):
         # write results
         print_title("Writing results")
         handle_results(experiment)
+
+        # exit the semaphore
+        semaphore.release()
 
     # run all the experiments in different threads
     threads = []
