@@ -8,7 +8,7 @@ from processes.normalization import normalize
 from processes.results_handling import handle_results
 from utils import print_title, print_message
 from classes.Experiment import Experiment
-
+#
 
 def main(config_path, max_threads=None):
     # initialize the semaphore for multi-threading by the number of the cores
