@@ -35,9 +35,6 @@ def main(config_path, max_threads=None):
         normalize(experiment)
 
     def run_experiment(experiment: Experiment):
-        # enter the semaphore
-        semaphore.acquire()
-
         # feature extraction & feature selection
         print_title("Extracting features")
         extract_feature(experiment)
@@ -51,7 +48,7 @@ def main(config_path, max_threads=None):
         print_title("Writing results")
         handle_results(experiment)
 
-        # exit the semaphore
+        # update the semaphore
         semaphore.release()
 
     # run all the experiments in different threads
@@ -59,6 +56,7 @@ def main(config_path, max_threads=None):
     for experiment in experiments:
         thread = threading.Thread(target=run_experiment, args=(experiment,))
         threads.append(thread)
+        semaphore.acquire()  # start the thread only if the semaphore is available
         thread.start()
 
     # wait for all threads
