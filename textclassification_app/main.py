@@ -4,7 +4,7 @@ import threading
 
 from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import (
-    extract_feature,
+    extract_features,
     select_features,
 )
 from textclassification_app.processes.normalization import normalize
@@ -37,7 +37,7 @@ def main(config_path, max_threads=None):
     def run_experiment(experiment: Experiment):
         # feature extraction & feature selection
         print_title("Extracting features")
-        extract_feature(experiment)
+        extract_features(experiment)
         select_features(experiment)
 
         # classification

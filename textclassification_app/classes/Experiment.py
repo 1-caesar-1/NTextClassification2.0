@@ -54,11 +54,11 @@ class Experiment:
     classification_technique: TrainTest / CrossValidation
         An instance of class TrainTest or CrossValidation that contains information about the classification technique.
 
-    labels: list[int]
+    labels: nd_array
         The labels of the documents in this experiment.
         This variable will be None before extracting the features and should contain the labels after extracting.
 
-    extracted_features: np_array
+    extracted_features: csr_matrix
         The features matrix of the documents in this experiment.
         This variable will be None before extracting the features and should contain the features matrix after extracting.
 

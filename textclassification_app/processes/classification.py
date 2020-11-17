@@ -62,7 +62,7 @@ def classify_using_cv(experiment: Experiment):
     # for each classifier model classify the data using CV
     for model in experiment.classifiers:
         for _ in range(experiment.classification_technique.iteration):
-            scoring = (measures[m] for m in experiment.measurements)
+            scoring = [measures[m] for m in experiment.measurements]
             scores = cross_validate(model, X, y, cv=experiment.classification_technique.k_fold, scoring=scoring,
                                     n_jobs=-1)
             for measure in experiment.measurements:
