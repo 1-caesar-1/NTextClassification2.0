@@ -67,4 +67,4 @@ def main(config_path, max_threads=None):
 
 
 if __name__ == "__main__":
-    main(r"configs")
+    main(r"../configs")
