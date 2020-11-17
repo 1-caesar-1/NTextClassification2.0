@@ -2,7 +2,7 @@ from flask import Flask, request, url_for
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
 from write_file import data_parsing
-
+from main import main
 from os.path import dirname, abspath, exists
 
 app = Flask(__name__)
@@ -25,7 +25,6 @@ def get_data():
 
 @app.route("/run")
 def run_file():
-    from textclassification2 import main
 
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
