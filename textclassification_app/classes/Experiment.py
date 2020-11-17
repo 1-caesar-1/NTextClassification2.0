@@ -150,7 +150,7 @@ class Experiment:
             self.classification_technique = eval(config["classification_technique"])
         except Exception as e:
             print_error(
-                "cannot load features selection function "
+                "cannot create classification technique object "
                 + config["classification_technique"].split("(")[0]
                 + ": "
                 + str(e),
