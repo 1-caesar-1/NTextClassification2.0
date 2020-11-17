@@ -9,6 +9,36 @@
                 href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.min.css') }}">
 </head>
+<header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="#">Configuration</a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="/runFile">run</a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="#">About</a>
+                                </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                </div>
+        </nav>
+</header>
 
 <body>
         <!-- Start: Multi step form  ?h=0dcf683c154a4afab54e605136a942cb-->
@@ -212,7 +242,9 @@
                                                                                                 checked="true"
                                                                                                 name="mlp" /><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-1">Multi-layer Perceptron (MLP)<br /></label>
+                                                                                                for="formCheck-1">Multi-layer
+                                                                                                Perceptron
+                                                                                                (MLP)<br /></label>
                                                                                 </div>
                                                                                 <div class="form-check"><input
                                                                                                 type="checkbox"
@@ -221,7 +253,9 @@
                                                                                                 checked="true"
                                                                                                 name="svc" /><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-1">Linear Support Vector (SVC)<br /></label>
+                                                                                                for="formCheck-1">Linear
+                                                                                                Support Vector
+                                                                                                (SVC)<br /></label>
                                                                                 </div>
                                                                                 <div class="form-check"><input
                                                                                                 type="checkbox"
@@ -230,7 +264,9 @@
                                                                                                 checked="true"
                                                                                                 name="lr" /><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-1">Logistic Regression (LR)<br /></label>
+                                                                                                for="formCheck-1">Logistic
+                                                                                                Regression
+                                                                                                (LR)<br /></label>
                                                                                 </div>
                                                                         </div>
                                                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
@@ -241,7 +277,9 @@
                                                                                                 checked="true"
                                                                                                 name="rf" /><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-1">Random Forest (RF)<br /></label>
+                                                                                                for="formCheck-1">Random
+                                                                                                Forest
+                                                                                                (RF)<br /></label>
                                                                                 </div>
                                                                                 <div class="form-check"><input
                                                                                                 type="checkbox"
@@ -250,14 +288,17 @@
                                                                                                 checked="true"
                                                                                                 name="mnb" /><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-1">Multinomial Naive Bayes (MNB)<br /></label>
+                                                                                                for="formCheck-1">Multinomial
+                                                                                                Naive Bayes
+                                                                                                (MNB)<br /></label>
                                                                                 </div>
                                                                         </div>
                                                                 </div>
                                                         </div>
                                                         <div id="next-prev-buttons-1" class="button-row d-flex mt-4">
                                                                 <button class="btn btn btn-primary js-btn-prev"
-                                                                        type="button" title="Prev">Previous</button><button
+                                                                        type="button"
+                                                                        title="Prev">Previous</button><button
                                                                         class="btn btn btn-primary ml-auto js-btn-next"
                                                                         type="button" title="Next">Next</button></div>
                                                 </div>
@@ -299,7 +340,8 @@
                                                                                                 name="technique"
                                                                                                 value="TrainTest"><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-8">Train Test Split<br></label>
+                                                                                                for="formCheck-8">Train
+                                                                                                Test Split<br></label>
                                                                                 </div>
                                                                                 <div class="form-check"><input
                                                                                                 class="form-check-input"
@@ -309,24 +351,24 @@
                                                                                                 checked="true"
                                                                                                 value="CrossValidation"><label
                                                                                                 class="form-check-label"
-                                                                                                for="formCheck-5">Cross Validation<br></label>
+                                                                                                for="formCheck-5">Cross
+                                                                                                Validation<br></label>
                                                                                 </div>
                                                                         </div>
                                                                         <div class="col-12 col-sm-6 mt-4 mt-sm-0">
                                                                                 <h6>N-grams for TF / TF-IDF:</h6><input
-                                                                                        class="form-control"
-                                                                                        value="1"
+                                                                                        class="form-control" value="1"
                                                                                         type="number" name="grams">
                                                                                 <h6>Max Features:</h6><input
-                                                                                        class="form-control"
-                                                                                        value="100"
+                                                                                        class="form-control" value="100"
                                                                                         type="number" name="max">
                                                                         </div>
                                                                 </div>
                                                         </div>
                                                         <div id="next-prev-buttons-1" class="button-row d-flex mt-4">
                                                                 <button class="btn btn btn-primary js-btn-prev"
-                                                                        type="button" title="Prev">Previous</button><button
+                                                                        type="button"
+                                                                        title="Prev">Previous</button><button
                                                                         class="btn btn btn-primary ml-auto js-btn-next"
                                                                         type="button" title="Next">Next</button></div>
                                                 </div>
@@ -424,7 +466,8 @@
                                                         </div>
                                                         <div id="next-prev-buttons-1" class="button-row d-flex mt-4">
                                                                 <button class="btn btn btn-primary js-btn-prev"
-                                                                        type="button" title="Prev">Previous</button><button
+                                                                        type="button"
+                                                                        title="Prev">Previous</button><button
                                                                         class="btn btn btn-primary ml-auto js-btn-next"
                                                                         type="button" title="Next">Next</button></div>
                                                 </div>

@@ -1,8 +1,15 @@
 {
-    "transformers": [],
-    "preprocessing": [],
+    "transformers": [
+        "TfidfVectorizer(max_features=100,analyzer=False,lowercase=False,ngram_range=(1000,1000),use_idf=False,min_df=3)"
+    ],
+    "preprocessing": [
+        "Spelling_correction",
+        "stopwords"
+    ],
     "language": "English",
-    "features_selection": [],
+    "features_selection": [
+        "RFECV"
+    ],
     "measurements": [
         "accuracy_score"
     ],
