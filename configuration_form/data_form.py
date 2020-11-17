@@ -32,6 +32,12 @@ def run_file():
     return render_template("index.html")
 
 
+@app.route("/runFile")
+def runFile():
+
+    return render_template("runFile.html")
+
+
 def run():
     ui.run()
 
