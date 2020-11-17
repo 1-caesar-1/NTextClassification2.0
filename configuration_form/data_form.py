@@ -25,13 +25,17 @@ def get_data():
 
 @app.route("/run")
 def run_file():
-    from main import main
+    from textclassification_app.main import main
 
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
     return render_template("index.html")
 
 
-if __name__ == "__main__":
+def run():
     ui.run()
+
+
+if __name__ == "__main__":
+    run()
 
