@@ -25,7 +25,7 @@ def get_data():
 
 @app.route("/run")
 def run_file():
-    from textclassification2 import main
+    from main import main
 
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
