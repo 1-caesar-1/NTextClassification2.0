@@ -4,5 +4,10 @@ from configuration_form import data_form
 
 
 if __name__ == "__main__":
-    # main.main("configs")
-    data_form.run()
+    value = input(
+        "if you want to run the app enter 1 if you want to run main code only enter 2: "
+    )
+    if value == "1":
+        data_form.run()
+    else:
+        main.main("configs")

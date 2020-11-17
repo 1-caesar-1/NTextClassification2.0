@@ -2,12 +2,15 @@ import multiprocessing
 import os
 import threading
 
-from processes.classification import classify
-from processes.feature_extraction_selection import extract_feature, select_features
-from processes.normalization import normalize
-from processes.results_handling import handle_results
-from utils import print_title, print_message
-from classes.Experiment import Experiment
+from textclassification_app.processes.classification import classify
+from textclassification_app.processes.feature_extraction_selection import (
+    extract_feature,
+    select_features,
+)
+from textclassification_app.processes.normalization import normalize
+from textclassification_app.processes.results_handling import handle_results
+from textclassification_app.utils import print_title, print_message
+from textclassification_app.classes.Experiment import Experiment
 
 
 def main(config_path, max_threads=None):

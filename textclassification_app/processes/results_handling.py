@@ -1,4 +1,4 @@
-from classes.Experiment import Experiment
+from textclassification_app.classes.Experiment import Experiment
 
 
 def handle_results(experiment: Experiment):

@@ -1,7 +1,7 @@
 from flask import Flask, request, url_for
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
-from write_file import data_parsing
+from configuration_form.write_file import data_parsing
 
 from os.path import dirname, abspath, exists
 

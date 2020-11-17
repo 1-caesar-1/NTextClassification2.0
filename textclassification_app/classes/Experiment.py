@@ -7,9 +7,9 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion
 from sklearn.svm import LinearSVC
-from classes.CrossValidation import CrossValidation
-from classes.TrainTest import TrainTest
-from utils import print_error
+from textclassification_app.classes.CrossValidation import CrossValidation
+from textclassification_app.classes.TrainTest import TrainTest
+from textclassification_app.utils import print_error
 
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
@@ -66,7 +66,8 @@ class Experiment:
         The classification results of this experiment.
         This variable will be None before classification occurred and should contain the result afterwards.
     """
-    def __init__(self, path: str, experiment_name: str = 'un-named experiment'):
+
+    def __init__(self, path: str, experiment_name: str = "un-named experiment"):
         # load the JSON file into config
         with open(path, "r", encoding="utf8", errors="replace") as file:
             config = json.load(file)
@@ -75,54 +76,86 @@ class Experiment:
         self.experiment_name = experiment_name
 
         # get the language of the experiment
-        self.language = config['language'].lower()
+        self.language = config["language"].lower()
 
         # create a list of pre-processing functions
         self.preprocessing_functions = []
-        for normalization in config['preprocessing']:
+        for normalization in config["preprocessing"]:
             try:
                 self.preprocessing_functions += [eval(normalization)]
             except Exception as e:
-                print_error('cannot load pre-processing function ' + normalization + ': ' + str(e), num_tabs=1)
+                print_error(
+                    "cannot load pre-processing function "
+                    + normalization
+                    + ": "
+                    + str(e),
+                    num_tabs=1,
+                )
 
         # create FeatureUnion for all the features transformers
         transformers = []
         counter = 1
-        for transformer in config['transformers']:
+        for transformer in config["transformers"]:
             try:
-                transformers += [(transformer.split('(')[0] + str(counter), eval(transformer))]
+                transformers += [
+                    (transformer.split("(")[0] + str(counter), eval(transformer))
+                ]
                 counter += 1
             except Exception as e:
-                print_error('cannot create transformer ' + transformer.split('(')[0] + ': ' + str(e), num_tabs=1)
+                print_error(
+                    "cannot create transformer "
+                    + transformer.split("(")[0]
+                    + ": "
+                    + str(e),
+                    num_tabs=1,
+                )
         self.features_extraction_transformers = FeatureUnion(transformers, n_jobs=-1)
 
         # create a list of features selection functions
         self.features_selection = []
-        for selection in config['features_selection']:
+        for selection in config["features_selection"]:
             try:
                 self.features_selection += [eval(selection)]
             except Exception as e:
-                print_error('cannot load features selection function ' + selection + ': ' + str(e), num_tabs=1)
+                print_error(
+                    "cannot load features selection function "
+                    + selection
+                    + ": "
+                    + str(e),
+                    num_tabs=1,
+                )
 
         # create a list of measurements names (accuracy, precision etc.)
-        self.measurements = config['measurements']
+        self.measurements = config["measurements"]
 
         # create a list of classifiers
         self.classifiers = []
-        for classifier in config['classifiers']:
+        for classifier in config["classifiers"]:
             try:
                 self.classifiers += [classifiers_objects[classifier]]
             except:
-                print_error('cannot create classifiers ' + classifier + ': ' + classifier + ' is not a recognized '
-                                                                                            'abbreviation of a '
-                                                                                            'classifier', num_tabs=1)
+                print_error(
+                    "cannot create classifiers "
+                    + classifier
+                    + ": "
+                    + classifier
+                    + " is not a recognized "
+                    "abbreviation of a "
+                    "classifier",
+                    num_tabs=1,
+                )
 
         # create a classification technique object
         try:
-            self.classification_technique = eval(config['classification_technique'])
+            self.classification_technique = eval(config["classification_technique"])
         except Exception as e:
-            print_error('cannot load features selection function ' + config['classification_technique'].split('(')[0] +
-                        ': ' + str(e), num_tabs=1)
+            print_error(
+                "cannot load features selection function "
+                + config["classification_technique"].split("(")[0]
+                + ": "
+                + str(e),
+                num_tabs=1,
+            )
             self.classification_technique = CrossValidation()
 
         # initialize the labels, the extracted feature and the results dict to be None
@@ -132,7 +165,10 @@ class Experiment:
 
     def __str__(self):
         result = self.experiment_name + ": "
-        result += str(len(self.features_extraction_transformers.transformer_list)) + " transformer, "
+        result += (
+            str(len(self.features_extraction_transformers.transformer_list))
+            + " transformer, "
+        )
         result += str(len(self.classifiers)) + " classifiers, "
         result += str(len(self.features_selection)) if self.features_selection else "no"
         result += " features selection, using " + str(self.classification_technique)
@@ -140,6 +176,6 @@ class Experiment:
         return result
 
 
-if __name__ == '__main__':
-    experiment = Experiment('../configs/config.json')
+if __name__ == "__main__":
+    experiment = Experiment("../configs/config.json")
     print(experiment)
