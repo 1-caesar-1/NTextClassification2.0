@@ -1,4 +1,4 @@
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score, confusion_matrix
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
 from sklearn.model_selection import cross_validate
 
 from textclassification_app.classes.Experiment import Experiment
@@ -27,24 +27,27 @@ def classify_using_train_test(experiment: Experiment):
         for model in experiment.classifiers:
             result[measure][type(model).__name__] = list()
 
+    # for each classification model classify the data using its pipeline
+    for clf in experiment.classifiers:
+        # get the pipeline from the experiment
+        pipeline = experiment.get_pipeline(clf)
 
-    # # for every measurement method:
-    # for measure in experiment.measurements:
-    #     measure_result = dict()
-    #     # for every classifier do:
-    #     for model in experiment.classifiers:
-    #         # make predictions
-    #         prediction = model.predict(X_test)
-    #         try:
-    #             decision = model.decision_function(X_test)
-    #         except:
-    #             decision = model.predict_proba(X_test)
-    #             decision = decision[:, 1]
-    #         # evaluate results
-    #         measure_result[type(model).__name__] = evaluate(measure, y_test, prediction, decision)
-    #     result[measure] = measure_result
+        # fit the pipeline
+        pipeline.fit(X_train, y_train)
 
-    # put the result back in the experiment
+        # calculate the decision & prediction
+        prediction = pipeline.predict(X_test)
+        try:
+            decision = pipeline.decision_function(X_test)
+        except:
+            decision = pipeline.predict_proba(X_test)
+            decision = decision[:, 1]
+
+        # evaluate the score for each measure
+        for measure in experiment.measurements:
+            result[measure][type(clf).__name__] += [evaluate(measure, y_test, prediction, decision)]
+
+    # save the final results into experiment
     experiment.classification_results = result
 
 
@@ -62,16 +65,25 @@ def classify_using_cv(experiment: Experiment):
         for model in experiment.classifiers:
             result[measure][type(model).__name__] = list()
 
-    # for each classifier model classify the data using CV
-    for model in experiment.classifiers:
-        for _ in range(experiment.classification_technique.iteration):
-            scoring = [measures[m] for m in experiment.measurements]
-            scores = cross_validate(model, X, y, cv=experiment.classification_technique.k_fold, scoring=scoring,
-                                    n_jobs=-1)
-            for measure in experiment.measurements:
-                result[measure][type(model).__name__] += list(scores["test_" + measures[measure]])
+    # for each classification model classify the data using its pipeline
+    for clf in experiment.classifiers:
+        # get the pipeline from the experiment
+        pipeline = experiment.get_pipeline(clf)
 
-    # put the result back in the experiment
+        # run the number of iteration
+        for _ in range(experiment.classification_technique.iteration):
+            # create list of scorers
+            scoring = [measures[m] for m in experiment.measurements]
+
+            # run CV on the pipeline
+            scores = cross_validate(pipeline, X, y, cv=experiment.classification_technique.k_fold, scoring=scoring,
+                                    n_jobs=-1)
+
+            # store the scores for each measure
+            for measure in experiment.measurements:
+                result[measure][type(clf).__name__] += list(scores["test_" + measures[measure]])
+
+    # save the final results into experiment
     experiment.classification_results = result
 
 
