@@ -7,6 +7,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
+
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.utils import print_error
@@ -42,8 +43,9 @@ class Experiment:
     features_extraction_transformers: FeatureUnion
         Sklearn's FeatureUnion to extract the features from the text.
 
-    features_selection: list[function]
-        List of functions that can perform features selection.
+    features_selection: str / SelectKBest
+        String that represent the name of the features selection before creating the features selection.
+        Object of SelectKBest after creation.
 
     measurements: list[str]
         List of measurement methods for displaying classification results (accuracy, precision etc.)
@@ -111,18 +113,8 @@ class Experiment:
                 )
         self.features_extraction_transformers = FeatureUnion(transformers, n_jobs=-1)
 
-        # create a list of features selection functions
-
-        try:
-            self.features_selection = eval(config["features_selection"])
-        except Exception as e:
-            print_error(
-                "cannot load features selection function "
-                + config["features_selection"]
-                + ": "
-                + str(e),
-                num_tabs=1,
-            )
+        # create variable with the name of the features selection
+        self.features_selection = config["features_selection"]
 
         # create a list of measurements names (accuracy, precision etc.)
         self.measurements = config["measurements"]
@@ -175,10 +167,14 @@ class Experiment:
         return result
 
     def get_pipeline(self, clf):
-        lst = []
-        lst.append(("features", self.features_extraction_transformers))
-        lst.append(("select", self.features_selection))
-        lst.append(("classifier", clf))
+        """
+        :param clf: the model of classification
+        :return: Pipeline of extraction, selection (if needed) and classification
+        """
+        lst = [("extraction", self.features_extraction_transformers)]
+        if self.features_selection:
+            lst.append(("selection", self.features_selection))
+        lst.append(("classification", clf))
         return Pipeline(lst)
 
 
