@@ -14,7 +14,7 @@ ui.maximized = True
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("form.html")
 
 
 @app.route("/data", methods=["POST"])
@@ -29,7 +29,7 @@ def run_file():
 
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
-    return render_template("index.html")
+    return render_template("form.html")
 
 
 @app.route("/runFile")
