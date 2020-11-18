@@ -18,7 +18,7 @@ tfidf_parameters = {
 selection_type = {
     "chi2": "chi2",
     "mir": "mutual_info_regression",
-    "mic": "mutual_info_classif",
+    "mc": "mutual_info_classif",
     "fc": "f_classif",
     "rfecv": "RFECV",
     "sfm": "SelectFromModel",
@@ -67,8 +67,10 @@ def data_parsing(request):
             data["preprocessing"].append(key)
         if key in measures:
             data["measurements"].append(key)
-        if key in selection_type:
-            data["features_selection"].append(selection_type[key])
+        if key == "selection":
+            data["features_selection"].append(
+                (selection_type[value], parameters["selection_k"])
+            )
         if key == "tf":
             tfidf_parameters["max_features"] = parameters["max"]
             tfidf_parameters["analyzer"] = "False"

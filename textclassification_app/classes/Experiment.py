@@ -112,17 +112,17 @@ class Experiment:
         self.features_extraction_transformers = FeatureUnion(transformers, n_jobs=-1)
 
         # create a list of features selection functions
-        for selection in config["features_selection"]:
-            try:
-                self.features_selection = eval(selection)
-            except Exception as e:
-                print_error(
-                    "cannot load features selection function "
-                    + selection
-                    + ": "
-                    + str(e),
-                    num_tabs=1,
-                )
+
+        try:
+            self.features_selection = eval(config["features_selection"])
+        except Exception as e:
+            print_error(
+                "cannot load features selection function "
+                + config["features_selection"]
+                + ": "
+                + str(e),
+                num_tabs=1,
+            )
 
         # create a list of measurements names (accuracy, precision etc.)
         self.measurements = config["measurements"]

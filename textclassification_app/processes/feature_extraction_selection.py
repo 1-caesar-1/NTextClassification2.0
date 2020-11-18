@@ -4,6 +4,7 @@ from pathlib import Path
 import random
 
 from sklearn import preprocessing
+from sklearn.feature_selection import SelectKBest
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
@@ -19,7 +20,12 @@ def extract_features(experiment: Experiment):
         if file.endswith(".json"):
             with open(dir + "\\" + file, "r", encoding="utf8", errors="replace") as f:
                 label = json.load(f)["classification"]
-            with open(dir + "\\" + file.replace('.json', '.txt'), "r", encoding="utf8", errors="replace") as f:
+            with open(
+                dir + "\\" + file.replace(".json", ".txt"),
+                "r",
+                encoding="utf8",
+                errors="replace",
+            ) as f:
                 data = f.read()
             docs += [(data, label)]
 
@@ -39,15 +45,26 @@ def extract_features(experiment: Experiment):
 
 
 def select_features(experiment: Experiment):
-    pass
+    if experiment.features_selection:
+        model, k = zip(*experiment.features_selection)
+        experiment.features_selection = SelectKBest(model, k=k)
 
 
 def find_corpus_path(experiment: Experiment):
-    parent_folder = os.path.join(Path(__file__).parent.parent.parent, 'corpus', experiment.language)
+    parent_folder = os.path.join(
+        Path(__file__).parent.parent.parent, "corpus", experiment.language
+    )
     _, dirnames, _ = os.walk(parent_folder)
     for inside_folder in dirnames:
-        with open(os.path.join(parent_folder, inside_folder, "description.json"), "r", encoding="utf8", errors="replace") as f:
-            if json.load(f)["classification"] == [function.__name__ for function in experiment.preprocessing_functions]:
+        with open(
+            os.path.join(parent_folder, inside_folder, "description.json"),
+            "r",
+            encoding="utf8",
+            errors="replace",
+        ) as f:
+            if json.load(f)["classification"] == [
+                function.__name__ for function in experiment.preprocessing_functions
+            ]:
                 return os.path.join(parent_folder, inside_folder)
     return os.path.join(parent_folder, "originals")
 
