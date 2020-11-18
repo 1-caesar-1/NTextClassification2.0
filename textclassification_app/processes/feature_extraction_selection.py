@@ -13,7 +13,7 @@ def extract_features(experiment: Experiment):
     print_message("extracting features for " + experiment.experiment_name, num_tabs=1)
 
     # load all files and labels into docs
-    dir = os.path.join(Path(__file__).parent.parent.parent, 'corpus')
+    dir = find_corpus_path(experiment)
     docs = []
     for file in os.listdir(dir):
         if file.endswith(".json"):
@@ -34,9 +34,20 @@ def extract_features(experiment: Experiment):
     le = preprocessing.LabelEncoder()
     experiment.labels = le.fit_transform(y)
 
-    # extract features
-    experiment.extracted_features = experiment.features_extraction_transformers.fit_transform(X, experiment.labels)
+    # save the documents
+    experiment.documents = X
 
 
 def select_features(experiment: Experiment):
     pass
+
+
+def find_corpus_path(experiment: Experiment):
+    parent_folder = os.path.join(Path(__file__).parent.parent.parent, 'corpus', experiment.language)
+    _, dirnames, _ = os.walk(parent_folder)
+    for inside_folder in dirnames:
+        with open(os.path.join(parent_folder, inside_folder, "description.json"), "r", encoding="utf8", errors="replace") as f:
+            if json.load(f)["classification"] == [function.__name__ for function in experiment.preprocessing_functions]:
+                return os.path.join(parent_folder, inside_folder)
+    return os.path.join(parent_folder, "originals")
+

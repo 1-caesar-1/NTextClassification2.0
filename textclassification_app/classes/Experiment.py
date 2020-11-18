@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
-from sklearn.pipeline import FeatureUnion
+from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.TrainTest import TrainTest
@@ -58,9 +58,9 @@ class Experiment:
         The labels of the documents in this experiment.
         This variable will be None before extracting the features and should contain the labels after extracting.
 
-    extracted_features: csr_matrix
-        The features matrix of the documents in this experiment.
-        This variable will be None before extracting the features and should contain the features matrix after extracting.
+    documents: list[str]
+        # The features matrix of the documents in this experiment.
+        # This variable will be None before extracting the features and should contain the features matrix after extracting.
 
     classification_results: dict
         The classification results of this experiment.
@@ -112,10 +112,9 @@ class Experiment:
         self.features_extraction_transformers = FeatureUnion(transformers, n_jobs=-1)
 
         # create a list of features selection functions
-        self.features_selection = []
         for selection in config["features_selection"]:
             try:
-                self.features_selection += [eval(selection)]
+                self.features_selection = eval(selection)
             except Exception as e:
                 print_error(
                     "cannot load features selection function "
@@ -160,7 +159,7 @@ class Experiment:
 
         # initialize the labels, the extracted feature and the results dict to be None
         self.labels = None
-        self.extracted_features = None
+        self.documents = None
         self.classification_results = None
 
     def __str__(self):
@@ -174,6 +173,13 @@ class Experiment:
         result += " features selection, using " + str(self.classification_technique)
         result += " in " + self.language
         return result
+
+    def get_pipeline(self, clf):
+        lst = []
+        lst.append(("features", self.features_extraction_transformers))
+        lst.append(("select", self.features_selection))
+        lst.append(("classifier", clf))
+        return Pipeline(lst)
 
 
 if __name__ == "__main__":

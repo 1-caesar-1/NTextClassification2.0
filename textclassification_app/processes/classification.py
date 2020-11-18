@@ -17,29 +17,32 @@ def classify_using_train_test(experiment: Experiment):
     print_message("classifying " + experiment.experiment_name + " using train & test split", num_tabs=1)
 
     # split the features and the labels
-    X_train, X_test, y_train, y_test = experiment.classification_technique.split(experiment.extracted_features,
+    X_train, X_test, y_train, y_test = experiment.classification_technique.split(experiment.documents,
                                                                                  experiment.labels)
 
-    # train all the models
-    for model in experiment.classifiers:
-        model.fit(X_train, y_train)
-
+    # initialize the result dict
     result = dict()
-    # for every measurement method:
     for measure in experiment.measurements:
-        measure_result = dict()
-        # for every classifier do:
+        result[measure] = dict()
         for model in experiment.classifiers:
-            # make predictions
-            prediction = model.predict(X_test)
-            try:
-                decision = model.decision_function(X_test)
-            except:
-                decision = model.predict_proba(X_test)
-                decision = decision[:, 1]
-            # evaluate results
-            measure_result[type(model).__name__] = evaluate(measure, y_test, prediction, decision)
-        result[measure] = measure_result
+            result[measure][type(model).__name__] = list()
+
+
+    # # for every measurement method:
+    # for measure in experiment.measurements:
+    #     measure_result = dict()
+    #     # for every classifier do:
+    #     for model in experiment.classifiers:
+    #         # make predictions
+    #         prediction = model.predict(X_test)
+    #         try:
+    #             decision = model.decision_function(X_test)
+    #         except:
+    #             decision = model.predict_proba(X_test)
+    #             decision = decision[:, 1]
+    #         # evaluate results
+    #         measure_result[type(model).__name__] = evaluate(measure, y_test, prediction, decision)
+    #     result[measure] = measure_result
 
     # put the result back in the experiment
     experiment.classification_results = result
@@ -49,7 +52,7 @@ def classify_using_cv(experiment: Experiment):
     print_message("classifying " + experiment.experiment_name + " using CV", num_tabs=1)
 
     # for the convenience of reading
-    X = experiment.extracted_features
+    X = experiment.documents
     y = experiment.labels
 
     # initialize the result dict
