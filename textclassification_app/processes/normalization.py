@@ -3,6 +3,7 @@ from textclassification_app.utils import print_message
 import os
 import re
 import string
+import shutil
 import json
 from pathlib import Path
 import autocorrect
@@ -14,36 +15,73 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from gensim.parsing.preprocessing import remove_stopwords as rs
 
 
+def find_corpus_path(experiment: Experiment):
+    parent_folder = os.path.join(
+        Path(__file__).parent.parent.parent, "corpus", experiment.language
+    )
+    for inside_folder in os.listdir(parent_folder):
+        with open(
+            os.path.join(parent_folder, inside_folder, "info.json"),
+            "r",
+            encoding="utf8",
+            errors="replace",
+        ) as f:
+            if json.load(f)["normalizations"] == [
+                function.__name__ for function in experiment.preprocessing_functions
+            ]:
+                return True
+    return False
+
+
 def normalize(experiment: Experiment):
     path_parent = os.path.join(
         Path(__file__).parent.parent.parent, "corpus", experiment.language
     )
     path_original = os.path.join(path_parent, "originals")
-    _, dirnames, _ = os.walk(path_parent)
-    flag = False
-    for inside_folder in dirnames:
+    if not find_corpus_path(experiment):
         with open(
-            os.path.join(path_parent, inside_folder, "description.json"),
-            "r",
+            os.path.join(path_original, "info.json"),
+            "r+",
             encoding="utf8",
             errors="replace",
         ) as f:
-            if json.load(f)["classification"] == [
-                function.__name__ for function in experiment.preprocessing_functions
-            ]:
-                flag = True
+            info = json.load(f)
+            info["counter"] = info["counter"] + 1
+            counter = info["counter"]
+            json.dump(info, f)
+        norm_path = os.path.join(path_parent, "norm" + str(counter))
+        os.makedirs(norm_path)
 
-    if not flag:
-        with open(
-            os.path.join(path_original, "description.json"),
-            "r",
-            encoding="utf8",
-            errors="replace",
-        ) as f:
-            counter = json.load(f)["counter"] + 1
-            os.makedirs(os.path.join(path_parent, "norm" + str(counter)))
-        for post in os.listdir():
-            pass
+        for file in os.listdir(path_original):
+            if file.endswith(".json") and file != "info.json":
+                shutil.copy(os.path.join(path_original, file), norm_path)
+                txt_file = file.replace("json", "txt")
+                with open(
+                    os.path.join(path_original, txt_file),
+                    "r",
+                    encoding="utf8",
+                    errors="replace",
+                ) as f:
+                    text = f.read()
+                for normalization in experiment.preprocessing_functions:
+                    text = normalization(text)
+                with open(
+                    os.path.join(norm_path, txt_file),
+                    "w",
+                    encoding="utf8",
+                    errors="replace",
+                ) as f:
+                    f.write(text)
+                write_info_file(norm_path, experiment)
+
+
+def write_info_file(norm_path: str, experiment: Experiment):
+    dic = {"normalizations": []}
+    dic["normalizations"] = experiment.preprocessing_functions
+    with open(
+        os.path.join(norm_path, "info.json"), "w", encoding="utf8", errors="replace"
+    ) as f:
+        json.dump(dic, f)
 
 
 def html_tags(text: str):
