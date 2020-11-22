@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block head%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Configuration Table</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tableStyles.min.css') }}">
+{%endblock%}
+
+{% block content %}
+
+<!-- Start: Bold BS4 Pricing Table Style 55 -->
+<div class="container">
+    <div class="row">
+        {% for config in configs %}
+
+        <div class="col-md-6 col-lg-4">
+            <div class="pricingTable">
+                <div class="pricingTable-header">
+                    <h1 class="title">{{config['name']}}</h1><span class="price-value">{{config['language']}}</span>
+                </div>
+                <ul class="list-unstyled pricing-content">
+                    <li>{{config['classifiers']}}</li>
+                    <li>{{config['measurements']}}</li>
+                    <li>{{config['features_selection']}}</li>
+                    <li>{{config['preprocessing']}}</li>
+                    <li>{{config['transformers']}}</li>
+                    <li>{{config['classification_technique']}}</li>
+                </ul><a class="pricingTable-signup" href="#"><span>Sign up</span></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- End: Bold BS4 Pricing Table Style 55 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+{%endblock%}

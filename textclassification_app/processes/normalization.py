@@ -84,7 +84,7 @@ def write_info_file(norm_path: str, experiment: Experiment):
         json.dump(dic, f)
 
 
-def html_tags(text: str):
+def remove_html_tags(text: str):
     return re.sub(r"((<.*)(>|/>))", "", text)
 
 
@@ -92,19 +92,19 @@ def lowercase(text: str):
     return text.lower()
 
 
-def Spelling_correction(text: str):
+def spelling_correction(text: str):
     return Speller().autocorrect_sentence(text)
 
 
-def punctuation(text: str):
+def remove_punctuation(text: str):
     return text.translate(str.maketrans("", "", string.punctuation))
 
 
-def Repeated_characters(text: str):
+def remove_repeated_characters(text: str):
     pass
 
 
-def Stemming(text: str):
+def stemming(text: str):
     stemmer = SnowballStemmer("english")
     text_lines = text.split("\n")
     stemmed_lines = []
@@ -121,7 +121,7 @@ def Stemming(text: str):
     return "\n".join(stemmed_lines)
 
 
-def Lemmatizing(text: str):
+def lemmatizing(text: str):
     text_lines = text.split("\n")
     lemmatizer = WordNetLemmatizer()
     lemmatized_lines = []

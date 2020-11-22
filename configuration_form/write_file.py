@@ -46,14 +46,16 @@ data = {
 }
 
 preprocessing = [
-    "Spelling_correction",
-    "html_tags",
+    "spelling_correction",
+    "remove_html_tags",
     "lowercase",
-    "punctuation",
-    "Repeated_characters",
-    "stopwords",
-    "Stemming",
-    "Lemmatizing",
+    "remove_punctuation",
+    "remove_repeated_characters",
+    "remove_stopwords",
+    "stemming",
+    "lemmatizing",
+    "acronyms_removal",
+    "apostrophe_removal",
 ]
 
 
