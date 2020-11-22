@@ -2,6 +2,7 @@ import json
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_selection import SelectKBest
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
@@ -43,9 +44,8 @@ class Experiment:
     features_extraction_transformers: FeatureUnion
         Sklearn's FeatureUnion to extract the features from the text.
 
-    features_selection: str / SelectKBest
-        String that represent the name of the features selection before creating the features selection.
-        Object of SelectKBest after creation.
+    features_selection: SelectKBest
+        Object of SelectKBest, None if not needed.
 
     measurements: list[str]
         List of measurement methods for displaying classification results (accuracy, precision etc.)
@@ -114,7 +114,19 @@ class Experiment:
         self.features_extraction_transformers = FeatureUnion(transformers, n_jobs=-1)
 
         # create variable with the name of the features selection
-        self.features_selection = config["features_selection"]
+        try:
+            if config["features_selection"]:
+                model, k = zip(*config["features_selection"])
+                self.features_selection = SelectKBest(model, k=k)
+            else:
+                self.features_selection = None
+        except Exception as e:
+            print_error(
+                "cannot create features selection model"
+                + ": "
+                + str(e),
+                num_tabs=1,
+            )
 
         # create a list of measurements names (accuracy, precision etc.)
         self.measurements = config["measurements"]

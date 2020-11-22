@@ -4,7 +4,6 @@ import random
 from pathlib import Path
 
 from sklearn import preprocessing
-from sklearn.feature_selection import SelectKBest
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
@@ -42,12 +41,6 @@ def extract_features(experiment: Experiment):
 
     # save the documents
     experiment.documents = X
-
-
-def select_features(experiment: Experiment):
-    if experiment.features_selection:
-        model, k = zip(*experiment.features_selection)
-        experiment.features_selection = SelectKBest(model, k=k)
 
 
 def find_corpus_path(experiment: Experiment):
