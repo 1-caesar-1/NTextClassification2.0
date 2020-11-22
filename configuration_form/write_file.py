@@ -21,8 +21,7 @@ selection_type = {
     "mir": "mutual_info_regression",
     "mc": "mutual_info_classif",
     "fc": "f_classif",
-    "rfecv": "RFECV",
-    "sfm": "SelectFromModel",
+    "fr": "f_regression",
 }
 measures = [
     "accuracy_score",
@@ -108,10 +107,11 @@ def data_parsing(request):
 
     if not exists(parent_dir):
         mkdir(parent_dir)
-    with open(os.path.join(parent_dir, "info.json"), "r+") as f:
+    with open(os.path.join(parent_dir, "info.json"), "r") as f:
         dic = json.load(f)
-        dic["counter"] = dic["counter"] + 1
-        counter = dic["counter"]
+    dic["counter"] = dic["counter"] + 1
+    counter = dic["counter"]
+    with open(os.path.join(parent_dir, "info.json"), "w") as f:
         f.write(json.dumps(dic, indent=4))
     with open(os.path.join(parent_dir, "config" + str(counter) + ".json"), "w") as f:
         f.write(json.dumps(data, indent=4))

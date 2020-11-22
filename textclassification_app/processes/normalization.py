@@ -19,8 +19,8 @@ def find_corpus_path(experiment: Experiment):
     )
     for inside_folder in os.listdir(parent_folder):
         with open(
-                os.path.join(parent_folder, inside_folder, "info.json"),
-                "r",
+            os.path.join(parent_folder, inside_folder, "info.json"),
+            "r",
             encoding="utf8",
             errors="replace",
         ) as f:
@@ -39,13 +39,20 @@ def normalize(experiment: Experiment):
     if not find_corpus_path(experiment):
         with open(
             os.path.join(path_original, "info.json"),
-            "r+",
+            "r",
             encoding="utf8",
             errors="replace",
         ) as f:
             info = json.load(f)
-            info["counter"] = info["counter"] + 1
-            counter = info["counter"]
+
+        info["counter"] = info["counter"] + 1
+        counter = info["counter"]
+        with open(
+            os.path.join(path_original, "info.json"),
+            "w",
+            encoding="utf8",
+            errors="replace",
+        ) as f:
             json.dump(info, f)
         norm_path = os.path.join(path_parent, "norm" + str(counter))
         os.makedirs(norm_path)
@@ -74,7 +81,11 @@ def normalize(experiment: Experiment):
 
 
 def write_info_file(norm_path: str, experiment: Experiment):
-    dic = {"normalizations": [function.__name__ for function in experiment.preprocessing_functions]}
+    dic = {
+        "normalizations": [
+            function.__name__ for function in experiment.preprocessing_functions
+        ]
+    }
     with open(
         os.path.join(norm_path, "info.json"), "w", encoding="utf8", errors="replace"
     ) as f:
