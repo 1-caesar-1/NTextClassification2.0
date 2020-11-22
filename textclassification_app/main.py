@@ -4,7 +4,9 @@ import threading
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.processes.classification import classify
-from textclassification_app.processes.feature_extraction_selection import extract_features
+from textclassification_app.processes.feature_extraction_selection import (
+    extract_features,
+)
 from textclassification_app.processes.normalization import normalize
 from textclassification_app.processes.results_handling import handle_results
 from textclassification_app.utils import print_title, print_message
@@ -18,7 +20,12 @@ def main(config_path, max_threads=None):
 
     # create the experiments
     print_title("Creating experiments")
-    experiments = [Experiment(config_path + "\\" + config, config.replace(".json", "")) for config in os.listdir(config_path)]
+    experiments = [
+        Experiment(config_path + "\\" + config, config.replace(".json", ""))
+        if config != "info.json"
+        else ""
+        for config in os.listdir(config_path)
+    ]
     for experiment in experiments:
         print_message("experiment created - " + str(experiment), num_tabs=1)
     print_message("Total: " + str(len(experiments)) + " experiments", 1)

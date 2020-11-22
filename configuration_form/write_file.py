@@ -2,6 +2,7 @@ from flask import request
 import json
 from os.path import dirname, abspath, exists
 from os import mkdir
+import os
 
 classifiers = ["mlp", "svc", "rf", "lr", "mnb"]
 
@@ -107,7 +108,12 @@ def data_parsing(request):
 
     if not exists(parent_dir):
         mkdir(parent_dir)
-    with open(parent_dir + "/config.json", "w") as f:
+    with open(os.path.join(parent_dir, "info.json"), "r+") as f:
+        dic = json.load(f)
+        dic["counter"] = dic["counter"] + 1
+        counter = dic["counter"]
+        f.write(json.dumps(dic, indent=4))
+    with open(os.path.join(parent_dir, "config" + str(counter) + ".json"), "w") as f:
         f.write(json.dumps(data, indent=4))
     print(data)
 
