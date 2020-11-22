@@ -1,18 +1,16 @@
-from textclassification_app.classes.Experiment import Experiment
-from textclassification_app.utils import print_message
+import json
 import os
 import re
-import string
 import shutil
-import json
+import string
 from pathlib import Path
-import autocorrect
-from nltk.corpus import stopwords
-from autocorrect import Speller
-from nltk import WordNetLemmatizer, SnowballStemmer
-from nltk.tokenize import sent_tokenize, word_tokenize
 
+from autocorrect import Speller
 from gensim.parsing.preprocessing import remove_stopwords as rs
+from nltk import WordNetLemmatizer, SnowballStemmer
+from nltk.tokenize import word_tokenize
+
+from textclassification_app.classes.Experiment import Experiment
 
 
 def find_corpus_path(experiment: Experiment):
@@ -21,8 +19,8 @@ def find_corpus_path(experiment: Experiment):
     )
     for inside_folder in os.listdir(parent_folder):
         with open(
-            os.path.join(parent_folder, inside_folder, "info.json"),
-            "r",
+                os.path.join(parent_folder, inside_folder, "info.json"),
+                "r",
             encoding="utf8",
             errors="replace",
         ) as f:
@@ -76,8 +74,7 @@ def normalize(experiment: Experiment):
 
 
 def write_info_file(norm_path: str, experiment: Experiment):
-    dic = {"normalizations": []}
-    dic["normalizations"] = experiment.preprocessing_functions
+    dic = {"normalizations": [function.__name__ for function in experiment.preprocessing_functions]}
     with open(
         os.path.join(norm_path, "info.json"), "w", encoding="utf8", errors="replace"
     ) as f:

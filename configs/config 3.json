@@ -1,0 +1,23 @@
+{
+  "transformers": [
+    "TfidfVectorizer(max_features=100,analyzer='word',lowercase=False,ngram_range=(1,1),use_idf=False,min_df=3)"
+  ],
+  "preprocessing": [
+    "Spelling_correction",
+    "Repeated_characters"
+  ],
+  "language": "Hebrew",
+  "features_selection": [
+  ],
+  "measurements": [
+    "accuracy_score"
+  ],
+  "classifiers": [
+    "mlp",
+    "svc",
+    "lr",
+    "rf",
+    "mnb"
+  ],
+  "classification_technique": "CrossValidation()"
+}
