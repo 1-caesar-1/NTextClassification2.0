@@ -43,12 +43,13 @@ def configTable():
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     configs = []
     for config in os.listdir(parent_dir):
-        with open(
-            os.path.join(parent_dir, config), "r", encoding="utf8", errors="replace"
-        ) as f:
-            con = json.load(f)
-        con["name"] = config.replace(".json", "")
-        configs.append(con)
+        if config != "info.json":
+            with open(
+                os.path.join(parent_dir, config), "r", encoding="utf8", errors="replace"
+            ) as f:
+                con = json.load(f)
+            con["name"] = config.replace(".json", "")
+            configs.append(con)
     return render_template("configTable.html", configs=configs)
 
 

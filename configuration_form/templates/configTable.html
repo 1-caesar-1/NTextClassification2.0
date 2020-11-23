@@ -22,11 +22,53 @@
                     <h1 class="title">{{config['name']}}</h1><span class="price-value">{{config['language']}}</span>
                 </div>
                 <ul class="list-unstyled pricing-content">
-                    <li>{{config['classifiers']}}</li>
-                    <li>{{config['measurements']}}</li>
-                    <li>{{config['features_selection']}}</li>
-                    <li>{{config['preprocessing']}}</li>
-                    <li>{{config['transformers']}}</li>
+                    <li>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
+                                data-toggle="dropdown" aria-expanded="false" type="button">classifiers</button>
+                            <div class="dropdown-menu">
+                                {% for classifier in config['classifiers'] %}
+                                <a class="dropdown-item" href="#">{{classifier}}</a>
+                                {% endfor %}
+                            </div>
+                    </li>
+                    <li>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
+                                data-toggle="dropdown" aria-expanded="false" type="button">measurements</button>
+                            <div class="dropdown-menu">
+                                {% for measure in config['measurements'] %}
+                                <a class="dropdown-item" href="#">{{measure}}</a>
+                                {% endfor %}
+                            </div>
+                    </li>
+                    <li>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
+                                data-toggle="dropdown" aria-expanded="false" type="button">features selection</button>
+                            <div class="dropdown-menu">
+                                {% for select in config['features_selection'] %}
+                                <a class="dropdown-item" href="#">{{select}}</a>
+                                {% endfor %}
+                            </div>
+                    </li>
+                    <li>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
+                                data-toggle="dropdown" aria-expanded="false" type="button">transformers</button>
+                            <div class="dropdown-menu">
+                                {% for trans in config['transformers'] %}
+                                <a class="dropdown-item" href="#">{{trans}}</a>
+                                {% endfor %}
+                            </div>
+                    </li>
+                    <li>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
+                                data-toggle="dropdown" aria-expanded="false" type="button">preprocessing</button>
+                            <div class="dropdown-menu">
+                                {% for preprocess in config['preprocessing'] %}
+                                <a class="dropdown-item" href="#">{{preprocess}}</a>
+                                {% endfor %}
+                            </div>
+                    </li>
+
+
                     <li>{{config['classification_technique']}}</li>
                 </ul><a class="pricingTable-signup" href="#"><span>Sign up</span></a>
             </div>
