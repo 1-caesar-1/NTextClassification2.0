@@ -9,6 +9,7 @@ import shutil
 from textclassification_app.main import main
 
 app = Flask(__name__)
+app.config["DEBUG"] = True
 ui = FlaskUI(app)
 ui.fullscreen = True
 ui.maximized = True
@@ -59,7 +60,10 @@ def runFile(name):
     runfile_path = os.path.join(parent_dir, "config")
     os.mkdir(runfile_path)
     shutil.copy(os.path.join(parent_dir, name + ".json"), runfile_path)
-    main(runfile_path)
+    try:
+        main(runfile_path)
+    except:
+        pass
     shutil.rmtree(runfile_path)
 
 
