@@ -5,6 +5,8 @@ from configuration_form.write_file import data_parsing
 import os
 import json
 from os.path import dirname, abspath, exists
+import shutil
+from textclassification_app.main import main
 
 app = Flask(__name__)
 ui = FlaskUI(app)
@@ -26,15 +28,13 @@ def get_data():
 
 @app.route("/run")
 def run_file():
-    from textclassification_app.main import main
-
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
     return render_template("form.html")
 
 
-@app.route("/runFile")
-def runFile():
+@app.route("/runFiles")
+def runFiles():
     return render_template("runFile.html")
 
 
@@ -51,6 +51,16 @@ def configTable():
             con["name"] = config.replace(".json", "")
             configs.append(con)
     return render_template("configTable.html", configs=configs)
+
+
+@app.route("/runFile/<name>", methods=["get"])
+def runFile(name):
+    parent_dir = os.path.join(dirname(dirname(abspath(__file__))), "configs")
+    runfile_path = os.path.join(parent_dir, "config")
+    os.mkdir(runfile_path)
+    shutil.copy(os.path.join(parent_dir, name + ".json"), runfile_path)
+    main(runfile_path)
+    shutil.rmtree(runfile_path)
 
 
 def run():
