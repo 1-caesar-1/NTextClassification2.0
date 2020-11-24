@@ -10,12 +10,13 @@ from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
 
 from textclassification_app.classes.CrossValidation import CrossValidation
+from textclassification_app.classes.StylisticFeatures import StylisticFeatures
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.utils import print_error
 
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
-_ = [TfidfVectorizer, TrainTest]
+_ = [TfidfVectorizer, TrainTest, StylisticFeatures]
 
 classifiers_objects = {
     "svc": LinearSVC(),
