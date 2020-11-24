@@ -99,6 +99,10 @@ def data_parsing(request):
             temp = ",".join(temp)
             text = "TfidfVectorizer(" + temp + ")"
             data["transformers"].append(text)
+        if key == "w2v":
+            data["transformers"].append("W2VTransformer()")
+        if key == "d2v":
+            data["transformers"].append("D2VTransformer()")
         if key == "Language":
             data["language"] = value
         if key == "technique":

@@ -9,7 +9,7 @@ import shutil
 from textclassification_app.main import main
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+# app.config["DEBUG"] = True
 ui = FlaskUI(app)
 ui.fullscreen = True
 ui.maximized = True

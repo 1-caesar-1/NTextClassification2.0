@@ -22,9 +22,8 @@ def main(config_path, max_threads=None):
     print_title("Creating experiments")
     experiments = [
         Experiment(config_path + "\\" + config, config.replace(".json", ""))
-        if config != "info.json"
-        else ""
         for config in os.listdir(config_path)
+        if config != "info.json"
     ]
     for experiment in experiments:
         print_message("experiment created - " + str(experiment), num_tabs=1)

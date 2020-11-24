@@ -1,0 +1,23 @@
+{
+    "transformers": [
+        "W2VTransformer()",
+        "D2VTransformer()"
+    ],
+    "preprocessing": [
+        "spelling_correction",
+        "apostrophe_removal"
+    ],
+    "language": "English",
+    "features_selection": [],
+    "measurements": [
+        "accuracy_score"
+    ],
+    "classifiers": [
+        "mlp",
+        "svc",
+        "lr",
+        "rf",
+        "mnb"
+    ],
+    "classification_technique": "CrossValidation()"
+}

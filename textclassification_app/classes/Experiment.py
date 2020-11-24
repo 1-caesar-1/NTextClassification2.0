@@ -9,6 +9,8 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
 
+from gensim.sklearn_api import D2VTransformer, W2VTransformer
+
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
 from textclassification_app.classes.TrainTest import TrainTest
@@ -123,10 +125,7 @@ class Experiment:
                 self.features_selection = None
         except Exception as e:
             print_error(
-                "cannot create features selection model"
-                + ": "
-                + str(e),
-                num_tabs=1,
+                "cannot create features selection model" + ": " + str(e), num_tabs=1
             )
 
         # create a list of measurements names (accuracy, precision etc.)
@@ -174,7 +173,7 @@ class Experiment:
             + " transformer, "
         )
         result += str(len(self.classifiers)) + " classifiers, "
-        result += str(len(self.features_selection)) if self.features_selection else "no"
+        result += str(self.features_selection) if self.features_selection else "no"
         result += " features selection, using " + str(self.classification_technique)
         result += " in " + self.language
         return result
