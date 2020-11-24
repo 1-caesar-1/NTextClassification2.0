@@ -4,13 +4,14 @@ import re
 import shutil
 import string
 from pathlib import Path
-
+from wordfreq import top_n_list
 from autocorrect import Speller
 from gensim.parsing.preprocessing import remove_stopwords as rs
 from nltk import WordNetLemmatizer, SnowballStemmer
 from nltk.tokenize import word_tokenize
-
+import hebrew_tokenizer as ht
 from textclassification_app.classes.Experiment import Experiment
+from textclassification_app.utils import hebrew_stopwords
 
 
 def find_corpus_path(experiment: Experiment):
@@ -69,7 +70,7 @@ def normalize(experiment: Experiment):
                 ) as f:
                     text = f.read()
                 for normalization in experiment.preprocessing_functions:
-                    text = normalization(text)
+                    text = normalization(text, experiment.language)
                 with open(
                     os.path.join(norm_path, txt_file),
                     "w",
@@ -92,27 +93,27 @@ def write_info_file(norm_path: str, experiment: Experiment):
         json.dump(dic, f)
 
 
-def remove_html_tags(text: str):
+def remove_html_tags(text: str, language: str = "english"):
     return re.sub(r"((<.*)(>|/>))", "", text)
 
 
-def lowercase(text: str):
+def lowercase(text: str, language: str = "english"):
     return text.lower()
 
 
-def spelling_correction(text: str):
+def spelling_correction(text: str, language: str = "english"):
     return Speller().autocorrect_sentence(text)
 
 
-def remove_punctuation(text: str):
+def remove_punctuation(text: str, language: str = "english"):
     return text.translate(str.maketrans("", "", string.punctuation))
 
 
-def remove_repeated_characters(text: str):
+def remove_repeated_characters(text: str, language: str = "english"):
     pass
 
 
-def stemming(text: str):
+def stemming(text: str, language: str = "english"):
     stemmer = SnowballStemmer("english")
     text_lines = text.split("\n")
     stemmed_lines = []
@@ -129,7 +130,7 @@ def stemming(text: str):
     return "\n".join(stemmed_lines)
 
 
-def lemmatizing(text: str):
+def lemmatizing(text: str, language: str = "english"):
     text_lines = text.split("\n")
     lemmatizer = WordNetLemmatizer()
     lemmatized_lines = []
@@ -146,17 +147,38 @@ def lemmatizing(text: str):
     return "\n".join(lemmatized_lines)
 
 
-def remove_stopwords(text: str):
-    return rs(text)
+def remove_stopwords(text: str, language: str = "english"):
+    if language == "hebrew":
+        tokenized = [token[1] for token in ht.tokenize(text, with_whitespaces=True)]
+        tokenized = [word for word in tokenized if word not in hebrew_stopwords]
+        result = []
+        for word in tokenized:
+            for sword in hebrew_stopwords:
+                if word.startswith(sword) and word[len(sword) :] in top_n_list(
+                    "he", 100000
+                ):
+                    word = word[len(sword) :]
+            result.append(word)
+        text = "".join(result)
+
+    if language == "english":
+        text = rs(text)
+
+    return text
 
 
-def apostrophe_removal(text):
+def apostrophe_removal(text: str, language: str = "english"):
     return text.replace("'", "").replace("'", "").replace("’", "")
 
 
-def acronyms_removal(text):
+def acronyms_removal(text: str, language: str = "english"):
     acr = set(re.findall(r"\w\.\w\.\w", text) + re.findall(r"\w+\"\w", text))
     for acr in acr:
         text = re.sub(acr, acr.replace(".", ""), text)
         text = re.sub(acr, acr.replace('"', ""), text)
     return text
+
+
+if __name__ == "__main__":
+    pass
+
