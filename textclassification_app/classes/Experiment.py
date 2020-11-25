@@ -8,6 +8,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
+from gensim.sklearn_api import W2VTransformer, D2VTransformer
+
 
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
@@ -86,6 +88,15 @@ class Experiment:
 
         # create a list of pre-processing functions
         self.preprocessing_functions = []
+        from textclassification_app.processes.normalization import (
+            stemming,
+            spelling_correction,
+            lowercase,
+            lemmatizing,
+            remove_stopwords,
+            remove_punctuation,
+            remove_html_tags,
+        )
 
         for normalization in config["preprocessing"]:
             try:

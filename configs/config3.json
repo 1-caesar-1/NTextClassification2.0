@@ -18,5 +18,5 @@
         "rf",
         "mnb"
     ],
-    "classification_technique": "TrainTest()"
+    "classification_technique": "CrossValidation()"
 }
