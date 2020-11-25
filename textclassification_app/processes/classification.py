@@ -1,4 +1,10 @@
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
 from sklearn.model_selection import cross_validate
 
 from textclassification_app.classes.Experiment import Experiment
@@ -14,11 +20,15 @@ def classify(experiment: Experiment):
 
 
 def classify_using_train_test(experiment: Experiment):
-    print_message("classifying " + experiment.experiment_name + " using train & test split", num_tabs=1)
+    print_message(
+        "classifying " + experiment.experiment_name + " using train & test split",
+        num_tabs=1,
+    )
 
     # split the features and the labels
-    X_train, X_test, y_train, y_test = experiment.classification_technique.split(experiment.documents,
-                                                                                 experiment.labels)
+    X_train, X_test, y_train, y_test = experiment.classification_technique.split(
+        experiment.documents, experiment.labels
+    )
 
     # initialize the result dict
     result = dict()
@@ -45,7 +55,9 @@ def classify_using_train_test(experiment: Experiment):
 
         # evaluate the score for each measure
         for measure in experiment.measurements:
-            result[measure][type(clf).__name__] += [evaluate(measure, y_test, prediction, decision)]
+            result[measure][type(clf).__name__] += [
+                evaluate(measure, y_test, prediction, decision)
+            ]
 
     # save the final results into experiment
     experiment.classification_results = result
@@ -76,12 +88,20 @@ def classify_using_cv(experiment: Experiment):
             scoring = [measures[m] for m in experiment.measurements]
 
             # run CV on the pipeline
-            scores = cross_validate(pipeline, X, y, cv=experiment.classification_technique.k_fold, scoring=scoring,
-                                    n_jobs=-1)
+            scores = cross_validate(
+                pipeline,
+                X,
+                y,
+                cv=experiment.classification_technique.k_fold,
+                scoring=scoring,
+                n_jobs=-1,
+            )
 
             # store the scores for each measure
             for measure in experiment.measurements:
-                result[measure][type(clf).__name__] += list(scores["test_" + measures[measure]])
+                result[measure][type(clf).__name__] += list(
+                    scores["test_" + measures[measure]]
+                )
 
     # save the final results into experiment
     experiment.classification_results = result
@@ -93,7 +113,7 @@ def evaluate(measure, true_labels, prediction, decision):
         "f1_score": f1_score(true_labels, prediction),
         "precision_score": precision_score(true_labels, prediction),
         "recall_score": recall_score(true_labels, prediction),
-        "roc_auc_score": roc_auc_score(true_labels, decision)
+        "roc_auc_score": roc_auc_score(true_labels, decision),
     }
     return measures[measure]
 
@@ -103,5 +123,5 @@ measures = {
     "f1_score": "f1",
     "precision_score": "precision",
     "recall_score": "recall",
-    "roc_auc_score": "roc_auc"
+    "roc_auc_score": "roc_auc",
 }

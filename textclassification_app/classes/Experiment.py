@@ -173,6 +173,12 @@ class Experiment:
             self.classification_technique = CrossValidation()
 
         # initialize the labels, the extracted feature and the results dict to be None
+        if "W2VTransformer" in [
+            i.split("(")[0] for i in config["transformers"]
+        ] or "D2VTransformer" in [i.split("(")[0] for i in config["transformers"]]:
+            self.data_flag = True
+        else:
+            self.data_flag = False
         self.labels = None
         self.documents = None
         self.classification_results = None

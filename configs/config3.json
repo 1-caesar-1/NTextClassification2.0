@@ -1,6 +1,6 @@
 {
     "transformers": [
-        "D2VTransformer(min_count=1, vector_size=5)"
+        "D2VTransformer(min_count=1,size=5)"
     ],
     "preprocessing": [
         "spelling_correction",
@@ -18,5 +18,5 @@
         "rf",
         "mnb"
     ],
-    "classification_technique": "CrossValidation()"
+    "classification_technique": "TrainTest()"
 }
