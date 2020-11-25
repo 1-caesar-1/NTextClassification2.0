@@ -4,11 +4,9 @@ import threading
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.processes.classification import classify
-from textclassification_app.processes.feature_extraction_selection import (
-    extract_features,
-)
+from textclassification_app.processes.feature_extraction_selection import extract_features
 from textclassification_app.processes.normalization import normalize
-from textclassification_app.processes.results_handling import handle_results
+from textclassification_app.processes.results_handling import save_experiment_results, write_all_experiments
 from textclassification_app.utils import print_title, print_message
 
 
@@ -45,7 +43,7 @@ def main(config_path, max_threads=None):
 
         # write results
         print_title("Writing results")
-        handle_results(experiment)
+        save_experiment_results(experiment)
 
         # update the semaphore
         semaphore.release()
@@ -61,6 +59,9 @@ def main(config_path, max_threads=None):
     # wait for all threads
     for thread in threads:
         thread.join()
+
+    # write all the experiments results into Excel file
+    write_all_experiments()
 
     print_title("Done!")
 
