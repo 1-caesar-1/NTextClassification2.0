@@ -1,7 +1,6 @@
 {
     "transformers": [
-        "W2VTransformer()",
-        "D2VTransformer()"
+        "D2VTransformer(min_count=1, vector_size=5)"
     ],
     "preprocessing": [
         "spelling_correction",

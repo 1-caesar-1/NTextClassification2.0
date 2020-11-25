@@ -16,6 +16,7 @@ from textclassification_app.classes.StylisticFeatures import StylisticFeatures
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.utils import print_error
 
+
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
 _ = [TfidfVectorizer, TrainTest, StylisticFeatures]
@@ -85,6 +86,16 @@ class Experiment:
 
         # create a list of pre-processing functions
         self.preprocessing_functions = []
+        from textclassification_app.processes.normalization import (
+            remove_html_tags,
+            remove_stopwords,
+            remove_punctuation,
+            lemmatizing,
+            lemmatizing,
+            stemming,
+            spelling_correction,
+        )
+
         for normalization in config["preprocessing"]:
             try:
                 self.preprocessing_functions += [eval(normalization)]

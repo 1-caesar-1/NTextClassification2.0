@@ -11,7 +11,7 @@ from nltk import WordNetLemmatizer, SnowballStemmer
 from nltk.tokenize import word_tokenize
 import hebrew_tokenizer as ht
 from textclassification_app.classes.Experiment import Experiment
-from textclassification_app.utils import hebrew_stopwords
+from textclassification_app.classes.stopwords_and_lists import hebrew_stopwords
 
 
 def find_corpus_path(experiment: Experiment):
