@@ -3,10 +3,12 @@ from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
 from configuration_form.write_file import data_parsing
 import os
+
 import json
 from os.path import dirname, abspath, exists
 import shutil
 from textclassification_app.main import main
+from textclassification_app.classes.StylisticFeatures import initialize_features_dict
 
 app = Flask(__name__)
 # app.config["DEBUG"] = True
@@ -18,7 +20,10 @@ ui.maximized = True
 
 @app.route("/")
 def index():
-    return render_template("form.html")
+    stylistic = list(initialize_features_dict("en").keys())
+    featurs1 = stylistic[: round(len(stylistic) / 2)]
+    featurs2 = stylistic[round(len(stylistic) / 2) :]
+    return render_template("form.html", featurs1=featurs1, featurs2=featurs2)
 
 
 @app.route("/data", methods=["POST"])
