@@ -9,13 +9,10 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
 
-from gensim.sklearn_api import D2VTransformer, W2VTransformer
-
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.utils import print_error
-
 
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
@@ -60,6 +57,9 @@ class Experiment:
     classification_technique: TrainTest / CrossValidation
         An instance of class TrainTest or CrossValidation that contains information about the classification technique.
 
+    config: dict
+        The original config dictionary that create the instance of the experiment
+
     labels: nd_array
         The labels of the documents in this experiment.
         This variable will be None before extracting the features and should contain the labels after extracting.
@@ -86,15 +86,6 @@ class Experiment:
 
         # create a list of pre-processing functions
         self.preprocessing_functions = []
-        from textclassification_app.processes.normalization import (
-            remove_html_tags,
-            remove_stopwords,
-            remove_punctuation,
-            lemmatizing,
-            lemmatizing,
-            stemming,
-            spelling_correction,
-        )
 
         for normalization in config["preprocessing"]:
             try:
@@ -171,6 +162,9 @@ class Experiment:
                 num_tabs=1,
             )
             self.classification_technique = CrossValidation()
+
+        # save the original config file, for future uses
+        self.config = config
 
         # initialize the labels, the extracted feature and the results dict to be None
         self.labels = None
