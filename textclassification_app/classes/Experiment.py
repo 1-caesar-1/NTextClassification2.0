@@ -1,5 +1,6 @@
 import json
 
+from gensim.sklearn_api import W2VTransformer, D2VTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_selection import SelectKBest
@@ -8,8 +9,6 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.svm import LinearSVC
-from gensim.sklearn_api import W2VTransformer, D2VTransformer
-
 
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
@@ -18,7 +17,7 @@ from textclassification_app.utils import print_error
 
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
-_ = [TfidfVectorizer, TrainTest, StylisticFeatures]
+_ = [TfidfVectorizer, TrainTest, StylisticFeatures, W2VTransformer, D2VTransformer]
 
 classifiers_objects = {
     "svc": LinearSVC(),
@@ -59,8 +58,8 @@ class Experiment:
     classification_technique: TrainTest / CrossValidation
         An instance of class TrainTest or CrossValidation that contains information about the classification technique.
 
-    config: dict
-        The original config dictionary that create the instance of the experiment
+    general_data: dict
+        The original config dictionary that create the instance of the experiment and more data about the experiment
 
     labels: nd_array
         The labels of the documents in this experiment.
@@ -86,17 +85,11 @@ class Experiment:
         # get the language of the experiment
         self.language = config["language"].lower()
 
+        # save the original config file, for future uses
+        self.general_data = config
+
         # create a list of pre-processing functions
         self.preprocessing_functions = []
-        from textclassification_app.processes.normalization import (
-            stemming,
-            spelling_correction,
-            lowercase,
-            lemmatizing,
-            remove_stopwords,
-            remove_punctuation,
-            remove_html_tags,
-        )
 
         for normalization in config["preprocessing"]:
             try:
@@ -173,9 +166,6 @@ class Experiment:
                 num_tabs=1,
             )
             self.classification_technique = CrossValidation()
-
-        # save the original config file, for future uses
-        self.config = config
 
         # initialize the labels, the extracted feature and the results dict to be None
         if "W2VTransformer" in [

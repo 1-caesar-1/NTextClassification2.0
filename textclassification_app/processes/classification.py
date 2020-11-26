@@ -6,6 +6,7 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 from sklearn.model_selection import cross_validate
+from sklearn.pipeline import Pipeline
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.classes.TrainTest import TrainTest
@@ -14,9 +15,12 @@ from textclassification_app.utils import print_message
 
 def classify(experiment: Experiment):
     if isinstance(experiment.classification_technique, TrainTest):
-        classify_using_train_test(experiment)
+        pipeline: Pipeline = classify_using_train_test(experiment)
     else:
-        classify_using_cv(experiment)
+        pipeline: Pipeline = classify_using_cv(experiment)
+
+    # save the number of features in the general data for export
+    experiment.general_data["num_of_features"] = get_num_of_feature(pipeline)
 
 
 def classify_using_train_test(experiment: Experiment):
@@ -38,6 +42,7 @@ def classify_using_train_test(experiment: Experiment):
             result[measure][type(model).__name__] = list()
 
     # for each classification model classify the data using its pipeline
+    pipeline = None
     for clf in experiment.classifiers:
         # get the pipeline from the experiment
         pipeline = experiment.get_pipeline(clf)
@@ -62,6 +67,9 @@ def classify_using_train_test(experiment: Experiment):
     # save the final results into experiment
     experiment.classification_results = result
 
+    # return the last Pipeline
+    return pipeline
+
 
 def classify_using_cv(experiment: Experiment):
     print_message("classifying " + experiment.experiment_name + " using CV", num_tabs=1)
@@ -78,6 +86,7 @@ def classify_using_cv(experiment: Experiment):
             result[measure][type(model).__name__] = list()
 
     # for each classification model classify the data using its pipeline
+    fitted_pipeline = None
     for clf in experiment.classifiers:
         # get the pipeline from the experiment
         pipeline = experiment.get_pipeline(clf)
@@ -95,7 +104,10 @@ def classify_using_cv(experiment: Experiment):
                 cv=experiment.classification_technique.k_fold,
                 scoring=scoring,
                 n_jobs=-1,
+                return_estimator=True
             )
+
+            fitted_pipeline = scores["estimator"][0]
 
             # store the scores for each measure
             for measure in experiment.measurements:
@@ -105,6 +117,9 @@ def classify_using_cv(experiment: Experiment):
 
     # save the final results into experiment
     experiment.classification_results = result
+
+    # return the last Pipeline
+    return fitted_pipeline
 
 
 def evaluate(measure, true_labels, prediction, decision):
@@ -116,6 +131,13 @@ def evaluate(measure, true_labels, prediction, decision):
         "roc_auc_score": roc_auc_score(true_labels, decision),
     }
     return measures[measure]
+
+
+def get_num_of_feature(pipeline: Pipeline):
+    try:
+        return len(pipeline.named_steps["extraction"].get_feature_names())
+    except:
+        return 0
 
 
 measures = {

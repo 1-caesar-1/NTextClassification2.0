@@ -9,7 +9,7 @@ from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
 
 
-def extract_features(experiment: Experiment):
+def extract_data(experiment: Experiment):
     print_message("extracting features for " + experiment.experiment_name, num_tabs=1)
 
     # load all files and labels into docs
