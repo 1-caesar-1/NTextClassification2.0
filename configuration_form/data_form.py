@@ -9,11 +9,7 @@ from os.path import dirname, abspath, exists
 import shutil
 from textclassification_app.main import main
 from textclassification_app.classes.StylisticFeatures import initialize_features_dict
-import jpype
-import asposecells
 
-jpype.startJVM(convertStrings=False)
-from asposecells.api import *
 
 app = Flask(__name__)
 
@@ -81,17 +77,15 @@ def runFile(name):
 @app.route("/results")
 def results():
     result_dir = os.path.join(dirname(dirname(abspath(__file__))), "results", "excel")
-
+    html_dir = os.path.join(dirname(abspath(__file__)), "static", "html")
     for file in os.listdir(result_dir):
-        wb = Workbook(os.path.join(result_dir, file))
-        # save workbook as HTML file
-        html_dir = os.path.join(dirname(abspath(__file__)), "static", "html")
-        wb.save(os.path.join(html_dir, file.replace("xlsx", "html")))
-        os.remove(
-            os.path.join(html_dir, file.replace(".xlsx", "_files"), "sheet002.htm")
+        xlsx2html(
+            os.path.join(result_dir, file),
+            os.path.join(html_dir, file.replace("xlsx", "html")),
         )
-    results = os.listdir(os.path.join(dirname(abspath(__file__)), "static", "html"))
-    results = ["html/" + i for i in results if i.endswith(".html")]
+
+    results = os.listdir(html_dir)
+    results = ["html/" + i for i in results]
 
     return render_template("results.html", results=results)
 
