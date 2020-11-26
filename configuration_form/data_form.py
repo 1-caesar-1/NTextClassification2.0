@@ -3,7 +3,7 @@ from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
 from configuration_form.write_file import data_parsing
 import os
-
+from flask import Blueprint
 import json
 from os.path import dirname, abspath, exists
 import shutil
@@ -11,6 +11,14 @@ from textclassification_app.main import main
 from textclassification_app.classes.StylisticFeatures import initialize_features_dict
 
 app = Flask(__name__)
+
+app.register_blueprint(
+    Blueprint(
+        "results",
+        __name__,
+        static_folder='os.path.join(dirname(dirname(abspath(__file__))), "results", "excel")',
+    )
+)
 # app.config["DEBUG"] = True
 ui = FlaskUI(app)
 ui.fullscreen = True
@@ -70,6 +78,15 @@ def runFile(name):
     except:
         pass
     shutil.rmtree(runfile_path)
+
+
+@app.route("/results")
+def results():
+    result_dir = os.path.join(dirname(dirname(abspath(__file__))), "results", "excel")
+    results = []
+    for file in os.listdir(result_dir):
+        results.append(file)
+    return render_template("results.html", results=results)
 
 
 def run():
