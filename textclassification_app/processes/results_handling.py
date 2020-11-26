@@ -1,5 +1,6 @@
 import json
 import os
+import random
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -48,17 +49,19 @@ def write_xlsx(data: list, measure: str):
     worksheet = workbook.add_worksheet()
 
     # create font styles
-    extra_big = workbook.add_format({"bold": True, "font_size": 17, "underline": True})
-    big = workbook.add_format({"bold": True, "font_size": 12})
-    bold_gray = workbook.add_format({"bold": True, "font_color": "gray"})
-    gray = workbook.add_format({"font_color": "gray"})
-    good = workbook.add_format({"font_color": "blue"})
-    best = workbook.add_format({"font_color": "red"})
-    centralized = workbook.add_format({'text_wrap': 'true', 'font_size': 10, 'align': 'center', 'valign': 'vcenter'})
+    regular = workbook.add_format({"font_name": "Times New Roman"})
+    extra_big = workbook.add_format({"bold": True, "font_size": 17, "underline": True, "font_name": "Times New Roman"})
+    big = workbook.add_format({"bold": True, "font_size": 12, "font_name": "Times New Roman"})
+    bold_gray = workbook.add_format({"bold": True, "font_color": "gray", "font_name": "Times New Roman"})
+    gray = workbook.add_format({"font_color": "gray", "font_name": "Times New Roman"})
+    good = workbook.add_format({"font_color": "blue", "font_name": "Times New Roman"})
+    best = workbook.add_format({"font_color": "red", "font_name": "Times New Roman"})
+    centralized = workbook.add_format({'text_wrap': 'true', 'font_size': 10, 'align': 'center', 'valign': 'vcenter',
+                                       "font_name": "Times New Roman"})
 
     # write titles
     worksheet.write("A1", "Classification results: " + measure.replace("_", " "), extra_big)
-    worksheet.write("A2", "The classification results are shown in the table below in percentages")
+    worksheet.write("A2", "The classification results are shown in the table below in percentages", regular)
 
     # write general data
     worksheet.write("A4", "General information about the classification software", bold_gray)
@@ -82,8 +85,7 @@ def write_xlsx(data: list, measure: str):
     # write the results
     worksheet.write("A14", "Results:", big)
     sizes = {1: [len("Language")], 2: [len("Features types")], 3: [len("Features selectors")],
-             4: [len("Pre-processing")],
-             5: [len("Technique")]}
+             4: [len("Pre-processing")], 5: [len("Technique")]}
     bests = {"MLPClassifier": [], "LinearSVC": [], "LogisticRegression": [], "RandomForestClassifier": [],
              "MultinomialNB": []}
     indexes = {"MLPClassifier": 6, "LinearSVC": 7, "LogisticRegression": 8, "RandomForestClassifier": 9,
@@ -179,14 +181,14 @@ def write_xlsx(data: list, measure: str):
                 {"header": "Features selectors"},
                 {"header": "Pre-processing"},
                 {"header": "Technique"},
-                {"header": "MLPClassifier"},
-                {"header": "LinearSVC"},
-                {"header": "LogisticRegression"},
-                {"header": "RandomForest"},
-                {"header": "MultinomialNB"}
+                {"header": "MLP"},
+                {"header": "SVC"},
+                {"header": "LR"},
+                {"header": "RF"},
+                {"header": "MNB"}
             ],
-            "style": "Table Style Light 8",
-        },
+            "style": "Table Style Light " + str(random.randint(9, 14))
+        }
     )
 
     # close & save
