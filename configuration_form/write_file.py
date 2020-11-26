@@ -3,6 +3,7 @@ import json
 from os.path import dirname, abspath, exists
 from os import mkdir
 import os
+from textclassification_app.classes.StylisticFeatures import initialize_features_dict
 
 classifiers = ["mlp", "svc", "rf", "lr", "mnb"]
 
@@ -62,20 +63,22 @@ preprocessing = [
 def data_parsing(request):
     parameters = dict(request.form.items())
     print(parameters)
+    stylistic = list(initialize_features_dict("en").keys())
+    stylistic_use = []
     for key, value in parameters.items():
         if key in classifiers:
             data["classifiers"].append(key)
-        if key in preprocessing:
+        elif key in preprocessing:
             data["preprocessing"].append(key)
-        if key in measures:
+        elif key in measures:
             data["measurements"].append(key)
-        if key == "selection":
+        elif key == "selection":
             data["features_selection"].append(
                 (selection_type[value], parameters["selection_k"])
             )
-        if key == "tf":
+        elif key == "tf":
             tfidf_parameters["max_features"] = parameters["max"]
-            tfidf_parameters["analyzer"] = "False"
+            tfidf_parameters["analyzer"] = parameters["Analyzer"]
             tfidf_parameters["lowercase"] = "False"
             tfidf_parameters["ngram_range"] = (
                 "(" + parameters["grams"] + "," + parameters["grams"] + ")"
@@ -86,9 +89,9 @@ def data_parsing(request):
             temp = ",".join(temp)
             text = "TfidfVectorizer(" + temp + ")"
             data["transformers"].append(text)
-        if key == "tfidf":
+        elif key == "tfidf":
             tfidf_parameters["max_features"] = parameters["max"]
-            tfidf_parameters["analyzer"] = "False"
+            tfidf_parameters["analyzer"] = "'" + parameters["Analyzer"] + "'"
             tfidf_parameters["lowercase"] = "False"
             tfidf_parameters["ngram_range"] = (
                 "(" + parameters["grams"] + "," + parameters["grams"] + ")"
@@ -99,14 +102,23 @@ def data_parsing(request):
             temp = ",".join(temp)
             text = "TfidfVectorizer(" + temp + ")"
             data["transformers"].append(text)
-        if key == "w2v":
+        elif key == "w2v":
             data["transformers"].append("W2VTransformer()")
-        if key == "d2v":
+        elif key == "d2v":
             data["transformers"].append("D2VTransformer()")
-        if key == "Language":
+        elif key == "Language":
             data["language"] = value
-        if key == "technique":
+        elif key == "technique":
             data["classification_technique"] = value + "()"
+        elif key in stylistic:
+            stylistic_use.append(key)
+    data["transformers"].append(
+        "StylisticFeatures('"
+        + "','".join(stylistic_use)
+        + ",language='"
+        + data["language"]
+        + "')"
+    )
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
 
     if not exists(parent_dir):
@@ -123,4 +135,4 @@ def data_parsing(request):
 
 
 if __name__ == "__main__":
-    pass
+    print("','".join(["2", "2"]))
