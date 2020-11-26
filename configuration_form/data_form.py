@@ -3,22 +3,20 @@ from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
 from configuration_form.write_file import data_parsing
 import os
-from flask import Blueprint
+from xlsx2html import xlsx2html
 import json
 from os.path import dirname, abspath, exists
 import shutil
 from textclassification_app.main import main
 from textclassification_app.classes.StylisticFeatures import initialize_features_dict
+import jpype
+import asposecells
+
+jpype.startJVM()
+from asposecells.api import *
 
 app = Flask(__name__)
 
-app.register_blueprint(
-    Blueprint(
-        "results",
-        __name__,
-        static_folder='os.path.join(dirname(dirname(abspath(__file__))), "results", "excel")',
-    )
-)
 # app.config["DEBUG"] = True
 ui = FlaskUI(app)
 ui.fullscreen = True
@@ -83,9 +81,20 @@ def runFile(name):
 @app.route("/results")
 def results():
     result_dir = os.path.join(dirname(dirname(abspath(__file__))), "results", "excel")
-    results = []
+
     for file in os.listdir(result_dir):
-        results.append(file)
+        wb = Workbook(os.path.join(result_dir, file))
+        # save workbook as HTML file
+        wb.save(
+            os.path.join(
+                dirname(abspath(__file__)),
+                "static",
+                "html",
+                file.replace("xlsx", "html"),
+            )
+        )
+    results = os.listdir(os.path.join(dirname(abspath(__file__)), "static", "html"))
+    results = ["html/" + i for i in results if i.endswith(".html")]
     return render_template("results.html", results=results)
 
 
@@ -94,5 +103,9 @@ def run():
 
 
 if __name__ == "__main__":
+    # Use Aspose.Cells for Python via Java
+
+    # load XLSX workbook
+
     run()
 
