@@ -61,32 +61,34 @@ def StylisticFeatures(*names: str, language: str):
     vectorizers = []
 
     for name in names:
+        name = name.lower()
         # option 1:
         # if the feature is list, add TfidfVectorizer with known vocabulary
-        if isinstance(stylistic_features_dict[name.lower()], list):
-            lst = set(stylistic_features_dict[name.lower()])
-            vectorizers += [TfidfVectorizer(vocabulary=lst)]
+        if isinstance(stylistic_features_dict[name], list):
+            lst = set(stylistic_features_dict[name])
+            vectorizers += [(name + '1', TfidfVectorizer(vocabulary=lst))]
             # if needed, add the percentage of the list of words from all the other words
             if name != "e50th" and name != "e50te" and name != "e50tth" and name != "e50tte":
-                vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[name], name, language)]
+                vectorizers += [
+                    (name + '2', StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
         # option 2:
         # if the current feature is set of feature (e.g. "acf") add the transformers recursively
-        elif isinstance(stylistic_features_dict[name.lower()], set):
-            for group_feature in stylistic_features_dict[name.lower()]:
-                vectorizers += [StylisticFeatures(group_feature, language=language)]
+        elif isinstance(stylistic_features_dict[name], set):
+            for group_feature in stylistic_features_dict[name]:
+                vectorizers += [(group_feature, StylisticFeatures(group_feature, language=language))]
 
         # option 3:
         # if the current feature is frc, add the InitTransformer of FRC
-        elif name.lower() == "frc":
-            vectorizers += [stylistic_features_dict[name]()]
+        elif name == "frc":
+            vectorizers += [(name, stylistic_features_dict[name]())]
 
         # else, add the StylisticFeaturesTransformer of the feature
         else:
-            vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[name], name, language)]
+            vectorizers += [(name, StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
     # return FeatureUnion off all the stylistic features or the stylistic features itself if there is only one
-    return FeatureUnion(vectorizers, n_jobs=-1) if len(vectorizers) > 1 else vectorizers[0]
+    return FeatureUnion(vectorizers, n_jobs=-1) if len(vectorizers) > 1 else vectorizers[0][0]
 
 
 def initialize_features_dict(language):

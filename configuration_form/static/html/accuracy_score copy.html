@@ -1,341 +1,847 @@
-﻿<!doctype html public "-//w3c//dtd xhtml 1.0 transitional//en" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd">
-<html xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:x="urn:schemas-microsoft-com:office:excel"
-xmlns="http://www.w3.org/TR/REC-html40">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="Excel Workbook Frameset">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="ProgId" content="Excel.Sheet">
-<meta name="Generator" content="Aspose.Cell 20.2.0">
-<link rel="File-List" href="accuracy_score copy_files/filelist.xml">
-<link rel="Edit-Time-Data" href="accuracy_score copy_files/editdata.mso">
-<link rel="OLE-Object-Data" href="accuracy_score copy_files/oledata.mso">
-<!--[if gte mso 9]><xml>
- <o:DocumentProperties>
-  <o:Created>2020-11-26T09:15:44Z</o:Created>
-  <o:LastSaved>2020-11-26T09:15:44Z</o:LastSaved>
-</o:DocumentProperties>
-</xml><![endif]-->
-<![if !supportTabStrip]>
-<link id="shLink" href="accuracy_score copy_files/sheet001.htm">
-<link id="shLink" href="accuracy_score copy_files/sheet002.htm">
-
-<link id="shLink">
-
-<script language="JavaScript">
-<!--
- var c_lTabs=2;
-
- var c_rgszSh=new Array(c_lTabs);
- c_rgszSh[0]="Sheet1";
- c_rgszSh[1]="Evaluation&nbsp;Warning";
-
-
-
- var c_rgszClr=new Array(8);
- c_rgszClr[0]="window";
- c_rgszClr[1]="buttonface";
- c_rgszClr[2]="windowframe";
- c_rgszClr[3]="windowtext";
- c_rgszClr[4]="threedlightshadow";
- c_rgszClr[5]="threedhighlight";
- c_rgszClr[6]="threeddarkshadow";
- c_rgszClr[7]="threedshadow";
-
- var g_iShCur;
- var g_rglTabX=new Array(c_lTabs);
-
-function fnGetIEVer()
-{
- var ua=window.navigator.userAgent
- var msie=ua.indexOf("MSIE")
- if (msie>0 && window.navigator.platform=="Win32")
-  return parseInt(ua.substring(msie+5,ua.indexOf(".", msie)));
- else
-  return 0;
-}
-
-function fnBuildFrameset()
-{
- var szHTML="<frameset rows=\"*,18\" border=0 width=0 frameborder=no framespacing=0>"+
-  "<frame src=\""+document.all.item("shLink")[1].href+"\" name=\"frSheet\" noresize>"+
-  "<frameset cols=\"54,*\" border=0 width=0 frameborder=no framespacing=0>"+
-  "<frame src=\"\" name=\"frScroll\" marginwidth=0 marginheight=0 scrolling=no>"+
-  "<frame src=\"\" name=\"frTabs\" marginwidth=0 marginheight=0 scrolling=no>"+
-  "</frameset></frameset><plaintext>";
-
- with (document) {
-  open("text/html","replace");
-  write(szHTML);
-  close();
- }
-
- fnBuildTabStrip();
-}
-
-function fnBuildTabStrip()
-{
- var szHTML=
-  "<html><head><style>.clScroll {font:8pt Courier New;color:"+c_rgszClr[6]+";cursor:default;line-height:10pt;}"+
-  ".clScroll2 {font:10pt Arial;color:"+c_rgszClr[6]+";cursor:default;line-height:11pt;}</style></head>"+
-  "<body onclick=\"event.returnValue=false;\" ondragstart=\"event.returnValue=false;\" onselectstart=\"event.returnValue=false;\" bgcolor="+c_rgszClr[4]+" topmargin=0 leftmargin=0><table cellpadding=0 cellspacing=0 width=100%>"+
-  "<tr><td colspan=6 height=1 bgcolor="+c_rgszClr[2]+"></td></tr>"+
-  "<tr><td style=\"font:1pt\">&nbsp;<td>"+
-  "<td valign=top id=tdScroll class=\"clScroll\" onclick=\"parent.fnFastScrollTabs(0);\" onmouseover=\"parent.fnMouseOverScroll(0);\" onmouseout=\"parent.fnMouseOutScroll(0);\"><a>&#171;</a></td>"+
-  "<td valign=top id=tdScroll class=\"clScroll2\" onclick=\"parent.fnScrollTabs(0);\" ondblclick=\"parent.fnScrollTabs(0);\" onmouseover=\"parent.fnMouseOverScroll(1);\" onmouseout=\"parent.fnMouseOutScroll(1);\"><a>&lt</a></td>"+
-  "<td valign=top id=tdScroll class=\"clScroll2\" onclick=\"parent.fnScrollTabs(1);\" ondblclick=\"parent.fnScrollTabs(1);\" onmouseover=\"parent.fnMouseOverScroll(2);\" onmouseout=\"parent.fnMouseOutScroll(2);\"><a>&gt</a></td>"+
-  "<td valign=top id=tdScroll class=\"clScroll\" onclick=\"parent.fnFastScrollTabs(1);\" onmouseover=\"parent.fnMouseOverScroll(3);\" onmouseout=\"parent.fnMouseOutScroll(3);\"><a>&#187;</a></td>"+
-  "<td style=\"font:1pt\">&nbsp;<td></tr></table></body></html>";
-
- with (frames['frScroll'].document) {
-  open("text/html","replace");
-  write(szHTML);
-  close();
- }
-
- szHTML =
-  "<html><head>"+
-  "<style>A:link,A:visited,A:active {text-decoration:none;"+"color:"+c_rgszClr[3]+";}"+
-  ".clTab {cursor:hand;background:"+c_rgszClr[1]+";font:9pt Arial;padding-left:3px;padding-right:3px;text-align:center;}"+
-  ".clBorder {background:"+c_rgszClr[2]+";font:1pt;}"+
-  "</style></head><body onload=\"parent.fnInit();\" onselectstart=\"event.returnValue=false;\" ondragstart=\"event.returnValue=false;\" bgcolor="+c_rgszClr[4]+
-  " topmargin=0 leftmargin=0><table id=tbTabs cellpadding=0 cellspacing=0>";
-
- var iCellCount=(c_lTabs+1)*2;
-
- var i;
- for (i=0;i<iCellCount;i+=2)
-  szHTML+="<col width=1><col>";
-
- var iRow;
- for (iRow=0;iRow<6;iRow++) {
-
-  szHTML+="<tr>";
-
-  if (iRow==5)
-   szHTML+="<td colspan="+iCellCount+"></td>";
-  else {
-   if (iRow==0) {
-    for(i=0;i<iCellCount;i++)
-     szHTML+="<td height=1 class=\"clBorder\"></td>";
-   } else if (iRow==1) {
-    for(i=0;i<c_lTabs;i++) {
-     szHTML+="<td height=1 nowrap class=\"clBorder\">&nbsp;</td>";
-     szHTML+=
-      "<td id=tdTab height=1 nowrap class=\"clTab\" onmouseover=\"parent.fnMouseOverTab("+i+");\" onmouseout=\"parent.fnMouseOutTab("+i+");\">"+
-      "<a href=\""+document.all.item("shLink")[i].href+"\" target=\"frSheet\" id=aTab>&nbsp;"+c_rgszSh[i]+"&nbsp;</a></td>";
-    }
-    szHTML+="<td id=tdTab height=1 nowrap class=\"clBorder\"><a id=aTab>&nbsp;</a></td><td width=100%></td>";
-   } else if (iRow==2) {
-    for (i=0;i<c_lTabs;i++)
-     szHTML+="<td height=1></td><td height=1 class=\"clBorder\"></td>";
-    szHTML+="<td height=1></td><td height=1></td>";
-   } else if (iRow==3) {
-    for (i=0;i<iCellCount;i++)
-     szHTML+="<td height=1></td>";
-   } else if (iRow==4) {
-    for (i=0;i<c_lTabs;i++)
-     szHTML+="<td height=1 width=1></td><td height=1></td>";
-    szHTML+="<td height=1 width=1></td><td></td>";
-   }
-  }
-  szHTML+="</tr>";
- }
-
- szHTML+="</table></body></html>";
- with (frames['frTabs'].document) {
-  open("text/html","replace");
-  charset=document.charset;
-  write(szHTML);
-  close();
- }
-}
-
-function fnInit()
-{
- g_rglTabX[0]=0;
- var i;
- for (i=1;i<=c_lTabs;i++)
-  with (frames['frTabs'].document.all.tbTabs.rows[1].cells[fnTabToCol(i-1)])
-   g_rglTabX[i]=offsetLeft+offsetWidth-6;
-}
-
-function fnTabToCol(iTab)
-{
- return 2*iTab+1;
-}
-
-function fnNextTab(fDir)
-{
- var iNextTab=-1;
- var i;
-
- with (frames['frTabs'].document.body) {
-  if (fDir==0) {
-   if (scrollLeft>0) {
-    for (i=0;i<c_lTabs&&g_rglTabX[i]<scrollLeft;i++);
-    if (i<c_lTabs)
-     iNextTab=i-1;
-   }
-  } else {
-   if (g_rglTabX[c_lTabs]+6>offsetWidth+scrollLeft) {
-    for (i=0;i<c_lTabs&&g_rglTabX[i]<=scrollLeft;i++);
-    if (i<c_lTabs)
-     iNextTab=i;
-   }
-  }
- }
- return iNextTab;
-}
-
-function fnScrollTabs(fDir)
-{
- var iNextTab=fnNextTab(fDir);
-
- if (iNextTab>=0) {
-  frames['frTabs'].scroll(g_rglTabX[iNextTab],0);
-  return true;
- } else
-  return false;
-}
-
-function fnFastScrollTabs(fDir)
-{
- if (c_lTabs>16)
-  frames['frTabs'].scroll(g_rglTabX[fDir?c_lTabs-1:0],0);
- else
-  if (fnScrollTabs(fDir)>0) window.setTimeout("fnFastScrollTabs("+fDir+");",5);
-}
-
-function fnSetTabProps(iTab,fActive)
-{
- var iCol=fnTabToCol(iTab);
- var i;
-
- if (iTab>=0) {
-  with (frames['frTabs'].document.all) {
-   with (tbTabs) {
-    for (i=0;i<=4;i++) {
-     with (rows[i]) {
-      if (i==0)
-       cells[iCol].style.background=c_rgszClr[fActive?0:2];
-      else if (i>0 && i<4) {
-       if (fActive) {
-        cells[iCol-1].style.background=c_rgszClr[2];
-        cells[iCol].style.background=c_rgszClr[0];
-        cells[iCol+1].style.background=c_rgszClr[2];
-       } else {
-        if (i==1) {
-         cells[iCol-1].style.background=c_rgszClr[2];
-         cells[iCol].style.background=c_rgszClr[1];
-         cells[iCol+1].style.background=c_rgszClr[2];
-        } else {
-         cells[iCol-1].style.background=c_rgszClr[4];
-         cells[iCol].style.background=c_rgszClr[(i==2)?2:4];
-         cells[iCol+1].style.background=c_rgszClr[4];
-        }
-       }
-      } else
-       cells[iCol].style.background=c_rgszClr[fActive?2:4];
-     }
-    }
-   }
-   with (aTab[iTab].style) {
-    cursor=(fActive?"default":"hand");
-    color=c_rgszClr[3];
-   }
-  }
- }
-}
-
-function fnMouseOverScroll(iCtl)
-{
- frames['frScroll'].document.all.tdScroll[iCtl].style.color=c_rgszClr[7];
-}
-
-function fnMouseOutScroll(iCtl)
-{
- frames['frScroll'].document.all.tdScroll[iCtl].style.color=c_rgszClr[6];
-}
-
-function fnMouseOverTab(iTab)
-{
- if (iTab!=g_iShCur) {
-  var iCol=fnTabToCol(iTab);
-  with (frames['frTabs'].document.all) {
-   tdTab[iTab].style.background=c_rgszClr[5];
-  }
- }
-}
-
-function fnMouseOutTab(iTab)
-{
- if (iTab>=0) {
-  var elFrom=frames['frTabs'].event.srcElement;
-  var elTo=frames['frTabs'].event.toElement;
-
-  if ((!elTo) ||
-   (elFrom.tagName==elTo.tagName) ||
-   (elTo.tagName=="A" && elTo.parentElement!=elFrom) ||
-   (elFrom.tagName=="A" && elFrom.parentElement!=elTo)) {
-
-   if (iTab!=g_iShCur) {
-    with (frames['frTabs'].document.all) {
-     tdTab[iTab].style.background=c_rgszClr[1];
-    }
-   }
-  }
- }
-}
-
-function fnSetActiveSheet(iSh)
-{
- if (iSh!=g_iShCur) {
-  fnSetTabProps(g_iShCur,false);
-  fnSetTabProps(iSh,true);
-  g_iShCur=iSh;
- }
-}
-
- window.g_iIEVer=fnGetIEVer();
- if (window.g_iIEVer>=4)
-  fnBuildFrameset();
-//-->
-
-</script>
-<![endif]>
-<!--[if gte mso 9]><xml>
- <x:ExcelWorkbook>
-  <x:ExcelWorksheets>
-   <x:ExcelWorksheet>
-    <x:Name>Sheet1</x:Name>
-    <x:WorksheetSource HRef="accuracy_score copy_files/sheet001.htm"/>
-   </x:ExcelWorksheet>
-   <x:ExcelWorksheet>
-    <x:Name>Evaluation Warning</x:Name>
-    <x:WorksheetSource HRef="accuracy_score copy_files/sheet002.htm"/>
-   </x:ExcelWorksheet>
-  </x:ExcelWorksheets>
-  <x:Stylesheet HRef="accuracy_score copy_files/stylesheet.css"/>
-  <x:WindowHeight>9660</x:WindowHeight>
-  <x:WindowWidth>16095</x:WindowWidth>
-  <x:WindowTopX>240</x:WindowTopX>
-  <x:WindowTopY>15</x:WindowTopY>
-  <x:RefModeR1C1/>
-  <x:TabRatio>600</x:TabRatio>
-  <x:ActiveSheet>1</x:ActiveSheet>
- </x:ExcelWorkbook>
-</xml><![endif]-->
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
-    <frameset rows="*,39" border="0" width="0" frameborder="no" framespacing="0">
-     <frame src="accuracy_score copy_files/sheet002.htm" name="frSheet">
-     <frame src="accuracy_score copy_files/tabstrip.htm" name="frTabs" marginwidth="0" marginheight="0">
-     <noframes>
-      <body>
-       <p>This page uses frames, but your browser doesn't support them.</p>
-      </body>
-     </noframes>
-    </frameset>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
+    <colgroup>
+        <col style="width: 83.52px">
+        <col style="width: 265.92px">
+        <col style="width: 179.52px">
+        <col style="width: 141.12px">
+        <col style="width: 246.71999999999997px">
+    </colgroup>
+    <tr>
+        <td id=Sheet1!A1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-decoration: underline;font-size: 17.0px;font-weight: bold;height: 19px">
+            Classification results: accuracy score
+        </td>
+        <td id=Sheet1!B1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K1
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            The classification results are shown in the table below in percentages
+        </td>
+        <td id=Sheet1!B2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K2
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!B3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K3
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;font-weight: bold;height: 19px">
+            General information about the classification software
+        </td>
+        <td id=Sheet1!B4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K4
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;height: 19px">
+            Issue date: 26/11/2020 11:15:44
+        </td>
+        <td id=Sheet1!B5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K5
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;height: 19px">
+            Python version: Python 3.7.6
+        </td>
+        <td id=Sheet1!B6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K6
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;height: 19px">
+            Python classification libraries: keras, sklearn, tensorflow, VADAR from nltk, WordCloud
+        </td>
+        <td id=Sheet1!B7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K7
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!B8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K8
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;font-weight: bold;height: 19px">
+            Statistical Significance Options
+        </td>
+        <td id=Sheet1!B9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;font-weight: bold;height: 19px">
+            Colors description
+        </td>
+        <td id=Sheet1!G9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K9
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;height: 19px">
+            V - Significantly larger than the baseline
+        </td>
+        <td id=Sheet1!B10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #0000FF;font-size: 10.0px;height: 19px;text-align: center">
+            The best result of the learning method
+        </td>
+        <td id=Sheet1!G10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K10
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #808080;font-size: 11.0px;height: 19px">
+            * - Significantly smaller than the baseline
+        </td>
+        <td id=Sheet1!B11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #FF0000;font-size: 10.0px;height: 19px;text-align: center">
+            The best result of all classification
+        </td>
+        <td id=Sheet1!G11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K11
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!B12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K12
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!B13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K13
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 12.0px;font-weight: bold;height: 19px">
+            Results:
+        </td>
+        <td id=Sheet1!B14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!C14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!D14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!E14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!F14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!G14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!I14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!K14
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            Number
+        </td>
+        <td id=Sheet1!B15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            Language
+        </td>
+        <td id=Sheet1!C15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            Features types
+        </td>
+        <td id=Sheet1!D15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            Features selectors
+        </td>
+        <td id=Sheet1!E15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            Pre-processing
+        </td>
+        <td id=Sheet1!F15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            Technique
+        </td>
+        <td id=Sheet1!G15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            MLPClassifier
+        </td>
+        <td id=Sheet1!H15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            LinearSVC
+        </td>
+        <td id=Sheet1!I15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            LogisticRegression
+        </td>
+        <td id=Sheet1!J15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            RandomForest
+        </td>
+        <td id=Sheet1!K15
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            MultinomialNB
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            800
+        </td>
+        <td id=Sheet1!B16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            English
+        </td>
+        <td id=Sheet1!C16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            TF-IDF: 500 charss unigrams
+        </td>
+        <td id=Sheet1!D16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            None
+        </td>
+        <td id=Sheet1!E16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            spelling correction
+        </td>
+        <td id=Sheet1!F16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            3 folds X 5 iterations CV
+        </td>
+        <td id=Sheet1!G16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!H16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            57.41
+        </td>
+        <td id=Sheet1!I16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #FF0000;font-size: 10.0px;height: 19px;text-align: center">
+            90.0V
+        </td>
+        <td id=Sheet1!J16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            58.89*
+        </td>
+        <td id=Sheet1!K16
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #0000FF;font-size: 10.0px;height: 19px;text-align: center">
+            84.07
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            80
+        </td>
+        <td id=Sheet1!B17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            Hebrew
+        </td>
+        <td id=Sheet1!C17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            TF-IDF: 100 words unigrams
+        </td>
+        <td id=Sheet1!D17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            None
+        </td>
+        <td id=Sheet1!E17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            spelling correction
+        </td>
+        <td id=Sheet1!F17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            3 folds X 5 iterations CV
+        </td>
+        <td id=Sheet1!G17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            50.0*
+        </td>
+        <td id=Sheet1!H17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            57.41
+        </td>
+        <td id=Sheet1!I17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            44.22
+        </td>
+        <td id=Sheet1!J17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            58.89*
+        </td>
+        <td id=Sheet1!K17
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            57.09
+        </td>
+    </tr>
+    <tr>
+        <td id=Sheet1!A18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            80
+        </td>
+        <td id=Sheet1!B18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            Hebrew
+        </td>
+        <td id=Sheet1!C18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            TF-IDF: 100 words unigrams
+        </td>
+        <td id=Sheet1!D18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            None
+        </td>
+        <td id=Sheet1!E18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            spelling correction
+        </td>
+        <td id=Sheet1!F18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            3 folds X 5 iterations CV
+        </td>
+        <td id=Sheet1!G18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #0000FF;font-size: 10.0px;height: 19px;text-align: center">
+            50.0*
+        </td>
+        <td id=Sheet1!H18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #0000FF;font-size: 10.0px;height: 19px;text-align: center">
+            57.41
+        </td>
+        <td id=Sheet1!I18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 11.0px;height: 19px">
+            &nbsp;
+        </td>
+        <td id=Sheet1!J18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;color: #0000FF;font-size: 10.0px;height: 19px;text-align: center">
+            58.89*
+        </td>
+        <td id=Sheet1!K18
+            style="border-bottom: none;border-collapse: collapse;border-left: none;border-right: none;border-top: none;font-size: 10.0px;height: 19px;text-align: center">
+            57.09
+        </td>
+    </tr>
+</table>
+</body>
 </html>
+    
