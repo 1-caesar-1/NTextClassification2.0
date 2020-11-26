@@ -12,7 +12,7 @@ from textclassification_app.classes.StylisticFeatures import initialize_features
 import jpype
 import asposecells
 
-jpype.startJVM()
+jpype.startJVM(convertStrings=False)
 from asposecells.api import *
 
 app = Flask(__name__)
@@ -85,16 +85,14 @@ def results():
     for file in os.listdir(result_dir):
         wb = Workbook(os.path.join(result_dir, file))
         # save workbook as HTML file
-        wb.save(
-            os.path.join(
-                dirname(abspath(__file__)),
-                "static",
-                "html",
-                file.replace("xlsx", "html"),
-            )
+        html_dir = os.path.join(dirname(abspath(__file__)), "static", "html")
+        wb.save(os.path.join(html_dir, file.replace("xlsx", "html")))
+        os.remove(
+            os.path.join(html_dir, file.replace(".xlsx", "_files"), "sheet002.htm")
         )
     results = os.listdir(os.path.join(dirname(abspath(__file__)), "static", "html"))
     results = ["html/" + i for i in results if i.endswith(".html")]
+
     return render_template("results.html", results=results)
 
 
@@ -103,9 +101,5 @@ def run():
 
 
 if __name__ == "__main__":
-    # Use Aspose.Cells for Python via Java
-
-    # load XLSX workbook
-
     run()
 
