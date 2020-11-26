@@ -91,7 +91,7 @@ def data_parsing(request):
             data["transformers"].append(text)
         elif key == "tfidf":
             tfidf_parameters["max_features"] = parameters["max"]
-            tfidf_parameters["analyzer"] = parameters["Analyzer"]
+            tfidf_parameters["analyzer"] = "'" + parameters["Analyzer"] + "'"
             tfidf_parameters["lowercase"] = "False"
             tfidf_parameters["ngram_range"] = (
                 "(" + parameters["grams"] + "," + parameters["grams"] + ")"
