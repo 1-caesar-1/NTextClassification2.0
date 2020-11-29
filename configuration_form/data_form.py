@@ -85,9 +85,14 @@ def results():
         )
 
     results = os.listdir(html_dir)
-    results = ["html/" + i for i in results]
+    first = {"path": "html/" + results[0], "counter": str(1), "name": results[0]}
+    results.pop(0)
+    results = [
+        {"path": "html/" + i, "counter": str(counter), "name": i}
+        for counter, i in enumerate(results, start=2)
+    ]
 
-    return render_template("results.html", results=results)
+    return render_template("results.html", results=results, first=first)
 
 
 def run():
