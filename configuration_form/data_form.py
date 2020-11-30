@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for
+from flask import Flask, request, url_for, redirect
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
 from configuration_form.write_file import data_parsing
@@ -72,6 +72,7 @@ def runFile(name):
     except:
         pass
     shutil.rmtree(runfile_path)
+    return redirect("/results")
 
 
 @app.route("/results")

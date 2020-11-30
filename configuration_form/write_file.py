@@ -78,7 +78,7 @@ def data_parsing(request):
             )
         elif key == "tf":
             tfidf_parameters["max_features"] = parameters["max"]
-            tfidf_parameters["analyzer"] = parameters["Analyzer"]
+            tfidf_parameters["analyzer"] = "'" + parameters["Analyzer"] + "'"
             tfidf_parameters["lowercase"] = "False"
             tfidf_parameters["ngram_range"] = (
                 "(" + parameters["grams"] + "," + parameters["grams"] + ")"
@@ -105,6 +105,7 @@ def data_parsing(request):
         elif key == "w2v":
             data["transformers"].append("W2VTransformer()")
         elif key == "d2v":
+            data["transformers"].append("TokenizerTransfomer()")
             data["transformers"].append("D2VTransformer()")
         elif key == "Language":
             data["language"] = value

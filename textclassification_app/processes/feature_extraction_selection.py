@@ -26,8 +26,7 @@ def extract_data(experiment: Experiment):
                 errors="replace",
             ) as f:
                 data = f.read()
-            if experiment.data_flag:
-                data = data.split(" ")
+
             docs += [(data, label)]
 
     # sort all docs and then shuffle them using const seed

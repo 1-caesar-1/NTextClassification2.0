@@ -13,12 +13,20 @@ from sklearn.svm import LinearSVC
 from textclassification_app.classes.BertTransformer import BertTransformer
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
+from textclassification_app.classes.TokenizerTransfomer import TokenizerTransfomer
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.utils import print_error
 
 # ignore this section
 # this section is for not omit imports that come into use in 'eval'
-_ = [TfidfVectorizer, TrainTest, StylisticFeatures, W2VTransformer, D2VTransformer, BertTransformer]
+_ = [
+    TfidfVectorizer,
+    TrainTest,
+    StylisticFeatures,
+    W2VTransformer,
+    D2VTransformer,
+    BertTransformer,
+]
 
 classifiers_objects = {
     "svc": LinearSVC(),
@@ -169,12 +177,7 @@ class Experiment:
             self.classification_technique = CrossValidation()
 
         # initialize the labels, the extracted feature and the results dict to be None
-        if "W2VTransformer" in [
-            i.split("(")[0] for i in config["transformers"]
-        ] or "D2VTransformer" in [i.split("(")[0] for i in config["transformers"]]:
-            self.data_flag = True
-        else:
-            self.data_flag = False
+
         self.labels = None
         self.documents = None
         self.classification_results = None
