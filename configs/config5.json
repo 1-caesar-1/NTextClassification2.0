@@ -1,5 +1,7 @@
 {
-    "transformers": [],
+    "transformers": [
+        "Doc2VecTransfomer()"
+    ],
     "preprocessing": [],
     "language": "English",
     "features_selection": [],
