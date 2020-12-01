@@ -13,7 +13,6 @@ from sklearn.svm import LinearSVC
 from textclassification_app.classes.BertTransformer import BertTransformer
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
-from textclassification_app.classes.TokenizerTransfomer import TokenizerTransfomer
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.classes.Doc2VecTransfomer import Doc2VecTransfomer
 from textclassification_app.utils import print_error

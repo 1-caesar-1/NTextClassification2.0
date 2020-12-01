@@ -9,7 +9,7 @@ class Doc2VecTransfomer(BaseEstimator, TransformerMixin):
     """Tokenize input strings based on a simple word-boundary pattern."""
 
     def __init__(self):
-        self.model = D2VTransformer()
+        self.model = D2VTransformer(min_count=3, size=50)
 
     def fit(self, X, y=None):
         token_pattern = re.compile(r"(?u)\b\w\w+\b")

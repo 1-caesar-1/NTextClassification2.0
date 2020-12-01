@@ -1,15 +1,11 @@
-{% extends "base.html" %}
-
-{% block head%}
+{% extends "base.html" %} {% block head%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <title>Configuration Table</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/tableStyles.min.css') }}">
-{%endblock%}
-
-{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tableStyles.min.css') }}"> {%endblock%} {% block content %}
 
 <!-- Start: Bold BS4 Pricing Table Style 55 -->
 <div class="container">
@@ -23,60 +19,52 @@
                 </div>
                 <ul class="list-unstyled pricing-content">
                     <li>
-                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
-                                data-toggle="dropdown" aria-expanded="false" type="button">classifiers</button>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">classifiers</button>
                             <div class="dropdown-menu">
                                 {% for classifier in config['classifiers'] %}
-                                <a class="dropdown-item" href="#">{{classifier}}</a>
-                                {% endfor %}
+                                <a class="dropdown-item" href="#">{{classifier}}</a> {% endfor %}
                             </div>
                     </li>
                     <li>
-                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
-                                data-toggle="dropdown" aria-expanded="false" type="button">measurements</button>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">measurements</button>
                             <div class="dropdown-menu">
                                 {% for measure in config['measurements'] %}
-                                <a class="dropdown-item" href="#">{{measure}}</a>
-                                {% endfor %}
+                                <a class="dropdown-item" href="#">{{measure}}</a> {% endfor %}
                             </div>
                     </li>
                     <li>
-                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
-                                data-toggle="dropdown" aria-expanded="false" type="button">features selection</button>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">features selection</button>
                             <div class="dropdown-menu">
                                 {% for select in config['features_selection'] %}
-                                <a class="dropdown-item" href="#">{{select}}</a>
-                                {% endfor %}
+                                <a class="dropdown-item" href="#">{{select}}</a> {% endfor %}
                             </div>
                     </li>
                     <li>
-                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
-                                data-toggle="dropdown" aria-expanded="false" type="button">transformers</button>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">transformers</button>
                             <div class="dropdown-menu">
                                 {% for trans in config['transformers'] %}
-                                <a class="dropdown-item" href="#">{{trans}}</a>
-                                {% endfor %}
+                                <a class="dropdown-item" href="#">{{trans}}</a> {% endfor %}
                             </div>
                     </li>
                     <li>
-                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle"
-                                data-toggle="dropdown" aria-expanded="false" type="button">preprocessing</button>
+                        <div class="dropdown menu_links"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">preprocessing</button>
                             <div class="dropdown-menu">
                                 {% for preprocess in config['preprocessing'] %}
-                                <a class="dropdown-item" href="#">{{preprocess}}</a>
-                                {% endfor %}
+                                <a class="dropdown-item" href="#">{{preprocess}}</a> {% endfor %}
                             </div>
                     </li>
 
 
                     <li>{{config['classification_technique']}}</li>
                 </ul><a class="pricingTable-signup" href="/runFile/{{config['name']}}"><span>Run Config</span></a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-<!-- End: Bold BS4 Pricing Table Style 55 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-{%endblock%}
+                </div>
+                </div>
+                {% endfor %}
+                </div>
+                </div>
+
+                <!-- End: Bold BS4 Pricing Table Style 55 -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+                {%endblock%}
