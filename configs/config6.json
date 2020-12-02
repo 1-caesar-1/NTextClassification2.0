@@ -2,7 +2,9 @@
     "transformers": [
         "Doc2VecTransfomer()"
     ],
-    "preprocessing": ["lowercase"],
+    "preprocessing": [
+
+    ],
     "language": "English",
     "features_selection": [],
     "measurements": [

@@ -105,8 +105,7 @@ def data_parsing(request):
         elif key == "w2v":
             data["transformers"].append("W2VTransformer()")
         elif key == "d2v":
-            data["transformers"].append("TokenizerTransfomer()")
-            data["transformers"].append("D2VTransformer()")
+            data["transformers"].append("Doc2VecTransfomer()")
         elif key == "Language":
             data["language"] = value
         elif key == "technique":
