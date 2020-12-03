@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block head%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>choose Configuration</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/runFileStyle.min.css') }}"> {%endblock%} {%block content%}
+<!-- Start: Highlight Clean -->
+<div class="highlight-clean">
+    <div class="container">
+        <!-- Start: Intro -->
+        <div class="intro">
+            <h2 class="text-center">choose your form</h2>
+            <p class="text-center">We give to options shit head! first you can make only 1 configuration file like a looser, second option is to make a range of tf or tfidf configurations. <br> common and choose</p>
+        </div>
+        <!-- End: Intro -->
+        <!-- Start: Buttons -->
+
+        <div class="buttons"><a class="btn btn-primary" role="button" href="/form">i am a looser</a><a class="btn btn-light" role="button" href="/rangeForm">i love you</a></div>
+
+        <!-- End: Buttons -->
+    </div>
+</div>
+<!-- End: Highlight Clean -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/runFilescript.min.js') }}"></script>
+{%endblock%}

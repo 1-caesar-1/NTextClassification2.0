@@ -18,10 +18,21 @@ ui = FlaskUI(app)
 ui.fullscreen = True
 ui.maximized = True
 # feed the parameters
-
-
 @app.route("/")
 def index():
+    return render_template("chooseForm.html")
+
+
+@app.route("/rangeForm")
+def range():
+    stylistic = list(initialize_features_dict("en").keys())
+    featurs1 = stylistic[: round(len(stylistic) / 2)]
+    featurs2 = stylistic[round(len(stylistic) / 2) :]
+    return render_template("rangeForm.html", featurs1=featurs1, featurs2=featurs2)
+
+
+@app.route("/form")
+def looser():
     stylistic = list(initialize_features_dict("en").keys())
     featurs1 = stylistic[: round(len(stylistic) / 2)]
     featurs2 = stylistic[round(len(stylistic) / 2) :]

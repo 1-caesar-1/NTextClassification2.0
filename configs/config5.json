@@ -1,8 +1,8 @@
 {
     "transformers": [
-        "Doc2VecTransfomer()"
+        "Word2VecTransfomer()"
     ],
-    "preprocessing": ["lowercase"],
+    "preprocessing": [],
     "language": "English",
     "features_selection": [],
     "measurements": [
