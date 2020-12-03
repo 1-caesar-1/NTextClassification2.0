@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import random
 import sys
@@ -159,11 +160,14 @@ def write_xlsx(data: list, measure: str):
     best.set_font_size(10)
     max_value = (_, _, 0)
     for algo, lst in bests.items():
-        value = sorted(lst, key=lambda x: float(str(x[0]).replace('*', '').replace('V', '')))[-1]
-        worksheet.write(value[1], indexes[algo], value[0], good)
-        if float(str(value[0]).replace('*', '').replace('V', '')) > float(
-                str(max_value[2]).replace('*', '').replace('V', '')):
-            max_value = (value[1], indexes[algo], value[0])
+        if lst:
+            value = \
+                sorted(lst, key=lambda x: float(str(x[0]).replace('*', '').replace('V', '')) if x[0].lower() != 'nan'
+                else -math.inf)[-1]
+            worksheet.write(value[1], indexes[algo], value[0], good)
+            if float(str(value[0]).replace('*', '').replace('V', '')) > float(
+                    str(max_value[2]).replace('*', '').replace('V', '')):
+                max_value = (value[1], indexes[algo], value[0])
     worksheet.write(max_value[0], max_value[1], max_value[2], best)
 
     # enlarge the sizes of the columns
