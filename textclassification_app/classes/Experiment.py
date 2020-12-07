@@ -17,6 +17,7 @@ from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.classes.Doc2VecTransfomer import Doc2VecTransfomer
 from textclassification_app.classes.Word2VecTransfomer import Word2VecTransfomer
 from textclassification_app.classes.ElmoTransfomer import ElmoTransfomer
+from textclassification_app.classes.GloveTransfomer import GloveTransfomer
 from textclassification_app.utils import print_error
 
 # ignore this section
