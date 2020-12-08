@@ -36,15 +36,17 @@ measures = [
     "accuracy_confusion_matrix",
 ]
 # do your logic as usual in Flask
-data = {
-    "transformers": [],
-    "preprocessing": [],
-    "language": "",
-    "features_selection": [],
-    "measurements": [],
-    "classifiers": [],
-    "classification_technique": "",
-}
+def init_data():
+    return {
+        "transformers": [],
+        "preprocessing": [],
+        "language": "",
+        "features_selection": [],
+        "measurements": [],
+        "classifiers": [],
+        "classification_technique": "",
+    }
+
 
 preprocessing = [
     "spelling_correction",
@@ -60,9 +62,64 @@ preprocessing = [
 ]
 
 
+def data_parsing_range(request):
+    parameters = dict(request.form.items())
+
+    stylistic = list(initialize_features_dict("en").keys())
+    for i in range(
+        int(parameters["min_grams"]),
+        int(parameters["max_grams"]),
+        int(parameters["jump_grams"]),
+    ):
+        data = init_data()
+        stylistic_use = []
+        for key, value in parameters.items():
+            if key in classifiers:
+                data["classifiers"].append(key)
+            elif key in preprocessing:
+                data["preprocessing"].append(key)
+            elif key in measures:
+                data["measurements"].append(key)
+            elif key == "selection":
+                data["features_selection"].append(
+                    (selection_type[value], parameters["selection_k"])
+                )
+            elif key == "transfomer":
+                tfidf_parameters["max_features"] = parameters["max"]
+                tfidf_parameters["analyzer"] = "'" + parameters["Analyzer"] + "'"
+                tfidf_parameters["lowercase"] = "False"
+                tfidf_parameters["ngram_range"] = "(" + str(i) + "," + str(i) + ")"
+                tfidf_parameters["use_idf"] = str(value == "tfidf")
+                tfidf_parameters["min_df"] = "3"
+                temp = ["=".join(i) for i in tfidf_parameters.items()]
+                temp = ",".join(temp)
+                text = "TfidfVectorizer(" + temp + ")"
+                data["transformers"].append(text)
+
+            elif key == "w2v":
+                data["transformers"].append("W2VTransformer()")
+            elif key == "d2v":
+                data["transformers"].append("Doc2VecTransfomer()")
+            elif key == "Language":
+                data["language"] = value
+            elif key == "technique":
+                data["classification_technique"] = value + "()"
+            elif key in stylistic:
+                stylistic_use.append(key)
+        if stylistic_use:
+            data["transformers"].append(
+                "StylisticFeatures('"
+                + "','".join(stylistic_use)
+                + ",language='"
+                + data["language"]
+                + "')"
+            )
+        write_file(data)
+
+
 def data_parsing(request):
     parameters = dict(request.form.items())
-    print(parameters)
+    data = init_data()
     stylistic = list(initialize_features_dict("en").keys())
     stylistic_use = []
     for key, value in parameters.items():
@@ -112,13 +169,18 @@ def data_parsing(request):
             data["classification_technique"] = value + "()"
         elif key in stylistic:
             stylistic_use.append(key)
-    data["transformers"].append(
-        "StylisticFeatures('"
-        + "','".join(stylistic_use)
-        + ",language='"
-        + data["language"]
-        + "')"
-    )
+    if stylistic_use:
+        data["transformers"].append(
+            "StylisticFeatures('"
+            + "','".join(stylistic_use)
+            + ",language='"
+            + data["language"]
+            + "')"
+        )
+    write_file(data)
+
+
+def write_file(data: dict):
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
 
     if not exists(parent_dir):
@@ -131,7 +193,6 @@ def data_parsing(request):
         f.write(json.dumps(dic, indent=4))
     with open(os.path.join(parent_dir, "config" + str(counter) + ".json"), "w") as f:
         f.write(json.dumps(data, indent=4))
-    print(data)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from flask import Flask, request, url_for, redirect
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
-from configuration_form.write_file import data_parsing
+from configuration_form.write_file import data_parsing, data_parsing_range
 import os
 from xlsx2html import xlsx2html
 import json
@@ -39,9 +39,12 @@ def looser():
     return render_template("form.html", featurs1=featurs1, featurs2=featurs2)
 
 
-@app.route("/data", methods=["POST"])
-def get_data():
-    data_parsing(request)
+@app.route("/data/<range>", methods=["POST"])
+def get_data(range):
+    if range == "false":
+        data_parsing(request)
+    elif range == "true":
+        data_parsing_range(request)
     return render_template("runFile.html")
 
 
