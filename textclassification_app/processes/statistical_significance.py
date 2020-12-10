@@ -46,9 +46,9 @@ def corrected_paired_students_ttest(new_score, baseline_score, k_fold, sig_level
     return differences_significance
 
 
-def differences_significance(results, measure, k_folds, significance_level=0.05):
+def differences_significance(results, measure, k_folds, language, significance_level=0.05):
     # load the baseline file if exist
-    dir = os.path.join(Path(__file__).parent.parent.parent, "results", "baseline")
+    dir = os.path.join(Path(__file__).parent.parent.parent, "results", "baseline", language)
     if not os.listdir(dir):
         return ""
     baseline = sorted(Path(dir).iterdir(), key=os.path.getmtime)[-1].name
@@ -69,25 +69,6 @@ def differences_significance(results, measure, k_folds, significance_level=0.05)
 
     # return the corrected paired students T-test
     return corrected_paired_students_ttest(results, baseline, k_folds, significance_level)
-
-    # if baseline_path == "":
-    #     return ""
-    #
-    # if path.isdir(baseline_path):
-    #     files = list(sorted(Path(baseline_path).iterdir(), key=os.path.getmtime))
-    #     baseline_path = baseline_path + "\\" + files[-1].name
-    #
-    # with open(baseline_path, "r", encoding="utf8", errors="replace") as f:
-    #     baseline = json.load(f)
-    #
-    # if len(baseline["best_score"][measure]) != len(results):
-    #     raise Exception("Results with different lengths cannot be compared to the baseline")
-    #
-    # results = [x * 100 for x in results] if np.mean(results) < 1 else results
-    # baseline = [x * 100 for x in baseline["best_score"][measure]] if np.mean(baseline["best_score"][measure]) < 1 else \
-    # baseline["best_score"][measure]
-    #
-    # return corrected_paired_students_ttest(results, baseline, k_folds, significance_level)
 
 
 if __name__ == "__main__":

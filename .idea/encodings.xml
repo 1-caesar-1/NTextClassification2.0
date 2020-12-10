@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/results/baseline/english/baseline.json" charset="windows-1255" />
+    <file url="file://$PROJECT_DIR$/results/baseline/hebrew/baseline.json" charset="windows-1255" />
     <file url="file://$PROJECT_DIR$/textclassification_app/classes/BertTransformer.py" charset="windows-1255" />
   </component>
 </project>

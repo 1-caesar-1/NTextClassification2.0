@@ -143,7 +143,8 @@ def write_xlsx(data: list, measure: str):
             k_folds = eval(experiment["classification_technique"]).k_fold if "CrossValidation" in experiment[
                 "classification_technique"] else 1
             if k_folds > 1:
-                value = str(float("{0:.4g}".format(value))) + differences_significance(arr, measure, k_folds)
+                value = str(float("{0:.4g}".format(value))) + differences_significance(arr, measure, k_folds,
+                                                                                       experiment["language"])
                 worksheet.write(row, indexes[algo], value, centralized)
             else:
                 worksheet.write_number(row, indexes[algo], float("{0:.4g}".format(value)), centralized)
