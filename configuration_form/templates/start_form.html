@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block head%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Configuration form</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.min.css') }}"> {%endblock%} {% block content %}
+<!-- Start: Multi step form  ?h=0dcf683c154a4afab54e605136a942cb-->
+<section>
+    <div id="multple-step-form-n" class="container overflow-hidden" style="margin-top: 0px;margin-bottom: 10px;padding-bottom: 300px;padding-top: 57px;">
+        <div id="progress-bar-button" class="multisteps-form">
+            <div class="row">
+                <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                    <div class="multisteps-form__progress">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="multistep-start-row" class="row">
+            <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
+                <form id="main-form" class="multisteps-form__form" action="/start" method="post">
+                    <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                        <h3 class="text-center multisteps-form__title">Let's start<br></h3>
+                        <div id="form-content" class="multisteps-form__content">
+                            <div id="input-grp-double" class="form-row mt-4">
+                                <div class="col-12 col-sm-6">
+                                    <h6>Language:</h6>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="Language" checked="true" value="English"><label class="form-check-label" for="formCheck-1">English</label>
+                                    </div>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="Language" value="Hebrew"><label class="
+                                                                                                form-check-label" for="formCheck-2">Hebrew</label>
+                                    </div>
+
+                                    <h6>Classification Technique:</h6>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-8" name="technique" value="TrainTest"><label class="form-check-label" for="formCheck-8">Train
+                                                                                        Test Split<br></label>
+                                    </div>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-5" name="technique" checked="true" value="CrossValidation"><label class="form-check-label" for="formCheck-5">Cross
+                                                                                        Validation<br></label>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="next-button" class="button-row d-flex mt-4">
+                                <button class="btn btn btn-primary ml-auto" type="submit" title="Next">start</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End: Multi step form ?h=22d36255dcb2da6f47a2500ae6a13554-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.min.js') }}"></script>
+{%endblock%}

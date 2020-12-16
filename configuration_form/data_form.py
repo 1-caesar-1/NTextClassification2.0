@@ -1,7 +1,7 @@
 from flask import Flask, request, url_for, redirect
 from flaskwebgui import FlaskUI  # get the FlaskUI class
 from flask import render_template
-from configuration_form.write_file import data_parsing, data_parsing_range
+from configuration_form.parse_data import data_parsing, data_parsing_range, init_data
 import os
 from xlsx2html import xlsx2html
 import json
@@ -9,6 +9,7 @@ from os.path import dirname, abspath, exists
 import shutil
 from textclassification_app.main import main
 from textclassification_app.classes.StylisticFeatures import initialize_features_dict
+from textclassification_app.classes.ConfigJson import ConfigJson
 
 
 app = Flask(__name__)
@@ -17,15 +18,27 @@ app = Flask(__name__)
 ui = FlaskUI(app)
 ui.fullscreen = True
 ui.maximized = True
+data = ConfigJson()
 # feed the parameters
 @app.route("/")
 def index():
+    return render_template("start_form.html")
+
+
+@app.route("/start", methods=["POST"])
+def start_form():
+    global data
+    data = init_data(request)
     return render_template("chooseForm.html")
 
 
 @app.route("/rangeForm")
 def range():
-    stylistic = list(initialize_features_dict("en").keys())
+    stylistic = []
+    if data.language == "English":
+        stylistic = list(initialize_features_dict("en").keys())
+    else:
+        stylistic = list(initialize_features_dict("he").keys())
     featurs1 = stylistic[: round(len(stylistic) / 2)]
     featurs2 = stylistic[round(len(stylistic) / 2) :]
     return render_template("rangeForm.html", featurs1=featurs1, featurs2=featurs2)
@@ -33,7 +46,11 @@ def range():
 
 @app.route("/form")
 def looser():
-    stylistic = list(initialize_features_dict("en").keys())
+    stylistic = []
+    if data.language == "English":
+        stylistic = list(initialize_features_dict("en").keys())
+    else:
+        stylistic = list(initialize_features_dict("he").keys())
     featurs1 = stylistic[: round(len(stylistic) / 2)]
     featurs2 = stylistic[round(len(stylistic) / 2) :]
     return render_template("form.html", featurs1=featurs1, featurs2=featurs2)
@@ -42,7 +59,7 @@ def looser():
 @app.route("/data/<range>", methods=["POST"])
 def get_data(range):
     if range == "false":
-        data_parsing(request)
+        data_parsing(request, data)
     elif range == "true":
         data_parsing_range(request)
     return render_template("runFile.html")
@@ -52,7 +69,7 @@ def get_data(range):
 def run_file():
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
-    return render_template("form.html")
+    return redirect("/results")
 
 
 @app.route("/runFiles")
