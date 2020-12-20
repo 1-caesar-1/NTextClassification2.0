@@ -92,7 +92,10 @@ def classify_using_cv(experiment: Experiment):
         pipeline = experiment.get_pipeline(clf)
 
         # run the number of iteration
-        for _ in range(experiment.classification_technique.iteration):
+        for i in range(experiment.classification_technique.iteration):
+            print_message("Iteration " + str(i + 1) + " from " + str(experiment.classification_technique.iteration) +
+                          " of " + experiment.experiment_name, num_tabs=2)
+
             # create list of scorers
             scoring = [measures[m] for m in experiment.measurements]
 

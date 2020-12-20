@@ -1,6 +1,5 @@
 import json
 
-
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_selection import SelectKBest
@@ -12,12 +11,12 @@ from sklearn.svm import LinearSVC
 
 from textclassification_app.classes.BertTransformer import BertTransformer
 from textclassification_app.classes.CrossValidation import CrossValidation
-from textclassification_app.classes.StylisticFeatures import StylisticFeatures
-from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.classes.Doc2VecTransfomer import Doc2VecTransfomer
-from textclassification_app.classes.Word2VecTransfomer import Word2VecTransfomer
 from textclassification_app.classes.ElmoTransfomer import ElmoTransfomer
 from textclassification_app.classes.GloveTransfomer import GloveTransfomer
+from textclassification_app.classes.StylisticFeatures import StylisticFeatures
+from textclassification_app.classes.TrainTest import TrainTest
+from textclassification_app.classes.Word2VecTransfomer import Word2VecTransfomer
 from textclassification_app.utils import print_error
 
 # ignore this section
@@ -29,6 +28,8 @@ _ = [
     Doc2VecTransfomer,
     Word2VecTransfomer,
     BertTransformer,
+    ElmoTransfomer,
+    GloveTransfomer
 ]
 
 classifiers_objects = {
@@ -161,8 +162,8 @@ class Experiment:
                     + ": "
                     + classifier
                     + " is not a recognized "
-                    "abbreviation of a "
-                    "classifier",
+                      "abbreviation of a "
+                      "classifier",
                     num_tabs=1,
                 )
 
@@ -188,8 +189,8 @@ class Experiment:
     def __str__(self):
         result = self.experiment_name + ": "
         result += (
-            str(len(self.features_extraction_transformers.transformer_list))
-            + " transformer, "
+                str(len(self.features_extraction_transformers.transformer_list))
+                + " transformer, "
         )
         result += str(len(self.classifiers)) + " classifiers, "
         result += str(self.features_selection) if self.features_selection else "no"
