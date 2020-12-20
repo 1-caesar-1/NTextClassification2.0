@@ -1,7 +1,6 @@
-import numpy as np
-import spacy
-from sklearn.base import BaseEstimator, TransformerMixin
 import en_core_web_md
+import numpy as np
+from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class GloveTransfomer(BaseEstimator, TransformerMixin):
