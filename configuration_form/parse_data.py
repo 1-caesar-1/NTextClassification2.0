@@ -9,15 +9,6 @@ from textclassification_app.classes.ConfigJson import ConfigJson
 classifiers = ["mlp", "svc", "rf", "lr", "mnb"]
 
 
-tfidf_parameters = {
-    "max_features": 1,
-    "analyzer": 2,
-    "lowercase": 3,
-    "ngram_range": 4,
-    "use_idf": 5,
-    "min_df": 6,
-}
-
 selection_type = {
     "chi2": "chi2",
     "mir": "mutual_info_regression",
@@ -107,12 +98,12 @@ def data_parsing_range(request, new_data):
 def data_parsing(request, new_data):
     parameters = dict(request.form.items())
     new_data
-    lang = ""
+    stylistic = []
     if new_data.language == "English":
-        lang = "en"
+        stylistic = list(initialize_features_dict("en").keys())
     else:
-        lang = "he"
-    stylistic = list(initialize_features_dict(lang).keys())
+        stylistic = list(initialize_features_dict("he").keys())
+
     stylistic_use = []
     for key, value in parameters.items():
         if key in classifiers:
@@ -149,21 +140,6 @@ def data_parsing(request, new_data):
     if stylistic_use:
         new_data.add_stylistic(stylistic_use)
     new_data.write_to_file()
-
-
-def write_file(data: dict):
-    parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
-
-    if not exists(parent_dir):
-        mkdir(parent_dir)
-    with open(os.path.join(parent_dir, "info.json"), "r") as f:
-        dic = json.load(f)
-    dic["counter"] = dic["counter"] + 1
-    counter = dic["counter"]
-    with open(os.path.join(parent_dir, "info.json"), "w") as f:
-        f.write(json.dumps(dic, indent=4))
-    with open(os.path.join(parent_dir, "config" + str(counter) + ".json"), "w") as f:
-        f.write(json.dumps(data, indent=4))
 
 
 if __name__ == "__main__":

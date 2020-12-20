@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block head%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Run Configuration</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Upload-Form.css') }}"> {%endblock%} {%block content%}
+<!-- Start: Highlight Clean -->
+<section>
+    <div id="multple-step-form-n" class="container overflow-hidden" style="margin-top: 0px;margin-bottom: 10px;padding-bottom: 300px;padding-top: 57px;">
+        <div id="progress-bar-button" class="multisteps-form">
+            <div class="row">
+                <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                    <div class="multisteps-form__progress">
+                        <h3 class="text-center multisteps-form__title">Let's Upload<br></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="multistep-start-row" class="row">
+            <div id="multistep-start-column" class="col-12 col-lg-8 m-auto">
+                <form id="main-form" class="multisteps-form__form" action="/upload_data" method="post">
+                    <div id="single-form-next" class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+
+                        <div id="form-content" class="multisteps-form__content">
+
+                            <div id="input-grp-double" class="form-row mt-4">
+                                <div class="dashed_upload">
+                                    <div class="wrapper">
+                                        <div class="drop">
+                                            <div class="cont">
+                                                <i class="fa fa-cloud-upload"></i>
+                                                <div class="tit">
+                                                    Drag & Drop
+                                                </div>
+                                                <div class="desc">
+                                                    or
+                                                </div>
+                                                <div class="browse">
+                                                    click here to browse
+                                                </div>
+                                            </div>
+                                            <output id="list"></output><input id="files" multiple name="files[]" type="file" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="input-grp-double" class="form-row mt-4">
+                                <div class="col-12 col-sm-6">
+                                    <h6>Language:</h6>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="Language" checked="true" value="English"><label class="form-check-label" for="formCheck-1">English</label>
+                                    </div>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="Language" value="Hebrew"><label class="
+                                                                                                form-check-label" for="formCheck-2">Hebrew</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <h6>Type:</h6>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="File" checked="true" value="data"><label class="form-check-label" for="formCheck-1">Data</label>
+                                    </div>
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="File" value="config"><label class="
+                                                                                                form-check-label" for="formCheck-2">Config</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="next-button" class="button-row d-flex mt-4">
+                                <button class="btn btn btn-primary ml-auto" type="submit" title="Next">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End: Highlight Clean -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/runFilescript.min.js') }}"></script>
+{%endblock%}

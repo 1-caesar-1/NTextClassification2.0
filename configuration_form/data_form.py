@@ -61,7 +61,7 @@ def get_data(range):
     if range == "false":
         data_parsing(request, data)
     elif range == "true":
-        data_parsing_range(request)
+        data_parsing_range(request, data)
     return render_template("runFile.html")
 
 
@@ -70,6 +70,16 @@ def run_file():
     parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
     main(parent_dir)
     return redirect("/results")
+
+
+@app.route("/upload")
+def upload_form():
+    return render_template("upload.html")
+
+
+@app.route("/upload_data")
+def upload():
+    return render_template("upload.html")
 
 
 @app.route("/runFiles")

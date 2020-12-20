@@ -6,14 +6,27 @@ import os
 
 
 class ConfigJson:
-    def __init__(self, language=None, technique=""):
-        self.language = language
-        self.transformers = []
-        self.preprocessing = []
-        self.features_selection = []
-        self.measurements = []
-        self.classifiers = []
-        self.classification_technique = technique + "()"
+    def __init__(self, language=None, technique=None, path=None):
+        if not path and not technique and not language:
+            pass
+        elif path:
+            with open(path, mode="r") as f:
+                dic = json.load(f)
+            self.language = dic["language"]
+            self.transformers = dic["transformers"]
+            self.preprocessing = dic["preprocessing"]
+            self.features_selection = dic["features_selection"]
+            self.measurements = dic["measurements"]
+            self.classifiers = dic["classifiers"]
+            self.classification_technique = dic["classification_technique"]
+        elif not path and language and technique:
+            self.language = language
+            self.transformers = []
+            self.preprocessing = []
+            self.features_selection = []
+            self.measurements = []
+            self.classifiers = []
+            self.classification_technique = technique + "()"
 
     def add_tfidf(
         self, use_idf: bool, max_features, analyzer, ngram, min_df=3, lowercase=False
@@ -45,6 +58,17 @@ class ConfigJson:
             + self.language
             + "')"
         )
+
+    def read_from_file(self, path):
+        with open(path, mode="r") as f:
+            dic = json.load(f)
+        self.language = dic["language"]
+        self.transformers = dic["transformers"]
+        self.preprocessing = dic["preprocessing"]
+        self.features_selection = dic["features_selection"]
+        self.measurements = dic["measurements"]
+        self.classifiers = dic["classifiers"]
+        self.classification_technique = dic["classification_technique"]
 
     def add_transfomer(self, transfomer):
         self.transformers.append(transfomer)
