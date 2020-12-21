@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block head%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Run Configuration</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"> {%endblock%} {%block content%}
+<!-- Start: Highlight Clean -->
+<div class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue" id="About" style="height: 500px;background-color: rgba(255,255,255,0.9);">
+    <div class="container">
+        <!-- Start: Intro -->
+        <div class="intro">
+            <h2 class="text-center" style="color: #172f76;">ABOUT US</h2>
+            <hr style="height: 2px;color: #214a80;background-color: #172f76;">
+            <p class="text-center" style="color: #172f76;font-family: Muli, sans-serif;">In this app you will be able to load your DB and create ML moudules to learn and classify based on your own db.<br><br>You can create configuration files based on your needs an you can run and see the resulets.<br><br> dont wait go ahead and
+                build your ML moudule</p>
+        </div>
+        <!-- End: Intro -->
+        <!-- Start: Buttons -->
+        <div class="buttons"><a class="btn text-capitalize" role="button" href="#" style="background-color: #172f76;color: #ffffff;font-family: Muli, sans-serif;font-weight: 300;font-size: 15px;"><strong>This does nothing</strong><br></a></div>
+        <!-- End: Buttons -->
+    </div>
+</div>
+<!-- End: DA
+<!-- End: Highlight Clean -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/runFilescript.min.js') }}"></script>
+{%endblock%}

@@ -22,7 +22,14 @@ data = ConfigJson()
 # feed the parameters
 @app.route("/")
 def index():
-    return render_template("start_form.html")
+    return render_template("home.html")
+
+
+@app.route("/start_config", methods=["POST"])
+def start_config():
+    global data
+    data = init_data(request)
+    return render_template("chooseForm.html")
 
 
 @app.route("/start", methods=["POST"])
