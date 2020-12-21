@@ -7,6 +7,7 @@ from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
 from textclassification_app.processes.results_handling import save_experiment_results, write_all_experiments
+from textclassification_app.processes.send_results import send_results_by_email
 from textclassification_app.utils import print_title, print_message
 
 
@@ -62,6 +63,7 @@ def main(config_path, max_threads=None):
 
     # write all the experiments results into Excel file
     write_all_experiments()
+    send_results_by_email(['natanmanor@gmail.com', 'mmgoldmeier@gmail.com'])
 
     print_title("Done!")
 
