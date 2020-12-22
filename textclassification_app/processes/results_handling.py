@@ -88,9 +88,9 @@ def write_xlsx(data: list, measure: str):
     sizes = {1: [len("Language")], 2: [len("Features types")], 3: [len("Features selectors")],
              4: [len("Pre-processing")], 5: [len("Technique")]}
     bests = {"MLPClassifier": [], "LinearSVC": [], "LogisticRegression": [], "RandomForestClassifier": [],
-             "MultinomialNB": []}
+             "MultinomialNB": [], "SVC": []}
     indexes = {"MLPClassifier": 6, "LinearSVC": 7, "LogisticRegression": 8, "RandomForestClassifier": 9,
-               "MultinomialNB": 10}
+               "MultinomialNB": 10, "SVC": 7}
     row = 15
     for experiment, results in data:
         worksheet.write_number(row, 0, experiment["num_of_features"], centralized)
