@@ -1,6 +1,6 @@
 {
   "transformers": [
-    "BertTransformer()"
+    "StylisticFeatures('acf', 'aof', 'caf', 'e50th', 'fdf', 'frc', 'huf', 'mef', 'vof', language='Hebrew')"
   ],
   "preprocessing": [
     "lowercase"
@@ -11,7 +11,7 @@
     "accuracy_score"
   ],
   "classifiers": [
-    "mlp"
+    "svc"
   ],
   "classification_technique": "CrossValidation()"
 }

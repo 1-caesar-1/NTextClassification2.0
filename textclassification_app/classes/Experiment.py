@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import FeatureUnion, Pipeline
-from sklearn.svm import LinearSVC
+from sklearn.svm import LinearSVC, SVC
 
 from textclassification_app.classes.BertTransformer import BertTransformer
 from textclassification_app.classes.CrossValidation import CrossValidation
@@ -33,7 +33,7 @@ _ = [
 ]
 
 classifiers_objects = {
-    "svc": LinearSVC(),
+    "svc": SVC(kernel='poly'),
     "rf": RandomForestClassifier(n_jobs=-1),
     "mlp": MLPClassifier(),
     "lr": LogisticRegression(n_jobs=-1),
