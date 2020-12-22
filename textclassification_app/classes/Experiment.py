@@ -104,6 +104,8 @@ class Experiment:
         # create a list of pre-processing functions
         self.preprocessing_functions = []
 
+        from textclassification_app.processes.normalization import lowercase
+        _ = [lowercase]
         for normalization in config["preprocessing"]:
             try:
                 self.preprocessing_functions += [eval(normalization)]

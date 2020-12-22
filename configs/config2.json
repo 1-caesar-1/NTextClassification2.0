@@ -1,0 +1,17 @@
+{
+  "transformers": [
+    "BertTransformer()"
+  ],
+  "preprocessing": [
+    "lowercase"
+  ],
+  "language": "Hebrew",
+  "features_selection": [],
+  "measurements": [
+    "accuracy_score"
+  ],
+  "classifiers": [
+    "mlp"
+  ],
+  "classification_technique": "CrossValidation()"
+}
