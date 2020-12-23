@@ -33,7 +33,7 @@ _ = [
 ]
 
 classifiers_objects = {
-    "svc": SVC(kernel='poly'),
+    "svc": LinearSVC(),
     "rf": RandomForestClassifier(n_jobs=-1),
     "mlp": MLPClassifier(),
     "lr": LogisticRegression(n_jobs=-1),

@@ -1,11 +1,11 @@
 {
   "transformers": [
-    "StylisticFeatures('acf', 'aof', 'caf', 'e50th', 'fdf', 'frc', 'huf', 'mef', 'vof', language='Hebrew')"
+    "StylisticFeatures('vof', 'acf', 'agf', 'anf', 'aof', 'caf', 'e50te', 'frc', 'inf', 'lof', 'nw', 'pnf', 'pw', 'skf', 'slf', 'spe', 'sxf', 'thf', language='English')"
   ],
   "preprocessing": [
     "lowercase"
   ],
-  "language": "Hebrew",
+  "language": "English",
   "features_selection": [],
   "measurements": [
     "accuracy_score"
