@@ -1,17 +1,17 @@
 {
   "transformers": [
-    "StylisticFeatures('vof', 'acf', 'agf', 'anf', 'aof', 'caf', 'e50te', 'frc', 'inf', 'lof', 'nw', 'pnf', 'pw', 'skf', 'slf', 'spe', 'sxf', 'thf', language='English')"
+    "TfidfVectorizer(max_features=100,use_idf=True,analyzer='word',ngram_range=(1,1))"
   ],
   "preprocessing": [
     "lowercase"
   ],
-  "language": "English",
+  "language": "Hebrew",
   "features_selection": [],
   "measurements": [
     "accuracy_score"
   ],
   "classifiers": [
-    "svc"
+    "rnn"
   ],
-  "classification_technique": "CrossValidation()"
+  "classification_technique": "CrossValidation(2, 1)"
 }
