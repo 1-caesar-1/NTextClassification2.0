@@ -5,7 +5,8 @@ from configuration_form.parse_data import data_parsing, data_parsing_range, init
 import os
 from xlsx2html import xlsx2html
 import json
-from os.path import dirname, abspath, exists
+import logging
+from os.path import dirname, abspath, exists, join
 import shutil
 from textclassification_app.main import main
 from textclassification_app.classes.StylisticFeatures import initialize_features_dict
@@ -19,17 +20,16 @@ ui = FlaskUI(app)
 ui.fullscreen = True
 ui.maximized = True
 data = ConfigJson()
+
 # feed the parameters
 @app.route("/")
 def index():
     return render_template("home.html")
 
 
-@app.route("/start_config", methods=["POST"])
+@app.route("/start_config")
 def start_config():
-    global data
-    data = init_data(request)
-    return render_template("chooseForm.html")
+    return render_template("start_form.html")
 
 
 @app.route("/start", methods=["POST"])

@@ -1,0 +1,27 @@
+2020-12-28 14:23:05,257 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-28 14:23:05,641 werkzeug     INFO     127.0.0.1 - - [28/Dec/2020 14:23:05] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-28 14:23:07,512 werkzeug     INFO     127.0.0.1 - - [28/Dec/2020 14:23:07] "[37mGET /runFiles HTTP/1.1[0m" 200 -
+2020-12-28 14:23:08,715 root         INFO     	 >> experiment created - config3: 1 transformer, 5 classifiers, no features selection, using 5 folds X 20 iterations CV in english
+2020-12-28 14:23:08,715 root         INFO     	 >> Total: 1 experiments
+2020-12-28 14:23:08,717 root         INFO     	 >> extracting features for config3
+2020-12-28 14:23:08,788 root         INFO     	 >> classifying config3 using CV
+2020-12-28 14:23:08,788 root         INFO     		 >> Iteration 1 from 20 of config3
+2020-12-28 14:23:10,308 root         INFO     		 >> Iteration 2 from 20 of config3
+2020-12-28 14:23:12,144 root         INFO     		 >> Iteration 3 from 20 of config3
+2020-12-28 14:23:13,329 root         INFO     		 >> Iteration 4 from 20 of config3
+2020-12-28 14:23:14,591 root         INFO     		 >> Iteration 5 from 20 of config3
+2020-12-28 14:23:15,683 root         INFO     		 >> Iteration 6 from 20 of config3
+2020-12-28 14:23:17,107 root         INFO     		 >> Iteration 7 from 20 of config3
+2020-12-28 14:23:18,229 root         INFO     		 >> Iteration 8 from 20 of config3
+2020-12-28 14:23:19,488 root         INFO     		 >> Iteration 9 from 20 of config3
+2020-12-28 14:23:20,600 root         INFO     		 >> Iteration 10 from 20 of config3
+2020-12-28 14:23:22,002 root         INFO     		 >> Iteration 11 from 20 of config3
+2020-12-28 14:23:23,146 root         INFO     		 >> Iteration 12 from 20 of config3
+2020-12-28 14:23:24,446 root         INFO     		 >> Iteration 13 from 20 of config3
+2020-12-28 14:23:25,993 root         INFO     		 >> Iteration 14 from 20 of config3
+2020-12-28 14:23:27,662 root         INFO     		 >> Iteration 15 from 20 of config3
+2020-12-28 14:23:29,038 root         INFO     		 >> Iteration 16 from 20 of config3
+2020-12-28 14:23:30,302 root         INFO     		 >> Iteration 17 from 20 of config3
+2020-12-28 14:23:32,201 root         INFO     		 >> Iteration 18 from 20 of config3
+2020-12-28 14:23:33,844 root         INFO     		 >> Iteration 19 from 20 of config3
+2020-12-28 14:23:35,364 root         INFO     		 >> Iteration 20 from 20 of config3

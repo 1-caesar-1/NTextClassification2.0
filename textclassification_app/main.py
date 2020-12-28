@@ -1,17 +1,37 @@
 import multiprocessing
 import os
+from os.path import dirname, abspath, exists
 import threading
-
+import sys
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
-from textclassification_app.processes.results_handling import save_experiment_results, write_all_experiments
+from textclassification_app.processes.results_handling import (
+    save_experiment_results,
+    write_all_experiments,
+)
 from textclassification_app.processes.send_results import send_results_by_email
 from textclassification_app.utils import print_title, print_message
+import tensorflow as tf
+import logging
+
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)
+
+# logger = tf.get_logger()
+# output_path = os.path.join(
+#    dirname(dirname(abspath(__file__))), "results", "output", "tf.log"
+# )
+
+
+# fh = logging.FileHandler(output_path)
+# formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+# fh.setFormatter(formatter)
+# logger.addHandler(fh)
 
 
 def main(config_path, max_threads=None):
+
     # initialize the semaphore for multi-threading by the number of the cores
     if not max_threads:
         max_threads = multiprocessing.cpu_count()
@@ -63,7 +83,7 @@ def main(config_path, max_threads=None):
 
     # write all the experiments results into Excel file
     write_all_experiments()
-    send_results_by_email(['natanmanor@gmail.com', 'mmgoldmeier@gmail.com'])
+    send_results_by_email(["natanmanor@gmail.com", "mmgoldmeier@gmail.com"])
 
     print_title("Done!")
 
