@@ -88,9 +88,9 @@ def write_xlsx(data: list, measure: str):
     sizes = {1: [len("Language")], 2: [len("Features types")], 3: [len("Features selectors")],
              4: [len("Pre-processing")], 5: [len("Technique")]}
     bests = {"MLPClassifier": [], "LinearSVC": [], "LogisticRegression": [], "RandomForestClassifier": [],
-             "MultinomialNB": []}
+             "MultinomialNB": [], "SVC": [], "RNNClassifier": []}
     indexes = {"MLPClassifier": 6, "LinearSVC": 7, "LogisticRegression": 8, "RandomForestClassifier": 9,
-               "MultinomialNB": 10}
+               "MultinomialNB": 10, "SVC": 7, "RNNClassifier": 9}
     row = 15
     for experiment, results in data:
         worksheet.write_number(row, 0, experiment["num_of_features"], centralized)
@@ -160,14 +160,19 @@ def write_xlsx(data: list, measure: str):
     best.set_align("vcenter")
     best.set_font_size(10)
     max_value = (_, _, 0)
+
+    def convert(x):
+        if str(x).lower() == "nan":
+            return math.nan
+        return float(str(x).replace('*', '').replace('V', ''))
+
     for algo, lst in bests.items():
         if lst:
-            value = \
-                sorted(lst, key=lambda x: float(str(x[0]).replace('*', '').replace('V', '')) if x[0].lower() != 'nan'
-                else -math.inf)[-1]
+            value = sorted(lst, key=lambda x: convert(x[0]))[-1]
             worksheet.write(value[1], indexes[algo], value[0], good)
-            if float(str(value[0]).replace('*', '').replace('V', '')) > float(
-                    str(max_value[2]).replace('*', '').replace('V', '')):
+            current_value_float = convert(value[0])
+            max_value_float = convert(max_value[2])
+            if current_value_float > max_value_float:
                 max_value = (value[1], indexes[algo], value[0])
     worksheet.write(max_value[0], max_value[1], max_value[2], best)
 
@@ -177,7 +182,7 @@ def write_xlsx(data: list, measure: str):
 
     # mark the table
     worksheet.add_table(
-        "A15:K" + str(row),
+        "A15:L" + str(row),
         {
             "columns": [
                 {"header": "Number"},
@@ -190,7 +195,8 @@ def write_xlsx(data: list, measure: str):
                 {"header": "SVC"},
                 {"header": "LR"},
                 {"header": "RF"},
-                {"header": "MNB"}
+                {"header": "MNB"},
+                {"header": "RNN"}
             ],
             "style": "Table Style Light " + str(random.randint(9, 14))
         }

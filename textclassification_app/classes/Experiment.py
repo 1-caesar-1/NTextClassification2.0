@@ -14,6 +14,7 @@ from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.Doc2VecTransfomer import Doc2VecTransfomer
 from textclassification_app.classes.ElmoTransfomer import ElmoTransfomer
 from textclassification_app.classes.GloveTransfomer import GloveTransfomer
+from textclassification_app.classes.RNNClassifier import RNNClassifier
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.classes.Word2VecTransfomer import Word2VecTransfomer
@@ -38,6 +39,7 @@ classifiers_objects = {
     "mlp": MLPClassifier(),
     "lr": LogisticRegression(n_jobs=-1),
     "mnb": MultinomialNB(),
+    "rnn": RNNClassifier()
 }
 
 

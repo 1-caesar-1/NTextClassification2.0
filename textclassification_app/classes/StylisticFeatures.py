@@ -1,5 +1,6 @@
 import re
 
+import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from scipy.sparse import csr_matrix
 from sklearn.base import TransformerMixin, BaseEstimator
@@ -57,6 +58,8 @@ def StylisticFeatures(*names: str, language: str):
     :param language: the language of the repository on which the transformer will run ("hebrew" or "english")
     :return: FeatureUnion of the wanted features
     """
+    nltk.download('vader_lexicon')
+    language = language.lower()
     stylistic_features_dict = initialize_features_dict(language)
     vectorizers = []
 
@@ -88,7 +91,7 @@ def StylisticFeatures(*names: str, language: str):
             vectorizers += [(name, StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
     # return FeatureUnion off all the stylistic features or the stylistic features itself if there is only one
-    return FeatureUnion(vectorizers, n_jobs=-1) if len(vectorizers) > 1 else vectorizers[0][0]
+    return FeatureUnion(vectorizers, n_jobs=-1) if len(vectorizers) > 1 else vectorizers[0][1]
 
 
 def initialize_features_dict(language):

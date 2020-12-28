@@ -1,0 +1,17 @@
+{
+  "transformers": [
+    "TfidfVectorizer(max_features=100,use_idf=True,analyzer='word',ngram_range=(1,1))"
+  ],
+  "preprocessing": [
+    "lowercase"
+  ],
+  "language": "Hebrew",
+  "features_selection": [],
+  "measurements": [
+    "accuracy_score"
+  ],
+  "classifiers": [
+    "rnn"
+  ],
+  "classification_technique": "CrossValidation(2, 1)"
+}
