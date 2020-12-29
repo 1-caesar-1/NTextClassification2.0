@@ -19,12 +19,7 @@ def extract_data(experiment: Experiment):
         if file.endswith(".json") and file != "info.json":
             with open(dir + "\\" + file, "r", encoding="utf8", errors="replace") as f:
                 label = json.load(f)["classification"]
-            with open(
-                dir + "\\" + file.replace(".json", ".txt"),
-                "r",
-                encoding="utf8",
-                errors="replace",
-            ) as f:
+            with open(dir + "\\" + file.replace(".json", ".txt"), "r", encoding="utf8", errors="replace") as f:
                 data = f.read()
 
             docs += [(data, label)]

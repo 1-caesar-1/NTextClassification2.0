@@ -24,7 +24,7 @@ from textclassification_app.classes.stopwords_and_lists import negative_list_heb
     inclusion_expressions_english, power1_expressions_hebrew, power1_expressions_english, power2_expressions_hebrew, \
     power2_expressions_english, power3_expressions_hebrew, power3_expressions_english, powerm1_expressions_hebrew, \
     powerm1_expressions_english, powerm2_expressions_hebrew, powerm2_expressions_english, powerm3_expressions_hebrew, \
-    powerm3_expressions_english, powerm4_expressions_hebrew, powerm4_expressions_english
+    powerm3_expressions_english, powerm4_expressions_hebrew, powerm4_expressions_english, pos, neg
 
 
 def StylisticFeatures(*names: str, language: str):
@@ -167,7 +167,9 @@ def initialize_features_dict(language):
         "e50tte": export_50_terms_trans_en,
         "acf": {"wc", "cc", "sc", "alw", "als", "aws", "awl"},
         "ref": {"dw", "tw", "dh", "dx", "tx"},
-        "wef": {"ww", "owc", "twc", "ttc"}
+        "wef": {"ww", "owc", "twc", "ttc"},
+        "pos1": pos,
+        "neg1": neg
     }
     return stylistic_features_dict
 
