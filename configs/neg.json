@@ -1,9 +1,11 @@
 {
-    "language": "English",
+    "language": "Hebrew",
     "transformers": [
-        "TfidfVectorizer(max_features=100,analyzer='word',lowercase=False,ngram_range=(100,100),use_idf=False,min_df=3)"
+        "StylisticFeatures('neg1',language='Hebrew')"
     ],
-    "preprocessing": [],
+    "preprocessing": [
+        "lowercase"
+    ],
     "features_selection": [],
     "measurements": [
         "accuracy_score"

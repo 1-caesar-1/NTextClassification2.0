@@ -1,0 +1,21 @@
+{
+    "language": "Hebrew",
+    "transformers": [
+        "StylisticFeatures('pos1',language='Hebrew')"
+    ],
+    "preprocessing": [
+        "lowercase"
+    ],
+    "features_selection": [],
+    "measurements": [
+        "accuracy_score"
+    ],
+    "classifiers": [
+        "mlp",
+        "svc",
+        "lr",
+        "rf",
+        "mnb"
+    ],
+    "classification_technique": "CrossValidation()"
+}
