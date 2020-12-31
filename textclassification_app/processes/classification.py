@@ -93,7 +93,7 @@ def classify_using_cv(experiment: Experiment):
 
         # run the number of iteration
         for i in range(experiment.classification_technique.iteration):
-            print_message("Iteration " + str(i + 1) + " from " + str(experiment.classification_technique.iteration) +
+            print_message(type(clf).__name__ + ": Iteration " + str(i + 1) + " from " + str(experiment.classification_technique.iteration) +
                           " of " + experiment.experiment_name, num_tabs=2)
 
             # create list of scorers
