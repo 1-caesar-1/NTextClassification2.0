@@ -1,7 +1,7 @@
 {
     "language": "Hebrew",
     "transformers": [
-        "StylisticFeatures('pos1','neg1',language='Hebrew')"
+        "StylisticFeatures('e50th','huf','vof','anf','caf','mef','aof','ftf','acf','nw','def','pw',language='Hebrew')"
     ],
     "preprocessing": [
         "lowercase"
