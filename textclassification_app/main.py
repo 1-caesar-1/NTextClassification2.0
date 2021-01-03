@@ -16,19 +16,6 @@ from textclassification_app.utils import print_title, print_message
 import tensorflow as tf
 import logging
 
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)
-
-# logger = tf.get_logger()
-# output_path = os.path.join(
-#    dirname(dirname(abspath(__file__))), "results", "output", "tf.log"
-# )
-
-
-# fh = logging.FileHandler(output_path)
-# formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
-# fh.setFormatter(formatter)
-# logger.addHandler(fh)
-
 
 def main(config_path, max_threads=None):
 

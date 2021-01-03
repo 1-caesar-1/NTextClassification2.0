@@ -1,26 +1,14 @@
-2020-12-28 14:23:05,257 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-2020-12-28 14:23:05,641 werkzeug     INFO     127.0.0.1 - - [28/Dec/2020 14:23:05] "[37mGET / HTTP/1.1[0m" 200 -
-2020-12-28 14:23:07,512 werkzeug     INFO     127.0.0.1 - - [28/Dec/2020 14:23:07] "[37mGET /runFiles HTTP/1.1[0m" 200 -
-2020-12-29 12:23:20,452 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-2020-12-29 12:23:20,851 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:23:20] "[37mGET / HTTP/1.1[0m" 200 -
-2020-12-29 12:23:25,032 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:23:25] "[37mGET /start_config HTTP/1.1[0m" 200 -
-2020-12-29 12:23:25,071 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:23:25] "[37mGET /static/css/styles.min.css HTTP/1.1[0m" 200 -
-2020-12-29 12:23:25,073 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:23:25] "[37mGET /static/js/script.min.js HTTP/1.1[0m" 200 -
-2020-12-29 12:24:27,354 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:24:27] "[37mPOST /start HTTP/1.1[0m" 200 -
-2020-12-29 12:24:27,442 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:24:27] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
-2020-12-29 12:24:38,167 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:24:38] "[37mGET /form HTTP/1.1[0m" 200 -
-2020-12-29 12:29:39,893 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:29:39] "[37mGET /start_config HTTP/1.1[0m" 200 -
-2020-12-29 12:29:49,071 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:29:49] "[37mPOST /start HTTP/1.1[0m" 200 -
-2020-12-29 12:29:57,687 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:29:57] "[37mGET /form HTTP/1.1[0m" 200 -
-2020-12-29 12:33:30,624 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 12:33:30] "[37mPOST /data/false HTTP/1.1[0m" 200 -
-2020-12-29 21:05:10,732 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-2020-12-29 21:05:13,602 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:13] "[37mGET / HTTP/1.1[0m" 200 -
-2020-12-29 21:05:13,682 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:13] "[36mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 304 -
-2020-12-29 21:05:14,143 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-2020-12-29 21:05:19,853 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:19] "[37mGET /start_config HTTP/1.1[0m" 200 -
-2020-12-29 21:05:19,878 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:19] "[36mGET /static/js/script.min.js HTTP/1.1[0m" 304 -
-2020-12-29 21:05:19,885 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:19] "[36mGET /static/css/styles.min.css HTTP/1.1[0m" 304 -
-2020-12-29 21:05:22,935 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:22] "[37mPOST /start HTTP/1.1[0m" 200 -
-2020-12-29 21:05:22,983 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:22] "[36mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 304 -
-2020-12-29 21:05:24,816 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:24] "[37mGET /form HTTP/1.1[0m" 200 -
-2020-12-29 21:05:51,495 werkzeug     INFO     127.0.0.1 - - [29/Dec/2020 21:05:51] "[37mPOST /data/false HTTP/1.1[0m" 200 -
+2020-12-31 11:53:08,175 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-31 11:53:08,626 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 11:53:08] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-31 11:53:21,730 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 11:53:21] "[37mGET /runFiles HTTP/1.1[0m" 200 -
+2020-12-31 11:54:54,118 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-31 11:54:54,602 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 11:54:54] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-31 11:55:08,750 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 11:55:08] "[37mGET /runFiles HTTP/1.1[0m" 200 -
+2020-12-31 12:01:30,218 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-31 12:01:30,657 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 12:01:30] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-31 12:06:36,868 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-31 12:06:37,246 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 12:06:37] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-31 12:06:50,031 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 12:06:50] "[37mGET /runFiles HTTP/1.1[0m" 200 -
+2020-12-31 12:09:45,480 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-31 12:09:45,858 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 12:09:45] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-31 12:09:51,064 werkzeug     INFO     127.0.0.1 - - [31/Dec/2020 12:09:51] "[37mGET /runFiles HTTP/1.1[0m" 200 -
