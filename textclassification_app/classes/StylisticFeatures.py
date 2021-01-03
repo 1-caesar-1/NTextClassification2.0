@@ -178,7 +178,6 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
     def __init__(self, featurizers, feature, language):
         self.language = language
         self.featurizers = featurizers
-        self.feature_name = feature
 
     def fit(self, X, y=None):
         """All SciKit-Learn compatible transformers and classifiers have the
@@ -196,7 +195,7 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
     def get_feature_names(self):
         """Array mapping from feature integer indices to feature name"""
         if isinstance(self.featurizers, list):
-            return [self.feature_name]
+            return self.featurizers
         return self.featurizers("get feature names", self.language)
 
 

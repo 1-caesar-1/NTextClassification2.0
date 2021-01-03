@@ -26,7 +26,7 @@ def save_experiment_results(experiment: Experiment):
     content = {"config": experiment.general_data, "results": experiment.classification_results}
     parent_folder = os.path.join(Path(__file__).parent.parent.parent, "results", "json")
     path = os.path.join(parent_folder, experiment.experiment_name + " results" + ".json")
-    with open(path, "w", encoding="utf8", errors="replace") as f:
+    with open(path, "w+", encoding="utf8", errors="replace") as f:
         json.dump(content, f, indent=4)
 
 
