@@ -41,5 +41,20 @@ def read_json_configs():
     return configs
 
 
+def get_and_increase_info_counter(path: str):
+    # get info path and return the counter after increasing it by 1
+    with open(
+        os.path.join(path, "info.json"), "r", encoding="utf8", errors="replace"
+    ) as f:
+        info = json.load(f)
+    info["counter"] = info["counter"] + 1
+    counter = info["counter"]
+    with open(
+        os.path.join(path, "info.json"), "w", encoding="utf8", errors="replace"
+    ) as f:
+        json.dump(info, f)
+    return counter
+
+
 if __name__ == "__main__":
     read_json_configs()

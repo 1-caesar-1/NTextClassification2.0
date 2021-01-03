@@ -3,6 +3,7 @@ import json
 from os.path import dirname, abspath, exists
 from os import mkdir
 import os
+from textclassification_app.wr_files.r_files import get_and_increase_info_counter
 
 
 class ConfigJson:
@@ -81,13 +82,7 @@ class ConfigJson:
 
         if not exists(parent_dir):
             mkdir(parent_dir)
-        with open(os.path.join(parent_dir, "info.json"), "r") as f:
-            dic = json.load(f)
-
-        dic["counter"] = dic["counter"] + 1
-        counter = dic["counter"]
-        with open(os.path.join(parent_dir, "info.json"), "w") as f:
-            f.write(json.dumps(dic, indent=4))
+        counter = get_and_increase_info_counter(parent_dir)
         with open(
             os.path.join(parent_dir, "config" + str(counter) + ".json"), "w"
         ) as f:

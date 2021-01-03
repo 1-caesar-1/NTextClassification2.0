@@ -12,7 +12,10 @@ from nltk.tokenize import word_tokenize
 import hebrew_tokenizer as ht
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.classes.stopwords_and_lists import hebrew_stopwords
-from textclassification_app.rw_files.r_files import read_json_corpus
+from textclassification_app.rw_files.r_files import (
+    read_json_corpus,
+    get_and_increase_info_counter,
+)
 from textclassification_app.rw_files.w_files import write_json_corpus
 
 
@@ -40,23 +43,7 @@ def normalize(experiment: Experiment):
     )
     path_original = os.path.join(path_parent, "originals")
     if not find_corpus_path(experiment):
-        with open(
-            os.path.join(path_original, "info.json"),
-            "r",
-            encoding="utf8",
-            errors="replace",
-        ) as f:
-            info = json.load(f)
-
-        info["counter"] = info["counter"] + 1
-        counter = info["counter"]
-        with open(
-            os.path.join(path_original, "info.json"),
-            "w",
-            encoding="utf8",
-            errors="replace",
-        ) as f:
-            json.dump(info, f)
+        counter = get_and_increase_info_counter(path_original)
         norm_path = os.path.join(path_parent, "norm" + str(counter))
         os.makedirs(norm_path)
 
