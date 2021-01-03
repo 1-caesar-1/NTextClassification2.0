@@ -11,6 +11,7 @@ import shutil
 from textclassification_app.main import main
 from textclassification_app.classes.StylisticFeatures import initialize_features_dict
 from textclassification_app.classes.ConfigJson import ConfigJson
+from textclassification_app.rw_files.r_files import read_json_configs
 
 
 app = Flask(__name__)
@@ -96,16 +97,7 @@ def runFiles():
 
 @app.route("/showConfigs")
 def configTable():
-    parent_dir = dirname(dirname(abspath(__file__))) + "/configs"
-    configs = []
-    for config in os.listdir(parent_dir):
-        if config != "info.json":
-            with open(
-                os.path.join(parent_dir, config), "r", encoding="utf8", errors="replace"
-            ) as f:
-                con = json.load(f)
-            con["name"] = config.replace(".json", "")
-            configs.append(con)
+    configs = read_json_configs()
     return render_template("configTable.html", configs=configs)
 
 

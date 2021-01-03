@@ -12,6 +12,8 @@ from nltk.tokenize import word_tokenize
 import hebrew_tokenizer as ht
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.classes.stopwords_and_lists import hebrew_stopwords
+from textclassification_app.rw_files.r_files import read_json_corpus
+from textclassification_app.rw_files.w_files import write_json_corpus
 
 
 def find_corpus_path(experiment: Experiment):
@@ -58,27 +60,14 @@ def normalize(experiment: Experiment):
         norm_path = os.path.join(path_parent, "norm" + str(counter))
         os.makedirs(norm_path)
 
-        for file in os.listdir(path_original):
-            if file.endswith(".json") and file != "info.json":
-                shutil.copy(os.path.join(path_original, file), norm_path)
-                txt_file = file.replace("json", "txt")
-                with open(
-                    os.path.join(path_original, txt_file),
-                    "r",
-                    encoding="utf8",
-                    errors="replace",
-                ) as f:
-                    text = f.read()
-                for normalization in experiment.preprocessing_functions:
-                    text = normalization(text, experiment.language)
-                with open(
-                    os.path.join(norm_path, txt_file),
-                    "w",
-                    encoding="utf8",
-                    errors="replace",
-                ) as f:
-                    f.write(text)
-                write_info_file(norm_path, experiment)
+        corpus_files = read_json_corpus(path_original)
+        normelized_corpus_files = []
+        for text, data in corpus_files:
+            for normalization in experiment.preprocessing_functions:
+                text = normalization(text, experiment.language)
+            normelized_corpus_files.append((text, data))
+        write_json_corpus(norm_path, normelized_corpus_files)
+        write_info_file(norm_path, experiment)
 
 
 def write_info_file(norm_path: str, experiment: Experiment):

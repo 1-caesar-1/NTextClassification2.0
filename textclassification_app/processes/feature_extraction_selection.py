@@ -7,6 +7,7 @@ from sklearn import preprocessing
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
+from textclassification_app.rw_files.r_files import read_json_corpus
 
 
 def extract_data(experiment: Experiment):
@@ -14,15 +15,7 @@ def extract_data(experiment: Experiment):
 
     # load all files and labels into docs
     dir = find_corpus_path(experiment)
-    docs = []
-    for file in os.listdir(dir):
-        if file.endswith(".json") and file != "info.json":
-            with open(dir + "\\" + file, "r", encoding="utf8", errors="replace") as f:
-                label = json.load(f)["classification"]
-            with open(dir + "\\" + file.replace(".json", ".txt"), "r", encoding="utf8", errors="replace") as f:
-                data = f.read()
-
-            docs += [(data, label)]
+    docs = read_json_corpus(dir, onlyLabel=True)
 
     # sort all docs and then shuffle them using const seed
     docs.sort(key=lambda doc: doc[0])
