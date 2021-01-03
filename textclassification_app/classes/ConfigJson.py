@@ -3,7 +3,7 @@ import json
 from os.path import dirname, abspath, exists
 from os import mkdir
 import os
-from textclassification_app.wr_files.r_files import get_and_increase_info_counter
+from textclassification_app.rw_files.r_files import get_and_increase_info_counter
 
 
 class ConfigJson:
