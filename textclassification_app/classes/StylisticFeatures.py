@@ -58,7 +58,7 @@ def StylisticFeatures(*names: str, language: str):
     :param language: the language of the repository on which the transformer will run ("hebrew" or "english")
     :return: FeatureUnion of the wanted features
     """
-    nltk.download('vader_lexicon')
+    # nltk.download('vader_lexicon')
     language = language.lower()
     stylistic_features_dict = initialize_features_dict(language)
     vectorizers = []
