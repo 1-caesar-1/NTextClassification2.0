@@ -8,14 +8,14 @@ def read_json_corpus(path: str, onlyLabel: bool = False):
     docs = []
     for file in os.listdir(path):
         if file.endswith(".json") and file != "info.json":
-            with open(dir + "\\" + file, "r", encoding="utf8", errors="replace") as f:
+            with open(path + "\\" + file, "r", encoding="utf8", errors="replace") as f:
                 label = {}
                 if onlyLabel:
                     label = json.load(f)["classification"]
                 else:
                     label = json.load(f)
             with open(
-                dir + "\\" + file.replace(".json", ".txt"),
+                path + "\\" + file.replace(".json", ".txt"),
                 "r",
                 encoding="utf8",
                 errors="replace",

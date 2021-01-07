@@ -21,10 +21,12 @@ dic = {
 
 if __name__ == '__main__':
     top = 15
-    size = 10
-    best_families = ['fdf', 'e50th', 'huf', 'vof', 'anf', 'caf', 'mef', 'aof', 'ftf', 'acf', 'nw', 'def', 'pw', 'xte',
-                     'frc', 'ref', 'vuf', 'sif', 'thf', 'lof', 'pnf', 'agf', 'te', 'slf', 'wef', 'spf', 'inf',
-                     'e50tth'][:top]
+    size = 9
+    # best_families = ['fdf', 'e50th', 'huf', 'vof', 'anf', 'caf', 'mef', 'aof', 'ftf', 'acf', 'nw', 'def', 'pw', 'xte',
+    #                  'frc', 'ref', 'vuf', 'sif', 'thf', 'lof', 'pnf', 'agf', 'te', 'slf', 'wef', 'spf', 'inf',
+    #                  'e50tth'][:top]
+    best_families = ['acf', 'fdf', 'frc', 'vof', 'aof', 'e50th', 'mef', 'caf', 'huf', 'anf', 'pw', 'nw', 'pnf', 'agf',
+                     'wef'][:top]
     for i, comb in enumerate(combinations(best_families, size)):
         features = "StylisticFeatures(" + ",".join(["'" + str(x) + "'" for x in comb]) + ",language='Hebrew')"
         dic["transformers"] = [features]
