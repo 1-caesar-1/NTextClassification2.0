@@ -16,20 +16,36 @@ class RNNClassifier(KerasClassifier):
         self.node = node
 
     def fit(self, x, y, **kwargs):
-        x = x.toarray()[:, :, None]
+        try:
+            x = x.toarray()
+        except Exception as ex:
+            pass
+        x = x[:, :, None]
         self.shape = x.shape[1:]
-        return super(RNNClassifier, self).fit(x, y, **kwargs)
+        return super(RNNClassifier, self).fit(x, y, verbose=1, **kwargs)
 
     def predict(self, x, **kwargs):
-        x = x.toarray()[:, :, None]
+        try:
+            x = x.toarray()
+        except Exception as ex:
+            pass
+        x = x[:, :, None]
         return super(RNNClassifier, self).predict(x, **kwargs)
 
     def predict_proba(self, x, **kwargs):
-        x = x.toarray()[:, :, None]
+        try:
+            x = x.toarray()
+        except Exception as ex:
+            pass
+        x = x[:, :, None]
         return super(RNNClassifier, self).predict_proba(x, **kwargs)
 
     def score(self, x, y, **kwargs):
-        x = x.toarray()[:, :, None]
+        try:
+            x = x.toarray()
+        except Exception as ex:
+            pass
+        x = x[:, :, None]
         return super(RNNClassifier, self).score(x, y, **kwargs)
 
     def __call__(self, *args, **kwargs):

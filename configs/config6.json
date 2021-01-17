@@ -1,7 +1,7 @@
 {
-  "language": "Hebrew",
+  "language": "English",
   "transformers": [
-    "StylisticFeatures('owc',language='Hebrew')"
+    "BertTransformer()"
   ],
   "preprocessing": [
     "lowercase"
@@ -11,7 +11,7 @@
     "accuracy_score"
   ],
   "classifiers": [
-    "rf"
+    "rnn"
   ],
-  "classification_technique": "CrossValidation(5,1)"
+  "classification_technique": "TrainTest()"
 }
