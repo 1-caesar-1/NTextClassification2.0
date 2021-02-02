@@ -1,0 +1,31 @@
+{
+  "config": {
+    "language": "Hebrew",
+    "transformers": [
+      "StylisticFeatures('owc',language='Hebrew')"
+    ],
+    "preprocessing": [
+      "lowercase"
+    ],
+    "features_selection": [],
+    "measurements": [
+      "accuracy_score"
+    ],
+    "classifiers": [
+      "rf"
+    ],
+    "classification_technique": "CrossValidation(5,1)",
+    "num_of_features": 1
+  },
+  "results": {
+    "accuracy_score": {
+      "RandomForestClassifier": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
+}

@@ -58,7 +58,7 @@ def StylisticFeatures(*names: str, language: str):
     :param language: the language of the repository on which the transformer will run ("hebrew" or "english")
     :return: FeatureUnion of the wanted features
     """
-    nltk.download('vader_lexicon')
+    # nltk.download('vader_lexicon')
     language = language.lower()
     stylistic_features_dict = initialize_features_dict(language)
     vectorizers = []
@@ -989,7 +989,7 @@ def words_wealth(data, language):
 
 
 def n_word_in_post(post, num):
-    vec = TfidfVectorizer(min_df=3, ngram_range=(1, 1)).fit([post])
+    vec = TfidfVectorizer(ngram_range=(1, 1)).fit([post])
     bag_of_words = vec.transform([post])
     sum_words = bag_of_words.sum(axis=0)
     words_freq = [(word, sum_words[0, idx]) for word, idx in vec.vocabulary_.items()]

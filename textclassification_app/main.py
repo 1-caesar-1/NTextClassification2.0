@@ -1,8 +1,7 @@
 import multiprocessing
 import os
-from os.path import dirname, abspath, exists
 import threading
-import sys
+
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
@@ -11,10 +10,7 @@ from textclassification_app.processes.results_handling import (
     save_experiment_results,
     write_all_experiments,
 )
-from textclassification_app.processes.send_results import send_results_by_email
 from textclassification_app.utils import print_title, print_message
-import tensorflow as tf
-import logging
 
 
 def main(config_path, max_threads=None):
@@ -29,7 +25,7 @@ def main(config_path, max_threads=None):
     experiments = [
         Experiment(config_path + "\\" + config, config.replace(".json", ""))
         for config in os.listdir(config_path)
-        if config != "info.json"
+        if config.endswith(".json") and config != "info.json"
     ]
     for experiment in experiments:
         print_message("experiment created - " + str(experiment), num_tabs=1)
@@ -44,6 +40,10 @@ def main(config_path, max_threads=None):
         # feature extraction & feature selection
         print_title("Extracting features")
         extract_data(experiment)
+
+        # parameter tuning (for RF only)
+        # print_title("Doing parameter tuning")
+        # parameter_tuning(experiment, "RandomizedSearchCV")
 
         # classification
         print_title("Classifying")
@@ -70,7 +70,7 @@ def main(config_path, max_threads=None):
 
     # write all the experiments results into Excel file
     write_all_experiments()
-    send_results_by_email(["natanmanor@gmail.com", "mmgoldmeier@gmail.com"])
+    # send_results_by_email(["natanmanor@gmail.com", "mmgoldmeier@gmail.com"])
 
     print_title("Done!")
 
