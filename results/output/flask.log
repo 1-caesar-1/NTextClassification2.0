@@ -26,3 +26,9 @@
 2021-01-03 11:22:51,335 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 11:22:51] "[37mGET / HTTP/1.1[0m" 200 -
 2021-01-03 11:22:53,442 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 11:22:53] "[37mGET /showConfigs HTTP/1.1[0m" 200 -
 2021-01-03 11:22:53,497 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 11:22:53] "[37mGET /static/css/tableStyles.min.css HTTP/1.1[0m" 200 -
+2021-01-03 15:49:27,028 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-01-03 15:49:27,404 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 15:49:27] "[37mGET / HTTP/1.1[0m" 200 -
+2021-01-03 15:49:29,956 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 15:49:29] "[37mGET /showConfigs HTTP/1.1[0m" 200 -
+2021-01-03 15:51:18,140 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-01-03 15:51:18,539 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 15:51:18] "[37mGET / HTTP/1.1[0m" 200 -
+2021-01-03 15:51:20,676 werkzeug     INFO     127.0.0.1 - - [03/Jan/2021 15:51:20] "[37mGET /showConfigs HTTP/1.1[0m" 200 -

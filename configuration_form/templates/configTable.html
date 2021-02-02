@@ -8,10 +8,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/tableStyles.min.css') }}"> {%endblock%} {% block content %}
 
 <!-- Start: Bold BS4 Pricing Table Style 55 -->
+
 <div class="container">
     <div class="row">
         {% for config in configs %}
-
         <div class="col-md-6 col-lg-4">
             <div class="pricingTable">
                 <div class="pricingTable-header">
@@ -62,6 +62,15 @@
                 {% endfor %}
                 </div>
                 </div>
+                <button type="button" class="btn btn-primary btn-floating" style="position: fixed;
+                z-index: 3;
+                width: 60px;
+                height: 60px;
+                bottom: 40px;
+                right: 40px;
+                border-radius: 50px;
+                text-align: center;
+                box-shadow: 2px 2px 3px #999;"><i class="fa fa-play" style="color: rgb(255,255,255);"></i></button>
 
                 <!-- End: Bold BS4 Pricing Table Style 55 -->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
