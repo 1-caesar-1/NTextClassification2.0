@@ -13,5 +13,5 @@
   "classifiers": [
     "rnn"
   ],
-  "classification_technique": "TrainTest()"
+  "classification_technique": "CrossValidation()"
 }
