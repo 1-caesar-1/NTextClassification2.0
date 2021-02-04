@@ -81,7 +81,7 @@ def data_parsing_range(request, new_data):
                 data.add_selection(selection_type[value], parameters["selection_k"])
 
             elif key == "transfomer":
-                new_data.add_tfidf(
+                data.add_tfidf(
                     use_idf=value == "tfidf",
                     max_features=parameters["max"],
                     analyzer=parameters["Analyzer"],
