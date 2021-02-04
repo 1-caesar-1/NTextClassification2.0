@@ -43,7 +43,7 @@ class ConfigJson:
         tfidf_parameters["max_features"] = max_features
         tfidf_parameters["analyzer"] = "'" + analyzer + "'"
         tfidf_parameters["lowercase"] = str(lowercase)
-        tfidf_parameters["ngram_range"] = "(" + ngram + "," + ngram + ")"
+        tfidf_parameters["ngram_range"] = "(" + str(ngram) + "," + str(ngram) + ")"
         tfidf_parameters["use_idf"] = str(use_idf)
         tfidf_parameters["min_df"] = str(min_df)
         temp = ["=".join(i) for i in tfidf_parameters.items()]
