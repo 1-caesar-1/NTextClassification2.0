@@ -52,7 +52,9 @@ preprocessing = [
 
 def data_parsing_range(request, new_data):
     parameters = dict(request.form.items())
-    data = ConfigJson(language=new_data.language, technique=new_data.technique)
+    data = ConfigJson(
+        language=new_data.language, technique=new_data.classification_technique
+    )
     stylistic = []
     if new_data.language == "English":
         stylistic = list(initialize_features_dict("en").keys())
@@ -64,7 +66,9 @@ def data_parsing_range(request, new_data):
         int(parameters["max_grams"]),
         int(parameters["jump_grams"]),
     ):
-        data = ConfigJson(language=new_data.language, technique=new_data.technique)
+        data = ConfigJson(
+            language=new_data.language, technique=new_data.classification_technique
+        )
         stylistic_use = []
         for key, value in parameters.items():
             if key in classifiers:
