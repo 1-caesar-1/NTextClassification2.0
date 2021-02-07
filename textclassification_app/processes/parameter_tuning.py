@@ -17,13 +17,14 @@ def grid_search(experiment: Experiment):
     from sklearn.model_selection import GridSearchCV
     # Create the parameter grid based on the results of random search
     param_grid = {
-        "classification__bootstrap": [False],
-        "classification__max_depth": [70],
-        "classification__max_features": ["sqrt"],
-        "classification__min_samples_leaf": [1],
-        "classification__min_samples_split": [4],
-        "classification__n_estimators": [1600]
+      "classification__n_estimators": [1700, 1800, 1900, 2000, 2100],
+      "classification__min_samples_split": [3, 4, 5, 6, 7],
+      "classification__min_samples_leaf": [1, 2, 3, 4, 5],
+      "classification__max_features": ["sqrt"],
+      "classification__max_depth": [95, 100, 105, 110, 115],
+      "classification__bootstrap": [True]
     }
+    print(param_grid)
 
     # for the convenience of reading
     clf = experiment.get_pipeline(experiment.classifiers[0])

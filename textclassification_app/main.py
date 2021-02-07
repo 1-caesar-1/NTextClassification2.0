@@ -4,12 +4,15 @@ import threading
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.processes.bert import run_bert
+from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
+from textclassification_app.processes.parameter_tuning import parameter_tuning
 from textclassification_app.processes.results_handling import (
     save_experiment_results,
     write_all_experiments,
 )
+from textclassification_app.processes.send_results import send_results_by_email
 from textclassification_app.utils import print_title, print_message
 
 
@@ -43,12 +46,12 @@ def main(config_path, max_threads=None):
 
         # parameter tuning (for RF only)
         # print_title("Doing parameter tuning")
-        # parameter_tuning(experiment, "RandomizedSearchCV")
+        # parameter_tuning(experiment, "GridSearchCV")
 
         # classification
         print_title("Classifying")
-        # classify(experiment)
-        run_bert(experiment)
+        classify(experiment)
+        # run_bert(experiment)
 
         # write results
         print_title("Writing results")
@@ -60,18 +63,19 @@ def main(config_path, max_threads=None):
     # run all the experiments in different threads
     threads = []
     for experiment in experiments:
-        thread = threading.Thread(target=run_experiment, args=(experiment,))
-        threads.append(thread)
-        semaphore.acquire()  # start the thread only if the semaphore is available
-        thread.start()
+         thread = threading.Thread(target=run_experiment, args=(experiment,))
+         threads.append(thread)
+         semaphore.acquire()  # start the thread only if the semaphore is available
+         thread.run()
 
     # wait for all threads
     for thread in threads:
         thread.join()
+    #run_experiment(experiments[0])
 
     # write all the experiments results into Excel file
     write_all_experiments()
-    # send_results_by_email(["natanmanor@gmail.com", "mmgoldmeier@gmail.com"])
+    send_results_by_email(["natanmanor@gmail.com", "mmgoldmeier@gmail.com"])
 
     print_title("Done!")
 

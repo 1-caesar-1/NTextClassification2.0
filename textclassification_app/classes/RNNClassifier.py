@@ -9,7 +9,7 @@ class RNNClassifier(KerasClassifier):
     """
 
     def __init__(self, dropout=0.5, hidden_layer=3, node=512, **sk_params):
-        super().__init__(epochs=150, batch_size=10, verbose=0)
+        super().__init__(epochs=5, batch_size=10, verbose=1)
         self.shape = 0
         self.dropout = dropout
         self.hidden_layer = hidden_layer
@@ -22,7 +22,7 @@ class RNNClassifier(KerasClassifier):
             pass
         x = x[:, :, None]
         self.shape = x.shape[1:]
-        return super(RNNClassifier, self).fit(x, y, verbose=1, **kwargs)
+        return super(RNNClassifier, self).fit(x, y, **kwargs)
 
     def predict(self, x, **kwargs):
         try:

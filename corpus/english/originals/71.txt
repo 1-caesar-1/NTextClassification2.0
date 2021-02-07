@@ -1,0 +1,6 @@
+Remove the cylinder from a screen door lock
+There are many videos showing how to remove the cylinder 
+from a
+Locking Handle for a Screen Door,  However, I found the the cam would not turn upwards on my European Profile Cylinder. There are suggestions to use a paperclip, blade or other thin implement.
+But I did not have anything thin enough, so I cut a 100mm length off a small metal self-retracting tape measure and then cut that in half longitudinally. The result is a thin strip of metal 100mm x 5 mm, which has a curve matching the lock cylinder. I was able to slip between the cylinder and lock, then lever the cam up. Be careful as the metal strip was sharp where it was cut.
+Having got the cylinder out, my next problem was that rather than being screwed to the door it was riveted. I used a Dremel type Rotary Tool with a miniature grinding disk to remove the heads of the rivets.
