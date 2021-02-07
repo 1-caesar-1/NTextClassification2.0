@@ -1,7 +1,7 @@
 {
     "language": "English",
     "transformers": [
-        "TfidfVectorizer(max_features=1000,analyzer='word',lowercase=False,ngram_range=(1000,1000),use_idf=True,min_df=1)"
+        "TfidfVectorizer(max_features=1000,analyzer='word',lowercase=False,ngram_range=(1,1),use_idf=True,min_df=3)"
     ],
     "preprocessing": [],
     "features_selection": [],

@@ -61,17 +61,18 @@ def main(config_path, max_threads=None):
         semaphore.release()
 
     # run all the experiments in different threads
-    threads = []
-    for experiment in experiments:
-         thread = threading.Thread(target=run_experiment, args=(experiment,))
-         threads.append(thread)
-         semaphore.acquire()  # start the thread only if the semaphore is available
-         thread.run()
+    #threads = []
+    #for experiment in experiments:
+    #    thread = threading.Thread(target=run_experiment, args=(experiment,))
+    #    threads.append(thread)
+    #    semaphore.acquire()  # start the thread only if the semaphore is available
+    #    thread.run()
 
     # wait for all threads
-    for thread in threads:
-        thread.join()
-    #run_experiment(experiments[0])
+    #for thread in threads:
+    #    thread.join()
+    for experiment in experiments:
+        run_experiment(experiment)
 
     # write all the experiments results into Excel file
     write_all_experiments()
