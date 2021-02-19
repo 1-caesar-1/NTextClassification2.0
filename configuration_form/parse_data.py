@@ -101,7 +101,6 @@ def data_parsing_range(request, new_data):
 
 def data_parsing(request, new_data):
     parameters = dict(request.form.items())
-    new_data
     stylistic = []
     if new_data.language == "English":
         stylistic = list(initialize_features_dict("en").keys())
