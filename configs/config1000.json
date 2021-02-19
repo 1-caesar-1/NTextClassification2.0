@@ -1,0 +1,19 @@
+{
+    "language": "Hebrew",
+    "transformers": [
+        "TfidfVectorizer(max_features=1000,analyzer='word',lowercase=False,ngram_range=(1,1),use_idf=True,min_df=3)"
+    ],
+    "preprocessing": [],
+    "features_selection": [],
+    "measurements": [
+        "accuracy_score"
+    ],
+    "classifiers": [
+        "mlp",
+        "svc",
+        "lr",
+        "rf",
+        "mnb"
+    ],
+    "classification_technique": "TrainTest()"
+}

@@ -43,6 +43,37 @@
 2021-01-17 16:22:56,505 werkzeug     INFO     127.0.0.1 - - [17/Jan/2021 16:22:56] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
 2021-01-17 16:22:58,386 werkzeug     INFO     127.0.0.1 - - [17/Jan/2021 16:22:58] "[37mGET /form HTTP/1.1[0m" 200 -
 2021-01-17 16:23:29,167 werkzeug     INFO     127.0.0.1 - - [17/Jan/2021 16:23:29] "[37mPOST /data/false HTTP/1.1[0m" 200 -
+2021-02-04 09:30:24,750 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-02-04 09:30:26,919 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:26] "[37mGET / HTTP/1.1[0m" 200 -
+2021-02-04 09:30:26,959 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:26] "[37mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 200 -
+2021-02-04 09:30:27,183 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-02-04 09:30:39,409 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:39] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-02-04 09:30:39,442 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:39] "[37mGET /static/js/script.min.js HTTP/1.1[0m" 200 -
+2021-02-04 09:30:39,474 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:39] "[37mGET /static/css/styles.min.css HTTP/1.1[0m" 200 -
+2021-02-04 09:30:54,673 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:54] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-02-04 09:30:54,693 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:30:54] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
+2021-02-04 09:31:00,526 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:31:00] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-02-04 09:32:38,792 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:32:38] "[35m[1mPOST /data/true HTTP/1.1[0m" 500 -
+2021-02-04 09:41:57,774 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-02-04 09:41:59,045 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:41:59] "[37mGET / HTTP/1.1[0m" 200 -
+2021-02-04 09:41:59,061 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:41:59] "[37mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 200 -
+2021-02-04 09:41:59,182 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:41:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-02-04 09:42:08,390 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:08] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-02-04 09:42:08,405 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:08] "[37mGET /static/css/styles.min.css HTTP/1.1[0m" 200 -
+2021-02-04 09:42:08,406 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:08] "[37mGET /static/js/script.min.js HTTP/1.1[0m" 200 -
+2021-02-04 09:42:14,932 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:14] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-02-04 09:42:14,946 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:14] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
+2021-02-04 09:42:17,225 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:17] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-02-04 09:42:53,428 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:42:53] "[35m[1mPOST /data/true HTTP/1.1[0m" 500 -
+2021-02-04 09:47:23,502 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-02-04 09:47:24,758 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:47:24] "[37mGET / HTTP/1.1[0m" 200 -
+2021-02-04 09:47:24,851 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:47:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-02-04 09:47:29,509 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:47:29] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-02-04 09:47:35,530 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:47:35] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-02-04 09:47:37,041 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:47:37] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-02-04 09:48:19,904 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:48:19] "[37mPOST /data/true HTTP/1.1[0m" 200 -
+2021-02-04 09:48:28,675 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:48:28] "[37mGET /showConfigs HTTP/1.1[0m" 200 -
+2021-02-04 09:48:28,689 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 09:48:28] "[37mGET /static/css/tableStyles.min.css HTTP/1.1[0m" 200 -
 2021-02-04 11:54:31,202 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 2021-02-04 11:54:32,430 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 11:54:32] "[37mGET / HTTP/1.1[0m" 200 -
 2021-02-04 11:54:32,744 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 11:54:32] "[37mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 200 -
@@ -53,3 +84,28 @@
 2021-02-04 11:54:41,637 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 11:54:41] "[37mPOST /start HTTP/1.1[0m" 200 -
 2021-02-04 11:54:41,707 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 11:54:41] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
 2021-02-04 11:54:43,871 werkzeug     INFO     127.0.0.1 - - [04/Feb/2021 11:54:43] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-02-07 09:26:27,964 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-02-07 09:26:30,682 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:26:30] "[37mGET / HTTP/1.1[0m" 200 -
+2021-02-07 09:26:30,712 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:26:30] "[36mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 304 -
+2021-02-07 09:26:30,916 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:26:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-02-07 09:27:13,502 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:13] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-02-07 09:27:13,518 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:13] "[36mGET /static/js/script.min.js HTTP/1.1[0m" 304 -
+2021-02-07 09:27:13,529 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:13] "[36mGET /static/css/styles.min.css HTTP/1.1[0m" 304 -
+2021-02-07 09:27:19,397 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:19] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-02-07 09:27:19,419 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:19] "[36mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 304 -
+2021-02-07 09:27:23,090 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:23] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-02-07 09:27:59,737 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:27:59] "[37mPOST /data/true HTTP/1.1[0m" 200 -
+2021-02-07 09:28:03,418 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:28:03] "[37mGET /showConfigs HTTP/1.1[0m" 200 -
+2021-02-07 09:28:03,440 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:28:03] "[36mGET /static/css/tableStyles.min.css HTTP/1.1[0m" 304 -
+2021-02-07 09:36:53,605 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-02-07 09:36:56,824 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:36:56] "[37mGET / HTTP/1.1[0m" 200 -
+2021-02-07 09:36:56,919 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:36:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-02-07 09:37:01,057 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:37:01] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-02-07 09:37:05,069 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:37:05] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-02-07 09:37:09,557 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:37:09] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-02-07 09:37:41,942 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:37:41] "[37mPOST /data/false HTTP/1.1[0m" 200 -
+2021-02-07 09:56:16,224 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-02-07 09:56:17,484 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:56:17] "[37mGET / HTTP/1.1[0m" 200 -
+2021-02-07 09:56:17,599 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:56:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-02-07 09:56:23,226 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:56:23] "[37mGET /runFiles HTTP/1.1[0m" 200 -
+2021-02-07 09:56:26,220 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:56:26] "[35m[1mGET /run HTTP/1.1[0m" 500 -

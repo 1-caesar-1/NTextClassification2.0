@@ -1,0 +1,21 @@
+Escape Studios Official Unreal Engine ATC
+We are proud to announce that Escape Studios is now an Unreal Engine ATC (Authorized Training Center); the only one in the UK and one of only two in Europe.  We are very honoured to be selected to be part of the program and to help train people in Unreal Engine.  As well as our Short Courses, UG and Masters programs we also train companies in UE4, most recently London VFX powerhouse Framestore.  Unreal's real time rendering capabilities, Blueprint system and ease of use is not only changing the games industry but the CGI industry as a whole, helping to speed up the process of animation, previsualisation, virtual reality and architectural visualisation.
+About Unreal Engine
+Unreal Engine is a core part of the Escape games, vfx and animation courses - and fundamental in helping us train our students towards becoming industry ready talent for not only games but any of the rich and diverse fields currently using UE4.
+Unreal Engine at Escape Studios
+One of the first films we made at Escape Studios using the Unreal Engine pipeline was the 2018 film "Planet Mars", a short mockumentary directed by Sebastian Kuder, which enjoyed considerable festival success. You can see the film below
+Unreal Engine Courses at Escape Studios
+we have been running a lot of courses in Unreal Engine lately; in particular:
+Fundamentals of Unreal Engine
+Introduction to Blueprints 
+Realtime Rendering for Animation 
+Lighting in Unreal Engine 
+Introduction to Materials 
+Introduction to Niagara FX 
+Zoom, Parsec and Veyon
+These Unreal Engine classes have been run through Zoom for screen sharing, and attendees were able to use remote access through Parsec. We also used Veyon, to be able to monitor the class and assist students who might need extra help.
+Further information
+Simon Fenton's blog post about Unreal Engine ATC: https://blog.pearsoncollegelondon.ac.uk/2019/07/15/escape-studios-is-now-an-unreal-authorized-training-center/
+Unreal Engine ATC Official Post https://origin.80.lv/articles/the-unreal-authorized-training-partner-program-announced/
+Unreal Engine Announces ATC Partner Programme https://www.unrealengine.com/en-US/blog/announcing-the-unreal-engine-authorized-training-partner-program
+The Escape Studios Animation Blog offers a personal view on the art of animation and visual effects. To apply for our BA/MArt in 3D Animation, follow this link.  To apply for MA in Storyboarding and Previsualisation, visit this page here.  For the next 12 week animation course, click here.
