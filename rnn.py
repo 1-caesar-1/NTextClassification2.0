@@ -20,7 +20,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 train_dataset = (X_train, y_train)
 test_dataset = (X_test, y_test)
-VOCAB_SIZE = 1000
+VOCAB_SIZE = 600
 encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
     max_tokens=VOCAB_SIZE
 )
@@ -30,25 +30,25 @@ model = tf.keras.Sequential(
         encoder,
         tf.keras.layers.Embedding(
             input_dim=len(encoder.get_vocabulary()),
-            output_dim=134,
+            output_dim=64,
             # Use masking to handle the variable sequence lengths
             mask_zero=True,
         ),
-        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(134)),
-        tf.keras.layers.Dense(134, activation="relu"),
+        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64)),
+        tf.keras.layers.Dense(64, activation="relu"),
         tf.keras.layers.Dense(1),
     ]
 )
 
 model.compile(
     loss="binary_crossentropy",
-    optimizer=tf.keras.optimizers.Adam(1e-4),
+    optimizer="Adamax",
     metrics=["accuracy"],
 )
 
-history = model.fit(np.array(X_train), y_train, epochs=10)
+history = model.fit(np.array(X_train), y_train, epochs=50,validation_data=(np.array(X_test), y_test),validation_steps=10)
 
-test_loss, test_acc = model.evaluate(test_dataset)
+test_loss, test_acc = model.evaluate(np.array(X_test), y_test)
 
 print("Test Loss: {}".format(test_loss))
 print("Test Accuracy: {}".format(test_acc))

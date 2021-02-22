@@ -3,3 +3,4 @@
 /.vscode/
 setup.py
 /textclassification2.egg-info/
+/corpus/
