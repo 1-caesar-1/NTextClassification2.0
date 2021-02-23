@@ -4,22 +4,45 @@ from sklearn.preprocessing import LabelEncoder
 import random
 from textclassification_app.rw_files.r_files import read_json_corpus
 import numpy as np
+from textclassification_app.classes.Experiment import Experiment
 
 
-le = LabelEncoder()
-k_fold = KFold()
+def run_rnn(experiment: Experiment):
+    k_fold = KFold()
+    X = experiment.documents
+    y = experiment.labels
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.33, random_state=42
+    )
+    cv = True
 
-tt_data = read_json_corpus(r"corpus\english\originals", onlyLabel=True)
-random.Random(4).shuffle(tt_data)
-# split the labels from the data
-X, l = zip(*tt_data)
-# encode the labels
-y = le.fit_transform(l)
+    if cv:
+        for train, test in k_fold.split(X, y):
+            for i in range(20):
+                model = get_model(X[train])
+                history = model.fit(
+                    np.array(X[train]),
+                    y[train],
+                    epochs=75,
+                    validation_data=(np.array(X[test]), y[test]),
+                    validation_steps=10,
+                )
+                test_loss, test_acc = model.evaluate(np.array(X[test]), y[test])
+                print("Test Loss: {}".format(test_loss))
+                print("Test Accuracy: {}".format(test_acc))
+    else:
+        model = get_model(X_train)
+        history = model.fit(
+            np.array(X_train),
+            y_train,
+            epochs=75,
+            validation_data=(np.array(X_test), y_test),
+            validation_steps=10,
+        )
 
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.33, random_state=42
-)
+        test_loss, test_acc = model.evaluate(np.array(X_test), y_test)
+        print("Test Loss: {}".format(test_loss))
+        print("Test Accuracy: {}".format(test_acc))
 
 
 def get_model(X):
@@ -45,33 +68,4 @@ def get_model(X):
 
     model.compile(loss="binary_crossentropy", optimizer="Adamax", metrics=["accuracy"])
     return model
-
-
-cv = True
-if cv:
-    for train, test in k_fold.split(X, y):
-        for i in range(20):
-            model = get_model(X[train])
-            history = model.fit(
-                np.array(X[train]),
-                y[train],
-                epochs=75,
-                validation_data=(np.array(X[test]), y[test]),
-                validation_steps=10,
-            )
-            test_loss, test_acc = model.evaluate(np.array(X[test]), y[test])
-else:
-    model = get_model(X_train)
-    history = model.fit(
-        np.array(X_train),
-        y_train,
-        epochs=75,
-        validation_data=(np.array(X_test), y_test),
-        validation_steps=10,
-    )
-
-    test_loss, test_acc = model.evaluate(np.array(X_test), y_test)
-
-print("Test Loss: {}".format(test_loss))
-print("Test Accuracy: {}".format(test_acc))
 
