@@ -27,16 +27,26 @@ def run_rnn(experiment: Experiment, cv=True):
     if cv:
         for train, test in k_fold.split(X, y):
             for i in range(experiment.classification_technique.iteration):
-                model = get_model(X[train])
+                VOCAB_SIZE = 600
+                encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
+                    max_tokens=VOCAB_SIZE
+                )
+                encoder.adapt(X[train[0] : train[-1]])
+                model = get_model(encoder)
                 history = model.fit(
-                    np.array(X[train]),
-                    y[train],
+                    np.array(X[train[0] : train[-1]]),
+                    y[train[0] : train[-1]],
                     epochs=75,
-                    validation_data=(np.array(X[test]), y[test]),
+                    validation_data=(
+                        np.array(X[test[0] : test[-1]]),
+                        y[test[0] : test[-1]],
+                    ),
                     validation_steps=10,
                 )
                 result["accuracy"]["RNNClassifier"] += history.history["val_accuracy"]
-                test_loss, test_acc = model.evaluate(np.array(X[test]), y[test])
+                test_loss, test_acc = model.evaluate(
+                    np.array(X[test[0] : test[-1]]), y[test[0] : test[-1]]
+                )
                 print("Test Loss: {}".format(test_loss))
                 print("Test Accuracy: {}".format(test_acc))
         experiment.classification_results = result
@@ -58,12 +68,8 @@ def run_rnn(experiment: Experiment, cv=True):
     experiment.general_data["num_of_features"] = 0
 
 
-def get_model(X):
-    VOCAB_SIZE = 600
-    encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
-        max_tokens=VOCAB_SIZE
-    )
-    encoder.adapt(X)
+def get_model(encoder):
+
     model = tf.keras.Sequential(
         [
             encoder,

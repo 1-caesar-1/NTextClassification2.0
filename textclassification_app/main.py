@@ -4,6 +4,7 @@ import threading
 
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.processes.bert import run_bert
+from textclassification_app.processes.rnn import run_rnn
 from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
@@ -50,9 +51,9 @@ def main(config_path, max_threads=None):
 
         # classification
         print_title("Classifying")
-        classify(experiment)
+        # classify(experiment)
         # run_bert(experiment)
-        # run_rnn(experiment)
+        run_rnn(experiment)
 
         # write results
         print_title("Writing results")
