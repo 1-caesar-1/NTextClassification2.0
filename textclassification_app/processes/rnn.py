@@ -7,14 +7,13 @@ import numpy as np
 from textclassification_app.classes.Experiment import Experiment
 
 
-def run_rnn(experiment: Experiment):
+def run_rnn(experiment: Experiment, cv=True):
     k_fold = KFold()
     X = experiment.documents
     y = experiment.labels
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.33, random_state=42
     )
-    cv = True
 
     if cv:
         for train, test in k_fold.split(X, y):
