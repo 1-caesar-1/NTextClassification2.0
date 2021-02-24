@@ -27,7 +27,7 @@ def run_rnn(experiment: Experiment, cv=True):
     if cv:
         for train, test in k_fold.split(X, y):
             for i in range(experiment.classification_technique.iteration):
-                VOCAB_SIZE = 600
+                VOCAB_SIZE = 700
                 encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
                     max_tokens=VOCAB_SIZE
                 )
@@ -43,7 +43,9 @@ def run_rnn(experiment: Experiment, cv=True):
                     ),
                     validation_steps=10,
                 )
-                result["accuracy"]["RNNClassifier"] += history.history["val_accuracy"]
+                result["accuracy_score"]["RNNClassifier"] += history.history[
+                    "val_accuracy"
+                ]
                 test_loss, test_acc = model.evaluate(
                     np.array(X[test[0] : test[-1]]), y[test[0] : test[-1]]
                 )
@@ -56,11 +58,11 @@ def run_rnn(experiment: Experiment, cv=True):
         history = model.fit(
             np.array(X_train),
             y_train,
-            epochs=75,
+            epochs=50,
             validation_data=(np.array(X_test), y_test),
             validation_steps=10,
         )
-        result["accuracy"]["RNNClassifier"] += history.history["val_accuracy"]
+        result["accuracy_score"]["RNNClassifier"] += history.history["val_accuracy"]
         test_loss, test_acc = model.evaluate(np.array(X_test), y_test)
         print("Test Loss: {}".format(test_loss))
         print("Test Accuracy: {}".format(test_acc))
