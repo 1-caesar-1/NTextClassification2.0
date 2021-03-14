@@ -77,12 +77,12 @@ def get_model(encoder):
             encoder,
             tf.keras.layers.Embedding(
                 input_dim=len(encoder.get_vocabulary()),
-                output_dim=64,
+                output_dim=16,
                 # Use masking to handle the variable sequence lengths
                 mask_zero=True,
             ),
-            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64)),
-            tf.keras.layers.Dense(64, activation="relu"),
+            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(16)),
+            tf.keras.layers.Dense(16, activation="relu"),
             tf.keras.layers.Dense(1),
         ]
     )
