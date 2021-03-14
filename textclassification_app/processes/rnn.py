@@ -36,7 +36,7 @@ def run_rnn(experiment: Experiment, cv=True):
                 history = model.fit(
                     np.array(X[train[0] : train[-1]]),
                     y[train[0] : train[-1]],
-                    epochs=75,
+                    epochs=35,
                     validation_data=(
                         np.array(X[test[0] : test[-1]]),
                         y[test[0] : test[-1]],
