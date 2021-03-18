@@ -9,11 +9,7 @@
         "accuracy_score"
     ],
     "classifiers": [
-        "mlp",
-        "svc",
-        "lr",
-        "rf",
-        "mnb"
+        "rnn"
     ],
     "classification_technique": "CrossValidation()"
 }

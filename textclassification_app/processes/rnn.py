@@ -5,10 +5,11 @@ import random
 from textclassification_app.rw_files.r_files import read_json_corpus
 import numpy as np
 from textclassification_app.classes.Experiment import Experiment
+from textclassification_app.utils import print_message
 
 
 def run_rnn(experiment: Experiment, cv=True):
-    k_fold = KFold()
+    k_fold = KFold(shuffle=True, random_state=42)
     # for the convenience of reading
     X = experiment.documents
     y = experiment.labels
@@ -26,31 +27,26 @@ def run_rnn(experiment: Experiment, cv=True):
 
     if cv:
         for train, test in k_fold.split(X, y):
+            X_train, X_test = np.array([X[i] for i in train]), np.array([X[j] for j in test])
+            y_train, y_test = np.array([y[i] for i in train]), np.array([y[j] for j in test])
+
             for i in range(experiment.classification_technique.iteration):
+                print_message("iteration " + str(i+1), num_tabs=3)
                 VOCAB_SIZE = 700
-                encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
-                    max_tokens=VOCAB_SIZE
-                )
-                encoder.adapt(X[train[0] : train[-1]])
+                encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(max_tokens=VOCAB_SIZE)
+                encoder.adapt(X_train)
                 model = get_model(encoder)
                 history = model.fit(
-                    np.array(X[train[0] : train[-1]]),
-                    y[train[0] : train[-1]],
+                    X_train, y_train,
                     epochs=35,
-                    validation_data=(
-                        np.array(X[test[0] : test[-1]]),
-                        y[test[0] : test[-1]],
-                    ),
+                    validation_data=(X_test, y_test),
                     validation_steps=10,
                 )
-                result["accuracy_score"]["RNNClassifier"] += history.history[
-                    "val_accuracy"
-                ]
-                test_loss, test_acc = model.evaluate(
-                    np.array(X[test[0] : test[-1]]), y[test[0] : test[-1]]
-                )
+                # result["accuracy_score"]["RNNClassifier"] += history.history["val_accuracy"]
+                test_loss, test_acc = model.evaluate(X_test, y_test)
                 print("Test Loss: {}".format(test_loss))
                 print("Test Accuracy: {}".format(test_acc))
+                result["accuracy_score"]["RNNClassifier"].append(test_acc)
         experiment.classification_results = result
         experiment.general_data["num_of_features"] = 0
     else:
@@ -66,17 +62,16 @@ def run_rnn(experiment: Experiment, cv=True):
         test_loss, test_acc = model.evaluate(np.array(X_test), y_test)
         print("Test Loss: {}".format(test_loss))
         print("Test Accuracy: {}".format(test_acc))
-    experiment.classification_results = result
-    experiment.general_data["num_of_features"] = 0
+        experiment.classification_results = result
+        experiment.general_data["num_of_features"] = 0
 
 
 def get_model(encoder):
-
     model = tf.keras.Sequential(
         [
             encoder,
             tf.keras.layers.Embedding(
-                input_dim=len(encoder.get_vocabulary()),
+                input_dim=len(encoder.get_vocabulary())+2,
                 output_dim=16,
                 # Use masking to handle the variable sequence lengths
                 mask_zero=True,
@@ -89,4 +84,3 @@ def get_model(encoder):
 
     model.compile(loss="binary_crossentropy", optimizer="Adamax", metrics=["accuracy"])
     return model
-
