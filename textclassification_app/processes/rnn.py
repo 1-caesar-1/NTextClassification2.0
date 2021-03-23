@@ -8,6 +8,10 @@ from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
 
 
+def wordTwoVec():
+    pass
+
+
 def run_rnn(experiment: Experiment, cv=True):
     k_fold = KFold(shuffle=True, random_state=42)
     # for the convenience of reading
@@ -27,18 +31,27 @@ def run_rnn(experiment: Experiment, cv=True):
 
     if cv:
         for train, test in k_fold.split(X, y):
-            X_train, X_test = np.array([X[i] for i in train]), np.array([X[j] for j in test])
-            y_train, y_test = np.array([y[i] for i in train]), np.array([y[j] for j in test])
+            X_train, X_test = (
+                np.array([X[i] for i in train]),
+                np.array([X[j] for j in test]),
+            )
+            y_train, y_test = (
+                np.array([y[i] for i in train]),
+                np.array([y[j] for j in test]),
+            )
 
             for i in range(experiment.classification_technique.iteration):
-                print_message("iteration " + str(i+1), num_tabs=3)
+                print_message("iteration " + str(i + 1), num_tabs=3)
                 VOCAB_SIZE = 700
-                encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(max_tokens=VOCAB_SIZE)
+                encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
+                    max_tokens=VOCAB_SIZE
+                )
                 encoder.adapt(X_train)
                 model = get_model(encoder)
                 history = model.fit(
-                    X_train, y_train,
-                    epochs=35,
+                    X_train,
+                    y_train,
+                    epochs=50,
                     validation_data=(X_test, y_test),
                     validation_steps=10,
                 )
@@ -71,16 +84,20 @@ def get_model(encoder):
         [
             encoder,
             tf.keras.layers.Embedding(
-                input_dim=len(encoder.get_vocabulary())+2,
-                output_dim=16,
+                input_dim=len(encoder.get_vocabulary()) + 2,
+                output_dim=32,
                 # Use masking to handle the variable sequence lengths
                 mask_zero=True,
             ),
-            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(16)),
-            tf.keras.layers.Dense(16, activation="relu"),
+            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+            tf.keras.layers.Dense(32, activation="relu"),
             tf.keras.layers.Dense(1),
         ]
     )
 
     model.compile(loss="binary_crossentropy", optimizer="Adamax", metrics=["accuracy"])
     return model
+
+
+if __name__ == "__main__":
+    print(tf.constant(u"שףףף 😊"))
