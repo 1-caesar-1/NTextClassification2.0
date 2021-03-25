@@ -1,6 +1,14 @@
 from keras.layers import Dropout, Dense, GRU
 from keras.models import Sequential
-from tensorflow.python.keras.wrappers.scikit_learn import KerasClassifier
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+import tensorflow as tf
+from sklearn.model_selection import train_test_split, KFold
+from sklearn.preprocessing import LabelEncoder
+import random
+from textclassification_app.rw_files.r_files import read_json_corpus
+import numpy as np
+from textclassification_app.classes.Experiment import Experiment
+from textclassification_app.utils import print_message
 
 
 class RNNClassifier(KerasClassifier):
@@ -9,7 +17,7 @@ class RNNClassifier(KerasClassifier):
     """
 
     def __init__(self, dropout=0.5, hidden_layer=3, node=512, **sk_params):
-        super().__init__(epochs=5, batch_size=10, verbose=1)
+        super().__init__(epochs=50, verbose=1)
         self.shape = 0
         self.dropout = dropout
         self.hidden_layer = hidden_layer
@@ -49,17 +57,23 @@ class RNNClassifier(KerasClassifier):
         return super(RNNClassifier, self).score(x, y, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        model = Sequential()
-        gru_node = 32
-        for i in range(0, self.hidden_layer):
-            model.add(GRU(gru_node, input_shape=self.shape, return_sequences=True, recurrent_dropout=0.2))
-            model.add(Dropout(self.dropout))
-        model.add(GRU(gru_node, recurrent_dropout=0.2))
-        model.add(Dropout(self.dropout))
-        model.add(Dense(256, activation='relu'))
-        model.add(Dense(self.n_classes_, activation='softmax'))
+        model = tf.keras.Sequential(
+            [
+                tf.keras.layers.Embedding(
+                    input_dim=500,
+                    output_dim=32,
+                    # Use masking to handle the variable sequence lengths
+                    mask_zero=True,
+                ),
+                tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+                tf.keras.layers.Dense(32, activation="relu"),
+                tf.keras.layers.Dense(1),
+            ]
+        )
 
-        model.compile(loss='sparse_categorical_crossentropy',
-                      optimizer='adam')
+        model.compile(
+            loss="binary_crossentropy", optimizer="Adamax", metrics=["accuracy"]
+        )
+
         model.summary()
         return model
