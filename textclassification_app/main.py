@@ -51,9 +51,9 @@ def main(config_path, max_threads=None):
 
         # classification
         print_title("Classifying")
-        # classify(experiment)
+        classify(experiment)
         # run_bert(experiment)
-        run_rnn(experiment)
+        # run_rnn(experiment)
 
         # write results
         print_title("Writing results")

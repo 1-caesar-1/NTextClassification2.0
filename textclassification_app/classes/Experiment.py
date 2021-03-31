@@ -15,6 +15,7 @@ from textclassification_app.classes.Doc2VecTransfomer import Doc2VecTransfomer
 from textclassification_app.classes.ElmoTransfomer import ElmoTransfomer
 from textclassification_app.classes.GloveTransfomer import GloveTransfomer
 from textclassification_app.classes.RNNClassifier import RNNClassifier
+from textclassification_app.classes.RNNEstimator import RNNEstimator
 from textclassification_app.classes.StylisticFeatures import StylisticFeatures
 from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.classes.Word2VecTransfomer import Word2VecTransfomer
@@ -30,7 +31,7 @@ _ = [
     Word2VecTransfomer,
     BertTransformer,
     ElmoTransfomer,
-    GloveTransfomer
+    GloveTransfomer,
 ]
 
 classifiers_objects = {
@@ -39,7 +40,7 @@ classifiers_objects = {
     "mlp": MLPClassifier(),
     "lr": LogisticRegression(n_jobs=-1),
     "mnb": MultinomialNB(),
-    "rnn": RNNClassifier()
+    "rnn": RNNEstimator(),
 }
 
 
@@ -107,6 +108,7 @@ class Experiment:
         self.preprocessing_functions = []
 
         from textclassification_app.processes.normalization import lowercase
+
         _ = [lowercase]
         for normalization in config["preprocessing"]:
             try:
@@ -166,8 +168,8 @@ class Experiment:
                     + ": "
                     + classifier
                     + " is not a recognized "
-                      "abbreviation of a "
-                      "classifier",
+                    "abbreviation of a "
+                    "classifier",
                     num_tabs=1,
                 )
 
@@ -193,8 +195,8 @@ class Experiment:
     def __str__(self):
         result = self.experiment_name + ": "
         result += (
-                str(len(self.features_extraction_transformers.transformer_list))
-                + " transformer, "
+            str(len(self.features_extraction_transformers.transformer_list))
+            + " transformer, "
         )
         result += str(len(self.classifiers)) + " classifiers, "
         result += str(self.features_selection) if self.features_selection else "no"
