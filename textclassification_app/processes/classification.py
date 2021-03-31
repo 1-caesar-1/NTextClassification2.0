@@ -106,7 +106,7 @@ def classify_using_cv(experiment: Experiment):
                 y,
                 cv=experiment.classification_technique.k_fold,
                 scoring=scoring,
-                n_jobs=-1,
+                #n_jobs=-1,
                 return_estimator=True
             )
 

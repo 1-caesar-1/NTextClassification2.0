@@ -5,11 +5,10 @@ from sklearn.preprocessing import LabelEncoder
 import random
 from textclassification_app.rw_files.r_files import read_json_corpus
 import numpy as np
-from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
 
 
-class MeanClassifier(BaseEstimator, ClassifierMixin):
+class RNNEstimator(BaseEstimator, ClassifierMixin):
     """An example of classifier"""
 
     def __init__(self, epochs=50, validation_steps=10, vocab_size=1000):

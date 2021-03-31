@@ -1,13 +1,7 @@
-from keras.layers import Dropout, Dense, GRU
-from keras.models import Sequential
+
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
 import tensorflow as tf
-from sklearn.model_selection import train_test_split, KFold
-from sklearn.preprocessing import LabelEncoder
-import random
-from textclassification_app.rw_files.r_files import read_json_corpus
-import numpy as np
-from textclassification_app.classes.Experiment import Experiment
+
 from textclassification_app.utils import print_message
 
 

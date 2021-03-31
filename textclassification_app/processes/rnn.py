@@ -47,6 +47,7 @@ def run_rnn(experiment: Experiment, cv=True):
                     max_tokens=VOCAB_SIZE
                 )
                 encoder.adapt(X_train)
+                a = encoder.get_vocabulary()
                 model = get_model(encoder)
                 history = model.fit(
                     X_train,
