@@ -1,3 +1,5 @@
+from typing import Callable
+
 from sklearn.metrics import (
     accuracy_score,
     f1_score,
@@ -13,11 +15,12 @@ from textclassification_app.classes.TrainTest import TrainTest
 from textclassification_app.utils import print_message
 
 
-def classify(experiment: Experiment):
+def classify(experiment: Experiment, bar: Callable = None):
     if isinstance(experiment.classification_technique, TrainTest):
         pipeline: Pipeline = classify_using_train_test(experiment)
+        bar()
     else:
-        pipeline: Pipeline = classify_using_cv(experiment)
+        pipeline: Pipeline = classify_using_cv(experiment, bar)
 
     # save the number of features in the general data for export
     experiment.general_data["num_of_features"] = get_num_of_feature(pipeline)
@@ -71,7 +74,7 @@ def classify_using_train_test(experiment: Experiment):
     return pipeline
 
 
-def classify_using_cv(experiment: Experiment):
+def classify_using_cv(experiment: Experiment, bar: Callable = None):
     print_message("classifying " + experiment.experiment_name + " using CV", num_tabs=1)
 
     # for the convenience of reading
@@ -93,9 +96,6 @@ def classify_using_cv(experiment: Experiment):
 
         # run the number of iteration
         for i in range(experiment.classification_technique.iteration):
-            print_message(type(clf).__name__ + ": Iteration " + str(i + 1) + " from " + str(experiment.classification_technique.iteration) +
-                          " of " + experiment.experiment_name, num_tabs=2)
-
             # create list of scorers
             scoring = [measures[m] for m in experiment.measurements]
 
@@ -106,7 +106,6 @@ def classify_using_cv(experiment: Experiment):
                 y,
                 cv=experiment.classification_technique.k_fold,
                 scoring=scoring,
-                #n_jobs=-1,
                 return_estimator=True
             )
 
@@ -117,6 +116,9 @@ def classify_using_cv(experiment: Experiment):
                 result[measure][type(clf).__name__] += list(
                     scores["test_" + measures[measure]]
                 )
+
+            # update the display
+            bar()
 
     # save the final results into experiment
     experiment.classification_results = result

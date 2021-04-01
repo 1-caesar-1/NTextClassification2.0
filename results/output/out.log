@@ -281,3 +281,14 @@ Traceback (most recent call last):
     raise self._exception
 ValueError: empty vocabulary; perhaps the documents only contain stop words
 2021-02-07 09:56:26,220 werkzeug     INFO     127.0.0.1 - - [07/Feb/2021 09:56:26] "[35m[1mGET /run HTTP/1.1[0m" 500 -
+2021-03-16 16:31:29,320 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-03-16 16:31:31,326 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:31] "[37mGET / HTTP/1.1[0m" 200 -
+2021-03-16 16:31:31,986 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:31] "[37mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 200 -
+2021-03-16 16:31:32,344 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-03-16 16:31:40,769 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:40] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-03-16 16:31:40,798 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:40] "[37mGET /static/css/styles.min.css HTTP/1.1[0m" 200 -
+2021-03-16 16:31:40,800 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:40] "[37mGET /static/js/script.min.js HTTP/1.1[0m" 200 -
+2021-03-16 16:31:47,791 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:47] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-03-16 16:31:47,817 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:47] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
+2021-03-16 16:31:51,519 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:31:51] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-03-16 16:32:32,595 werkzeug     INFO     127.0.0.1 - - [16/Mar/2021 16:32:32] "[37mPOST /data/true HTTP/1.1[0m" 200 -

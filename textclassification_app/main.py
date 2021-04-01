@@ -1,14 +1,15 @@
-import multiprocessing
 import os
-import threading
+from multiprocessing import cpu_count
+from multiprocessing.pool import ThreadPool
+from typing import Callable
 
+from alive_progress import alive_bar
+
+from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.Experiment import Experiment
-from textclassification_app.processes.bert import run_bert
-from textclassification_app.processes.rnn import run_rnn
 from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
-from textclassification_app.processes.parameter_tuning import parameter_tuning
 from textclassification_app.processes.results_handling import (
     save_experiment_results,
     write_all_experiments,
@@ -17,13 +18,51 @@ from textclassification_app.processes.send_results import send_results_by_email
 from textclassification_app.utils import print_title, print_message
 
 
+def calc_total_iterations(experiments):
+    """
+    Calculation of the number of iterations that will be performed in the entire classification process
+    :param experiments: List of experiments
+    :return: Number of iterations (CV + Train & Test) in all experiments together
+    """
+    total = 0
+    for experiment in experiments:
+        if isinstance(experiment.classification_technique, CrossValidation):
+            total += experiment.classification_technique.iteration
+        else:
+            total += 1
+    return total
+
+
+def run_experiment(experiment: Experiment, bar: Callable = None):
+    """
+    The main function that receives an experiment and runs all the steps on it
+    :param experiment: The same experiment should be run
+    :param bar: Function for updating the display. If None, the display will show nothing
+    """
+
+    if bar is None:
+        bar = lambda: print_message("Next iteration of " + experiment.experiment_name, num_tabs=2)
+
+    # feature extraction & feature selection
+    print_title("Extracting features")
+    extract_data(experiment)
+
+    # parameter tuning (for RF only)
+    # print_title("Doing parameter tuning")
+    # parameter_tuning(experiment, "GridSearchCV")
+
+    # classification
+    print_title("Classifying")
+    classify(experiment, bar)
+    # run_bert(experiment)
+    # run_rnn(experiment)
+
+    # write results
+    print_title("Writing results")
+    save_experiment_results(experiment)
+
+
 def main(config_path, max_threads=None):
-
-    # initialize the semaphore for multi-threading by the number of the cores
-    if not max_threads:
-        max_threads = multiprocessing.cpu_count()
-    semaphore = threading.Semaphore(max_threads)
-
     # create the experiments
     print_title("Creating experiments")
     experiments = [
@@ -40,41 +79,11 @@ def main(config_path, max_threads=None):
     for experiment in experiments:
         normalize(experiment)
 
-    def run_experiment(experiment: Experiment):
-        # feature extraction & feature selection
-        print_title("Extracting features")
-        extract_data(experiment)
-
-        # parameter tuning (for RF only)
-        # print_title("Doing parameter tuning")
-        # parameter_tuning(experiment, "GridSearchCV")
-
-        # classification
-        print_title("Classifying")
-        classify(experiment)
-        # run_bert(experiment)
-        # run_rnn(experiment)
-
-        # write results
-        print_title("Writing results")
-        save_experiment_results(experiment)
-
-        # update the semaphore
-        semaphore.release()
-
     # run all the experiments in different threads
-    # threads = []
-    # for experiment in experiments:
-    #    thread = threading.Thread(target=run_experiment, args=(experiment,))
-    #    threads.append(thread)
-    #    semaphore.acquire()  # start the thread only if the semaphore is available
-    #    thread.run()
-
-    # wait for all threads
-    # for thread in threads:
-    #    thread.join()
-    for experiment in experiments:
-        run_experiment(experiment)
+    if not max_threads:
+        max_threads = cpu_count()
+    with alive_bar(calc_total_iterations(experiments)) as bar, ThreadPool(max_threads) as pool:
+        pool.starmap(run_experiment, list((experiment, bar) for experiment in experiments))
 
     # write all the experiments results into Excel file
     write_all_experiments()
