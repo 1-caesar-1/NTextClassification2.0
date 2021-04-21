@@ -1,6 +1,6 @@
 import os
 from multiprocessing import cpu_count
-from multiprocessing.pool import ThreadPool
+from threading import Semaphore, Thread
 from typing import Callable
 
 from alive_progress import alive_bar
@@ -33,15 +33,18 @@ def calc_total_iterations(experiments):
     return total
 
 
-def run_experiment(experiment: Experiment, bar: Callable = None):
+def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Semaphore = None):
     """
     The main function that receives an experiment and runs all the steps on it
+    :param semaphore: The semaphore that locks the process
     :param experiment: The same experiment should be run
     :param bar: Function for updating the display. If None, the display will show nothing
     """
 
     if bar is None:
-        bar = lambda: print_message("Next iteration of " + experiment.experiment_name, num_tabs=2)
+        def bar():
+            print_message("Next iteration of " + experiment.experiment_name, num_tabs=2)
+        # bar = lambda: print_message("Next iteration of " + experiment.experiment_name, num_tabs=2)
 
     # feature extraction & feature selection
     print_title("Extracting features")
@@ -60,6 +63,9 @@ def run_experiment(experiment: Experiment, bar: Callable = None):
     # write results
     print_title("Writing results")
     save_experiment_results(experiment)
+
+    if semaphore:
+        semaphore.acquire()
 
 
 def main(config_path, max_threads=None):
@@ -80,10 +86,22 @@ def main(config_path, max_threads=None):
         normalize(experiment)
 
     # run all the experiments in different threads
-    if not max_threads:
-        max_threads = cpu_count()
-    with alive_bar(calc_total_iterations(experiments)) as bar, ThreadPool(max_threads) as pool:
-        pool.starmap(run_experiment, list((experiment, bar) for experiment in experiments))
+    max_threads = max_threads or cpu_count()
+    semaphore = Semaphore(max_threads)
+    threads = []
+    with alive_bar(calc_total_iterations(experiments)) as bar:
+        # with threading
+        for experiment in experiments:
+            thread = Thread(target=run_experiment, args=(experiment, bar, semaphore))
+            threads.append(thread)
+            semaphore.acquire()
+            thread.start()
+        for thread in threads:
+            thread.join()
+
+        # without threading
+        # for experiment in experiments:
+        #     run_experiment(experiment, bar, semaphore)
 
     # write all the experiments results into Excel file
     write_all_experiments()
