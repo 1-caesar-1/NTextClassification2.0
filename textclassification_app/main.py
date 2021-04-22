@@ -65,7 +65,7 @@ def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Sema
     save_experiment_results(experiment)
 
     if semaphore:
-        semaphore.acquire()
+        semaphore.release()
 
 
 def main(config_path, max_threads=None):
