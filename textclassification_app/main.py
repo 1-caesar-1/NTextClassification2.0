@@ -27,9 +27,9 @@ def calc_total_iterations(experiments):
     total = 0
     for experiment in experiments:
         if isinstance(experiment.classification_technique, CrossValidation):
-            total += experiment.classification_technique.iteration
+            total += experiment.classification_technique.iteration * len(experiment.classifiers)
         else:
-            total += 1
+            total += len(experiment.classifiers)
     return total
 
 

@@ -17,8 +17,7 @@ from textclassification_app.utils import print_message
 
 def classify(experiment: Experiment, bar: Callable = None):
     if isinstance(experiment.classification_technique, TrainTest):
-        pipeline: Pipeline = classify_using_train_test(experiment)
-        bar()
+        pipeline: Pipeline = classify_using_train_test(experiment, bar)
     else:
         pipeline: Pipeline = classify_using_cv(experiment, bar)
 
@@ -26,7 +25,7 @@ def classify(experiment: Experiment, bar: Callable = None):
     experiment.general_data["num_of_features"] = get_num_of_feature(pipeline)
 
 
-def classify_using_train_test(experiment: Experiment):
+def classify_using_train_test(experiment: Experiment, bar: Callable = None):
     print_message(
         "classifying " + experiment.experiment_name + " using train & test split",
         num_tabs=1,
@@ -66,6 +65,9 @@ def classify_using_train_test(experiment: Experiment):
             result[measure][type(clf).__name__] += [
                 evaluate(measure, y_test, prediction, decision)
             ]
+
+        # update the display
+        bar()
 
     # save the final results into experiment
     experiment.classification_results = result
