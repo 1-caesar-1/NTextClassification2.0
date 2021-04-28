@@ -42,7 +42,7 @@ def run_rnn(experiment: Experiment, cv=True):
 
             for i in range(experiment.classification_technique.iteration):
                 print_message("iteration " + str(i + 1), num_tabs=3)
-                VOCAB_SIZE = 700
+                VOCAB_SIZE = 1000
                 encoder = tf.keras.layers.experimental.preprocessing.TextVectorization(
                     max_tokens=VOCAB_SIZE
                 )
@@ -86,12 +86,12 @@ def get_model(encoder):
             encoder,
             tf.keras.layers.Embedding(
                 input_dim=len(encoder.get_vocabulary()) + 2,
-                output_dim=32,
+                output_dim=64,
                 # Use masking to handle the variable sequence lengths
                 mask_zero=True,
             ),
-            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
-            tf.keras.layers.Dense(32, activation="relu"),
+            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64)),
+            tf.keras.layers.Dense(64, activation="relu"),
             tf.keras.layers.Dense(1),
         ]
     )
