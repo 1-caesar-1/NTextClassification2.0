@@ -1,11 +1,5 @@
-from sklearn.base import BaseEstimator, ClassifierMixin
 import tensorflow as tf
-
-from sklearn.preprocessing import LabelEncoder
-import random
-from textclassification_app.rw_files.r_files import read_json_corpus
-import numpy as np
-from textclassification_app.utils import print_message
+from sklearn.base import BaseEstimator, ClassifierMixin
 
 
 class RNNEstimator(BaseEstimator, ClassifierMixin):
@@ -23,9 +17,11 @@ class RNNEstimator(BaseEstimator, ClassifierMixin):
                     # Use masking to handle the variable sequence lengths
                     mask_zero=True,
                 ),
+
                 tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+
                 tf.keras.layers.Dense(32, activation="relu"),
-                tf.keras.layers.Dense(1),
+                tf.keras.layers.Dense(1, activation="sigmoid"),
             ]
         )
 
@@ -44,8 +40,7 @@ class RNNEstimator(BaseEstimator, ClassifierMixin):
         return self
 
     def predict(self, X, y=None):
-
-        return self.model.predict(X)
+        return (self.model.predict(X) > 0.5).astype("int32")
 
     def predict_proba(self, X, y=None):
 

@@ -1,21 +1,22 @@
 import os
 from multiprocessing import cpu_count
 from threading import Semaphore, Thread
-from typing import Callable
+from typing import Callable, Iterable
 
 from alive_progress import alive_bar
 
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.Experiment import Experiment
-from textclassification_app.processes.classification import classify
+from textclassification_app.classes.Watchdog import Watchdog
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
 from textclassification_app.processes.results_handling import (
     save_experiment_results,
     write_all_experiments,
 )
-from textclassification_app.processes.send_results import send_results_by_email
-from textclassification_app.utils import print_title, print_message
+from textclassification_app.processes.rnn import run_rnn
+from textclassification_app.processes.send_results import send_results_by_email, send_mail
+from textclassification_app.utils import print_title, print_message, print_error
 
 
 def calc_total_iterations(experiments):
@@ -33,18 +34,31 @@ def calc_total_iterations(experiments):
     return total
 
 
-def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Semaphore = None):
+def watchdog_timeout_handler(to: Iterable):
+    """
+    A function that called when the watchdog detects an error. The function sends an email to alert about the error.
+    :param to: Iterable, list of the contact to alert
+    """
+    print_error("The watchdog detect an error")
+    subject = "An error occurred"
+    body = """During the classification, an error occurred and the program hasn't continued to run for some 
+    time.\nYou might want to give it a look. """
+    send_mail(to, subject, body)
+
+
+def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Semaphore = None,
+                   watchdog: Watchdog = None):
     """
     The main function that receives an experiment and runs all the steps on it
     :param semaphore: The semaphore that locks the process
     :param experiment: The same experiment should be run
     :param bar: Function for updating the display. If None, the display will show nothing
+    :param watchdog: Optional, The watchdog that detect errors
     """
 
     if bar is None:
         def bar():
             print_message("Next iteration of " + experiment.experiment_name, num_tabs=2)
-        # bar = lambda: print_message("Next iteration of " + experiment.experiment_name, num_tabs=2)
 
     # feature extraction & feature selection
     print_title("Extracting features")
@@ -56,9 +70,8 @@ def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Sema
 
     # classification
     print_title("Classifying")
-    classify(experiment, bar)
-    # run_bert(experiment)
-    # run_rnn(experiment)
+    # classify(experiment, bar, watchdog)
+    run_rnn(experiment, bar=bar)
 
     # write results
     print_title("Writing results")
@@ -89,10 +102,11 @@ def main(config_path, max_threads=None):
     max_threads = max_threads or cpu_count()
     semaphore = Semaphore(max_threads)
     threads = []
-    with alive_bar(calc_total_iterations(experiments)) as bar:
+    with alive_bar(calc_total_iterations(experiments)) as bar, \
+            Watchdog(1800, watchdog_timeout_handler, [emails_list]) as watchdog:
         # with threading
         for experiment in experiments:
-            thread = Thread(target=run_experiment, args=(experiment, bar, semaphore))
+            thread = Thread(target=run_experiment, args=(experiment, bar, semaphore, watchdog))
             threads.append(thread)
             semaphore.acquire()
             thread.start()
@@ -105,10 +119,11 @@ def main(config_path, max_threads=None):
 
     # write all the experiments results into Excel file
     write_all_experiments()
-    send_results_by_email(["natanmanor@gmail.com", "mmgoldmeier@gmail.com"])
+    send_results_by_email(emails_list)
 
     print_title("Done!")
 
 
 if __name__ == "__main__":
+    emails_list = ["natanmanor@gmail.com", "mmgoldmeier@gmail.com"]
     main(r"../configs")

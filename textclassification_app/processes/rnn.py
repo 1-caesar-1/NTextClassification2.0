@@ -1,9 +1,7 @@
+import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split, KFold
-from sklearn.preprocessing import LabelEncoder
-import random
-from textclassification_app.rw_files.r_files import read_json_corpus
-import numpy as np
+
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.utils import print_message
 
@@ -12,7 +10,7 @@ def wordTwoVec():
     pass
 
 
-def run_rnn(experiment: Experiment, cv=True):
+def run_rnn(experiment: Experiment, cv=True, bar=None):
     k_fold = KFold(shuffle=True, random_state=42)
     # for the convenience of reading
     X = experiment.documents
@@ -60,7 +58,9 @@ def run_rnn(experiment: Experiment, cv=True):
                 test_loss, test_acc = model.evaluate(X_test, y_test)
                 print("Test Loss: {}".format(test_loss))
                 print("Test Accuracy: {}".format(test_acc))
-                result["accuracy_score"]["RNNClassifier"].append(test_acc)
+                result["accuracy_score"]["RNNEstimator"].append(test_acc)
+                if bar:
+                    bar()
         experiment.classification_results = result
         experiment.general_data["num_of_features"] = 0
     else:
@@ -72,7 +72,7 @@ def run_rnn(experiment: Experiment, cv=True):
             validation_data=(np.array(X_test), y_test),
             validation_steps=10,
         )
-        result["accuracy_score"]["RNNClassifier"] += history.history["val_accuracy"]
+        result["accuracy_score"]['RNNEstimator'] += history.history["val_accuracy"]
         test_loss, test_acc = model.evaluate(np.array(X_test), y_test)
         print("Test Loss: {}".format(test_loss))
         print("Test Accuracy: {}".format(test_acc))
@@ -90,7 +90,7 @@ def get_model(encoder):
                 # Use masking to handle the variable sequence lengths
                 mask_zero=True,
             ),
-            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64)),
+            tf.keras.layers.GRU(64),
             tf.keras.layers.Dense(64, activation="relu"),
             tf.keras.layers.Dense(1),
         ]
