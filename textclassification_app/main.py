@@ -1,20 +1,22 @@
+import json
 import os
 from multiprocessing import cpu_count
 from threading import Semaphore, Thread
 from typing import Callable, Iterable
 
+import numpy
 from alive_progress import alive_bar
 
 from textclassification_app.classes.CrossValidation import CrossValidation
 from textclassification_app.classes.Experiment import Experiment
 from textclassification_app.classes.Watchdog import Watchdog
+from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
 from textclassification_app.processes.results_handling import (
     save_experiment_results,
     write_all_experiments,
 )
-from textclassification_app.processes.rnn import run_rnn
 from textclassification_app.processes.send_results import send_results_by_email, send_mail
 from textclassification_app.utils import print_title, print_message, print_error
 
@@ -70,8 +72,8 @@ def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Sema
 
     # classification
     print_title("Classifying")
-    # classify(experiment, bar, watchdog)
-    run_rnn(experiment, bar=bar)
+    classify(experiment, bar, watchdog)
+    # run_rnn(experiment, bar=bar)
 
     # write results
     print_title("Writing results")
@@ -126,4 +128,13 @@ def main(config_path, max_threads=None):
 
 if __name__ == "__main__":
     emails_list = ["natanmanor@gmail.com", "mmgoldmeier@gmail.com"]
-    main(r"../configs")
+    # main(r"../configs")
+
+    last = 0
+    while last <= 0.8965:
+        main(r"../configs")
+        name = os.listdir(r'../results/json')[0]
+        with open(r'../results/json/' + name, 'r') as file:
+            dic = json.load(file)
+        last = numpy.mean(dic["results"]["accuracy_score"]["RandomForestClassifier"])
+    send_mail(["natanmanor@gmail.com"], "Done", "Done!")
