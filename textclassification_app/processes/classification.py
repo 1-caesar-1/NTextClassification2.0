@@ -118,9 +118,6 @@ def classify_using_cv(experiment: Experiment, bar: Callable = None, watchdog: Wa
 
             fitted_pipeline = scores["estimator"][0]
 
-            import pickle
-            pickle.dump(fitted_pipeline, open('rf.pickle', 'wb'))
-
             # store the scores for each measure
             for measure in experiment.measurements:
                 result[measure][type(clf).__name__] += list(
@@ -154,8 +151,8 @@ def evaluate(measure, true_labels, prediction, decision):
 
 def get_num_of_feature(pipeline: Pipeline):
     try:
-        return len(pipeline.named_steps["extraction"].get_feature_names())
-    except:
+        return pipeline.named_steps["extraction"].transform(["hello"]).shape[1]
+    except Exception as ex:
         return 0
 
 

@@ -142,3 +142,39 @@
 2021-05-07 17:25:50,720 werkzeug     INFO     127.0.0.1 - - [07/May/2021 17:25:50] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
 2021-05-07 17:25:52,428 werkzeug     INFO     127.0.0.1 - - [07/May/2021 17:25:52] "[37mGET /form HTTP/1.1[0m" 200 -
 2021-05-07 17:26:14,386 werkzeug     INFO     127.0.0.1 - - [07/May/2021 17:26:14] "[37mPOST /data/false HTTP/1.1[0m" 200 -
+2021-05-10 12:33:42,759 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-05-10 12:33:43,039 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:43] "[37mGET / HTTP/1.1[0m" 200 -
+2021-05-10 12:33:43,077 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:43] "[36mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 304 -
+2021-05-10 12:33:43,222 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-05-10 12:33:44,801 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:44] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-05-10 12:33:44,827 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:44] "[36mGET /static/css/styles.min.css HTTP/1.1[0m" 304 -
+2021-05-10 12:33:44,828 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:44] "[36mGET /static/js/script.min.js HTTP/1.1[0m" 304 -
+2021-05-10 12:33:47,974 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:47] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-05-10 12:33:48,001 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:48] "[36mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 304 -
+2021-05-10 12:33:49,077 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:49] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-05-10 12:33:50,999 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:50] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-05-10 12:33:52,736 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:52] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-05-10 12:33:54,016 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:33:54] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-05-10 12:34:28,980 werkzeug     INFO     127.0.0.1 - - [10/May/2021 12:34:28] "[37mPOST /data/false HTTP/1.1[0m" 200 -
+2021-05-18 13:20:34,570 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-05-18 13:20:34,790 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:34] "[37mGET / HTTP/1.1[0m" 200 -
+2021-05-18 13:20:34,832 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:34] "[37mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 200 -
+2021-05-18 13:20:35,613 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-05-18 13:20:37,338 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:37] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-05-18 13:20:37,366 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:37] "[37mGET /static/css/styles.min.css HTTP/1.1[0m" 200 -
+2021-05-18 13:20:37,368 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:37] "[37mGET /static/js/script.min.js HTTP/1.1[0m" 200 -
+2021-05-18 13:20:40,866 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:40] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-05-18 13:20:40,892 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:40] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
+2021-05-18 13:20:42,276 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:20:42] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-05-18 13:24:07,558 werkzeug     INFO     127.0.0.1 - - [18/May/2021 13:24:07] "[37mPOST /data/true HTTP/1.1[0m" 200 -
+2021-05-25 10:59:28,928 werkzeug     INFO      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-05-25 10:59:29,765 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:29] "[37mGET / HTTP/1.1[0m" 200 -
+2021-05-25 10:59:29,977 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:29] "[37mGET /static/js/runFilescript.min.js HTTP/1.1[0m" 200 -
+2021-05-25 10:59:30,356 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-05-25 10:59:34,937 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:34] "[37mGET /start_config HTTP/1.1[0m" 200 -
+2021-05-25 10:59:36,986 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:36] "[37mGET /static/css/styles.min.css HTTP/1.1[0m" 200 -
+2021-05-25 10:59:36,988 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:36] "[37mGET /static/js/script.min.js HTTP/1.1[0m" 200 -
+2021-05-25 10:59:40,045 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:40] "[37mPOST /start HTTP/1.1[0m" 200 -
+2021-05-25 10:59:40,070 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:40] "[37mGET /static/css/runFileStyle.min.css HTTP/1.1[0m" 200 -
+2021-05-25 10:59:41,265 werkzeug     INFO     127.0.0.1 - - [25/May/2021 10:59:41] "[37mGET /rangeForm HTTP/1.1[0m" 200 -
+2021-05-25 11:00:08,566 werkzeug     INFO     127.0.0.1 - - [25/May/2021 11:00:08] "[37mPOST /data/true HTTP/1.1[0m" 200 -

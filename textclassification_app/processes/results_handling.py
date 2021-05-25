@@ -120,7 +120,8 @@ def write_xlsx(data: list, measure: str):
 
         # pretty display of the features selections
         selections = ", ".join(
-            x[0].replace("'", "").replace('"', '').replace("_", " ") for x in experiment["features_selection"])
+            str(x[1]) + " " + x[0].replace("'", "").replace('"', '').replace("_", " ") for x in
+            experiment["features_selection"])
         worksheet.write(row, 3, selections if selections else "None", centralized)
         sizes[3] += [len(selections if selections else 'None')]
 

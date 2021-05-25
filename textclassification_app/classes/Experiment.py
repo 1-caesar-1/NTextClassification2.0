@@ -2,7 +2,7 @@ import json
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
@@ -31,6 +31,7 @@ _ = [
     BertTransformer,
     ElmoTransfomer,
     GloveTransfomer,
+    chi2
 ]
 
 classifiers_objects = {
@@ -144,7 +145,7 @@ class Experiment:
         try:
             if config["features_selection"]:
                 model, k = zip(*config["features_selection"])
-                self.features_selection = SelectKBest(model, k=k)
+                self.features_selection = SelectKBest(eval(model[0]), k=int(k[0]))
             else:
                 self.features_selection = None
         except Exception as e:
@@ -167,8 +168,8 @@ class Experiment:
                     + ": "
                     + classifier
                     + " is not a recognized "
-                    "abbreviation of a "
-                    "classifier",
+                      "abbreviation of a "
+                      "classifier",
                     num_tabs=1,
                 )
 
@@ -194,8 +195,8 @@ class Experiment:
     def __str__(self):
         result = self.experiment_name + ": "
         result += (
-            str(len(self.features_extraction_transformers.transformer_list))
-            + " transformer, "
+                str(len(self.features_extraction_transformers.transformer_list))
+                + " transformer, "
         )
         result += str(len(self.classifiers)) + " classifiers, "
         result += str(self.features_selection) if self.features_selection else "no"

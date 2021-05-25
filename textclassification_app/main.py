@@ -1,10 +1,8 @@
-import json
 import os
 from multiprocessing import cpu_count
 from threading import Semaphore, Thread
 from typing import Callable, Iterable
 
-import numpy
 from alive_progress import alive_bar
 
 from textclassification_app.classes.CrossValidation import CrossValidation
@@ -128,13 +126,4 @@ def main(config_path, max_threads=None):
 
 if __name__ == "__main__":
     emails_list = ["natanmanor@gmail.com", "mmgoldmeier@gmail.com"]
-    # main(r"../configs")
-
-    last = 0
-    while last <= 0.8965:
-        main(r"../configs")
-        name = os.listdir(r'../results/json')[0]
-        with open(r'../results/json/' + name, 'r') as file:
-            dic = json.load(file)
-        last = numpy.mean(dic["results"]["accuracy_score"]["RandomForestClassifier"])
-    send_mail(["natanmanor@gmail.com"], "Done", "Done!")
+    main(r"../configs")
