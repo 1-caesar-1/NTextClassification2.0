@@ -1,1 +1,12 @@
-{"file_id": "3015.txt", "publishing_date": "31.9.2020", "publishing_hour": "17:51", "author_name": "Peter", "author_age": "", "viewing_date": "14.9.2020", "country": "US", "link": "http://wingandawhim.blogspot.com/2020/08/chicken-kedra-with-almonds-onions.html", "classification": "normal", "gender": "male"}
+{
+  "file_id": "3015.txt",
+  "publishing_date": "31.9.2020",
+  "publishing_hour": "17:51",
+  "author_name": "Peter",
+  "author_age": "",
+  "viewing_date": "14.9.2020",
+  "country": "US",
+  "link": "http://wingandawhim.blogspot.com/2020/08/chicken-kedra-with-almonds-onions.html",
+  "classification": "normal",
+  "gender": "male"
+}

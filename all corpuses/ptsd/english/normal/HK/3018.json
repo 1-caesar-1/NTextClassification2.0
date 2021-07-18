@@ -1,1 +1,12 @@
-{"file_id": "3018.txt", "publishing_date": "9.11.2007", "publishing_hour": "", "author_name": "Jon", "author_age": "", "viewing_date": "14.9.2020", "country": "US", "link": "http://flightblogger.blogspot.com/2007/11/flightblogger-v20-is-live.html", "classification": "normal", "gender": "male"}
+{
+  "file_id": "3018.txt",
+  "publishing_date": "9.11.2007",
+  "publishing_hour": "",
+  "author_name": "Jon",
+  "author_age": "",
+  "viewing_date": "14.9.2020",
+  "country": "US",
+  "link": "http://flightblogger.blogspot.com/2007/11/flightblogger-v20-is-live.html",
+  "classification": "normal",
+  "gender": "male"
+}

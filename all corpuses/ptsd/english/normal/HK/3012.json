@@ -1,1 +1,12 @@
-{"file_id": "3012.txt", "publishing_date": "7.9.2020", "publishing_hour": "04:30", "author_name": "Folgha", "author_age": "", "viewing_date": "14.9.2020", "country": "US", "link": "http://folgha.blogspot.com/2020/09/202009070430.html", "classification": "normal", "gender": "male"}
+{
+  "file_id": "3012.txt",
+  "publishing_date": "7.9.2020",
+  "publishing_hour": "04:30",
+  "author_name": "Folgha",
+  "author_age": "",
+  "viewing_date": "14.9.2020",
+  "country": "US",
+  "link": "http://folgha.blogspot.com/2020/09/202009070430.html",
+  "classification": "normal",
+  "gender": "male"
+}
