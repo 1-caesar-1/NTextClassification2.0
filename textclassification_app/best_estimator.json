@@ -1,0 +1,8 @@
+{
+  "classification__bootstrap": true,
+  "classification__max_depth": 105,
+  "classification__max_features": "sqrt",
+  "classification__min_samples_leaf": 3,
+  "classification__min_samples_split": 5,
+  "classification__n_estimators": 1900
+}

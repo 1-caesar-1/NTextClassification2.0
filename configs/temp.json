@@ -1,0 +1,17 @@
+{
+  "language": "Hebrew",
+  "transformers": [
+    "StylisticFeatures('vof','huf','aof','pnf','anf','agf','frc','mef','acf','fdf',language='Hebrew')"
+  ],
+  "preprocessing": [
+    "lowercase"
+  ],
+  "features_selection": [],
+  "measurements": [
+    "accuracy_score"
+  ],
+  "classifiers": [
+    "rf"
+  ],
+  "classification_technique": "CrossValidation()"
+}
