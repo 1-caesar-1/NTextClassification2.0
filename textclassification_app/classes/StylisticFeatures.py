@@ -1,4 +1,5 @@
 import re
+import uuid
 
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
@@ -69,11 +70,11 @@ def StylisticFeatures(*names: str, language: str):
         # if the feature is list, add TfidfVectorizer with known vocabulary
         if isinstance(stylistic_features_dict[name], list):
             lst = set(stylistic_features_dict[name])
-            vectorizers += [(name + '1', TfidfVectorizer(vocabulary=lst))]
+            vectorizers += [(name + str(uuid.uuid4()), TfidfVectorizer(vocabulary=lst))]
             # if needed, add the percentage of the list of words from all the other words
             if name != "e50th" and name != "e50te" and name != "e50tth" and name != "e50tte":
                 vectorizers += [
-                    (name + '2', StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
+                    (name  + str(uuid.uuid4()), StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
         # option 2:
         # if the current feature is set of feature (e.g. "acf") add the transformers recursively
@@ -84,11 +85,11 @@ def StylisticFeatures(*names: str, language: str):
         # option 3:
         # if the current feature is frc, add the InitTransformer of FRC
         elif name == "frc":
-            vectorizers += [(name, stylistic_features_dict[name]())]
+            vectorizers += [(name + str(uuid.uuid4()), stylistic_features_dict[name]())]
 
         # else, add the StylisticFeaturesTransformer of the feature
         else:
-            vectorizers += [(name, StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
+            vectorizers += [(name + str(uuid.uuid4()), StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
     # return FeatureUnion off all the stylistic features or the stylistic features itself if there is only one
     return FeatureUnion(vectorizers, n_jobs=-1) if len(vectorizers) > 1 else vectorizers[0][1]

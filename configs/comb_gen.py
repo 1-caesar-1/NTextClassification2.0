@@ -1,31 +1,27 @@
-import itertools
 import json
-import uuid
 
 if __name__ == '__main__':
-    dic = {
-        "language": "English",
-        "transformers": [],
-        "preprocessing": ["lowercase"],
-        "features_selection": [],
-        "measurements": ["accuracy_score"],
-        "classifiers": ["rf"],
-        "classification_technique": "CrossValidation()"
-    }
+    dic = {"language": "Hebrew",
+           "transformers": [
+               "TfidfVectorizer(max_features=500,analyzer='word',lowercase=False,ngram_range=(1,1),use_idf=True,min_df=2)"
+           ],
+           "preprocessing": [],
+           "features_selection": [],
+           "measurements": [
+               "accuracy_score"
+           ],
+           "classifiers": [
+               "mlp",
+               "svc",
+               "lr",
+               "rf",
+               "mnb"
+           ],
+           "classification_technique": "CrossValidation()"
+           }
 
-    families = {'e50te', 'thf', 'caf', 'inf', 'vof', 'aof', 'acf', 'anf', 'nw', 'agf', 'lof', 'frc', 'spe', 'pnf',
-                'sxf', 'slf', 'skf', 'pw'}
-    max_size = 18
-    min_size = 18
-
-    total = 0
-    for i, size in enumerate(range(min_size, max_size + 1)):
-        for comb in itertools.combinations(families, size):
-            total += 1
-            dic["transformers"] = [
-                "StylisticFeatures(" + ",".join("'" + family + "'" for family in comb) + ",language='English')"]
-            file = open(r"../configs/" + str(size) + str(uuid.uuid4()) + ".json", "w")
+    for i in range(500, 6000, 500):
+        trans = f"TfidfVectorizer(max_features={i},analyzer='word',lowercase=False,ngram_range=(1,1),use_idf=True,min_df=2)"
+        dic["transformers"] = [trans]
+        with open(r"C:\Users\nmanor\PycharmProjects\TextClassification2.0\configs\\" + str(i) + ".json", "w") as file:
             json.dump(dic, file, indent=4)
-            file.close()
-
-    print("Total =", total)

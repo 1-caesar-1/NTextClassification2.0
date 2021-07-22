@@ -90,7 +90,7 @@ def get_model(encoder):
                 # Use masking to handle the variable sequence lengths
                 mask_zero=True,
             ),
-            tf.keras.layers.Bidirectional(tf.keras.layers.GRU(64)),
+            tf.keras.layers.Bidirectional(tf.keras.layers.SimpleRNN(64)),
             tf.keras.layers.Dense(64, activation="relu"),
             tf.keras.layers.Dense(1),
         ]

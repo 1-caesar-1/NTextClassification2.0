@@ -103,13 +103,13 @@ def write_xlsx(data: list, measure: str):
         for transformer in experiment["transformers"]:
             name = transformer.split("(")[0]
             parms = transformer[::-1].replace(")", "", 1)[::-1].split("(", maxsplit=1)[1].split(",")
-            named_parms = dict((x.split("=")[0], x.split("=")[1]) for x in parms if "=" in x)
+            named_parms = dict((x.split("=")[0], x.split("=")[1]) if "=" in x  else ("nrange",x) for x in parms  )
             if name == "TfidfVectorizer":
                 transformers += "TF"
                 transformers += "-IDF: " if named_parms["use_idf"] == "True" else ": "
                 transformers += named_parms["max_features"] + " "
                 transformers += named_parms["analyzer"].replace("'", "").replace('"', '') + "s "
-                transformers += {1: "unigrams", 2: "bigrmas", 3: "trigrams"}[int(named_parms["ngram_range"][-1])] + "\n"
+                transformers += {1: "unigrams", 1.5: "uni/bi grams", 2: "bigrmas", 3: "trigrams"}[(int(named_parms["ngram_range"][-1])+ int(named_parms["nrange"][0]))/2] + "\n"
             elif name == "StylisticFeatures":
                 transformers += "Stylistic Features: "
                 transformers += ", ".join(x.replace("'", "") for x in parms if "language" not in x) + "\n"

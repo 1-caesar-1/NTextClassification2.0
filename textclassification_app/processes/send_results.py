@@ -1,6 +1,7 @@
 import os
 import smtplib
 import ssl
+from datetime import datetime
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -44,16 +45,18 @@ def send_mail(to: Iterable, subject, body, attachment_dir=None):
         server.sendmail(sender_email, to, text)
 
 
-def send_results_by_email(receiver_email):
+def send_results_by_email(receiver_email, start=None):
     print_title("Sends results by email")
     subject = "The classification results are ready"
     body = "The run is complete and the classification results are attached to this email.\n" \
            "Also, the run results are in the results folder on the server.\n" \
-           "-- DO NOT FORGET TO TURN OFF THE SERVER AFTER USE --"
+           "-- DO NOT FORGET TO TURN OFF THE SERVER AFTER USE " \
+           "--\n-----------------------------------------------------------\nTotal run time: "
+    body += str(datetime.now() - start) if start else "Unknown"
     folder = os.path.join(Path(__file__).parent.parent.parent, "results", "excel")
     send_mail(receiver_email, subject, body, folder)
 
 
 if __name__ == '__main__':
     receiver_email = ['natanmanor@gmail.com']
-    send_mail(receiver_email, "test", "It's a test")
+    send_results_by_email(receiver_email)

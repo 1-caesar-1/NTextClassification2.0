@@ -1,4 +1,6 @@
 import os
+import time
+from datetime import datetime
 from multiprocessing import cpu_count
 from threading import Semaphore, Thread
 from typing import Callable, Iterable
@@ -11,6 +13,7 @@ from textclassification_app.classes.Watchdog import Watchdog
 from textclassification_app.processes.classification import classify
 from textclassification_app.processes.feature_extraction_selection import extract_data
 from textclassification_app.processes.normalization import normalize
+from textclassification_app.processes.parameter_tuning import parameter_tuning, ParameterTuning
 from textclassification_app.processes.results_handling import (
     save_experiment_results,
     write_all_experiments,
@@ -46,6 +49,22 @@ def watchdog_timeout_handler(to: Iterable):
     send_mail(to, subject, body)
 
 
+def handle_crush(to: Iterable, ex: Exception):
+    """
+    A function called when there is an exception during the program, and it sends an e-mail alert about it.
+    :param to: Iterable, list of the contact to alert
+    :param ex: Exception, the exception itself
+    """
+    subject = "An error occurred"
+    body = "During the classification, an exception has been thrown. You might want to give it a " \
+           "look.\n-----------------------------------------------------------\nThe exception details are as " \
+           "follows:\n "
+    body += str(ex)
+    body += """"\n-----------------------------------------------------------"\nTotal run time: """
+    body += str(datetime.now() - start)
+    send_mail(to, subject, body)
+
+
 def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Semaphore = None,
                    watchdog: Watchdog = None):
     """
@@ -66,7 +85,9 @@ def run_experiment(experiment: Experiment, bar: Callable = None, semaphore: Sema
 
     # parameter tuning (for RF only)
     # print_title("Doing parameter tuning")
-    # parameter_tuning(experiment, "GridSearchCV")
+    # if watchdog:
+    #     watchdog.stop()
+    # parameter_tuning(experiment, ParameterTuning.GRID)
 
     # classification
     print_title("Classifying")
@@ -119,11 +140,17 @@ def main(config_path, max_threads=None):
 
     # write all the experiments results into Excel file
     write_all_experiments()
-    send_results_by_email(emails_list)
+    send_results_by_email(emails_list, start)
 
     print_title("Done!")
 
 
 if __name__ == "__main__":
     emails_list = ["natanmanor@gmail.com", "mmgoldmeier@gmail.com"]
-    main(r"../configs")
+    start = datetime.now()
+    try:
+        main(r"../configs")
+    except Exception as e:
+        # in case of exception, send email with the exception details
+        handle_crush(emails_list, e)
+        raise e

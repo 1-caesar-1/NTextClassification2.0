@@ -2,7 +2,7 @@ import json
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_selection import SelectKBest, chi2
+from sklearn.feature_selection import SelectKBest, chi2, f_classif, mutual_info_classif
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
@@ -31,7 +31,9 @@ _ = [
     BertTransformer,
     ElmoTransfomer,
     GloveTransfomer,
-    chi2
+    chi2,
+    f_classif,
+    mutual_info_classif
 ]
 
 classifiers_objects = {
