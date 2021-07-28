@@ -23,7 +23,7 @@ if __name__ == '__main__':
         "classification_technique": "CrossValidation()"
     }
 
-    families = ['sep', 'pfp', 'spe', 'tpe', 'fun', 'jew', 'slg', 'war', 'trm', 'ang', 'wek', 'slp', 'sct', 'trt', 'tim',
+    families = ['sfp', 'pfp', 'spe', 'tpe', 'fun', 'jew', 'slg', 'war', 'trm', 'ang', 'wek', 'slp', 'sct', 'trt', 'tim',
                 'xte', 'rud', 'lim', 'inf', 'sik', 'lov', 'frc', 'ref', 'acf', 'wef', 'pw', 'nw']
     for family in families:
         dic["transformers"] = [f"StylisticFeatures('{family}',language='Hebrew')"]

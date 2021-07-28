@@ -174,7 +174,7 @@ def initialize_features_dict(language):
         "wef": {"ww", "owc", "twc", "ttc"},
 
         # PTSD - HK - HE
-        "sep": singular_first_person_he,
+        "sfp": singular_first_person_he,
         "pfp": plural_first_pers_he,
         "fun": fun_he,
         "jew": judaism_he,
