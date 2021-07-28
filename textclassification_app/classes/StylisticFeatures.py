@@ -1,7 +1,6 @@
 import re
 import uuid
 
-import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from scipy.sparse import csr_matrix
 from sklearn.base import TransformerMixin, BaseEstimator
@@ -25,7 +24,9 @@ from textclassification_app.classes.stopwords_and_lists import negative_list_heb
     inclusion_expressions_english, power1_expressions_hebrew, power1_expressions_english, power2_expressions_hebrew, \
     power2_expressions_english, power3_expressions_hebrew, power3_expressions_english, powerm1_expressions_hebrew, \
     powerm1_expressions_english, powerm2_expressions_hebrew, powerm2_expressions_english, powerm3_expressions_hebrew, \
-    powerm3_expressions_english, powerm4_expressions_hebrew, powerm4_expressions_english, pos, neg
+    powerm3_expressions_english, powerm4_expressions_hebrew, powerm4_expressions_english, singular_first_person_he, \
+    plural_first_pers_he, fun_he, judaism_he, slang_he, war_he, trauma_he, ptsd_anger_he, weakness_he, ptsd_sleep_he, \
+    society_he, treatment_he, ptsd_time_he, rudeness_he, ptsd_limiters_he, ptsd_sickness_he, ptsd_love_he
 
 
 def StylisticFeatures(*names: str, language: str):
@@ -74,7 +75,8 @@ def StylisticFeatures(*names: str, language: str):
             # if needed, add the percentage of the list of words from all the other words
             if name != "e50th" and name != "e50te" and name != "e50tth" and name != "e50tte":
                 vectorizers += [
-                    (name  + str(uuid.uuid4()), StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
+                    (name + str(uuid.uuid4()),
+                     StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
         # option 2:
         # if the current feature is set of feature (e.g. "acf") add the transformers recursively
@@ -89,7 +91,8 @@ def StylisticFeatures(*names: str, language: str):
 
         # else, add the StylisticFeaturesTransformer of the feature
         else:
-            vectorizers += [(name + str(uuid.uuid4()), StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
+            vectorizers += [
+                (name + str(uuid.uuid4()), StylisticFeaturesTransformer(stylistic_features_dict[name], name, language))]
 
     # return FeatureUnion off all the stylistic features or the stylistic features itself if there is only one
     return FeatureUnion(vectorizers, n_jobs=-1) if len(vectorizers) > 1 else vectorizers[0][1]
@@ -169,8 +172,25 @@ def initialize_features_dict(language):
         "acf": {"wc", "cc", "sc", "alw", "als", "aws", "awl"},
         "ref": {"dw", "tw", "dh", "dx", "tx"},
         "wef": {"ww", "owc", "twc", "ttc"},
-        "pos1": pos,
-        "neg1": neg
+
+        # PTSD - HK - HE
+        "sep": singular_first_person_he,
+        "pfp": plural_first_pers_he,
+        "fun": fun_he,
+        "jew": judaism_he,
+        "slg": slang_he,
+        "war": war_he,
+        "trm": trauma_he,
+        "ang": ptsd_anger_he,
+        "wek": weakness_he,
+        "slp": ptsd_sleep_he,
+        "sct": society_he,
+        "trt": treatment_he,
+        "tim": ptsd_time_he,
+        "rud": rudeness_he,
+        "lim": ptsd_limiters_he,
+        "sik": ptsd_sickness_he,
+        "lov": ptsd_love_he
     }
     return stylistic_features_dict
 
@@ -773,7 +793,7 @@ def all_powers(data, language):
     if language == "hebrew":
         lst += (power1_expressions_hebrew + power2_expressions_hebrew + power3_expressions_hebrew)
         lst += (
-                    powerm1_expressions_hebrew + powerm2_expressions_hebrew + powerm3_expressions_hebrew + powerm4_expressions_hebrew)
+                powerm1_expressions_hebrew + powerm2_expressions_hebrew + powerm3_expressions_hebrew + powerm4_expressions_hebrew)
     else:
         lst += (
                 power1_expressions_english
