@@ -898,7 +898,7 @@ def doubled_words(data, language):
     """
     :param data: the corpus
     :param language: the language of the data (ignored)
-    :return: the num of doubled word normalized in the num f the words in the text
+    :return: the num of doubled word normalized in the num of the words in the text
     """
 
     def in_post(post):
@@ -907,7 +907,7 @@ def doubled_words(data, language):
         for i in range(len(post) - 1):
             if post[i] == post[i + 1]:
                 num += 1
-        return num / (len(post) - 1)
+        return num / len(post)
 
     if data == "get feature names":
         return ["doubled words"]
@@ -928,7 +928,7 @@ def tripled_words(data, language):
         for i in range(len(post) - 2):
             if post[i] == post[i + 1] == post[i + 2]:
                 num += 1
-        return num / (len(post) - 2)
+        return num / len(post)
 
     if data == "get feature names":
         return ["tripled words"]
