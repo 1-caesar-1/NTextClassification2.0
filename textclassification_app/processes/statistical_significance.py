@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 
 
-def corrected_paired_students_ttest(new_score, baseline_score, k_fold, sig_level=0.05):
+def corrected_paired_students_ttest(new_score, baseline_score, k_fold, sig_level=0.05, lower_sig_level=0.01):
     """
     Calculate Corrected Paired Student's t-test according to Nadeau and Bengio's theory
     Based on the article at
@@ -14,6 +14,7 @@ def corrected_paired_students_ttest(new_score, baseline_score, k_fold, sig_level
     :param baseline_score: Iterable, All results (in percentages) of the baseline
     :param k_fold: The number of folds made in the K-fold cross-validation for the new results and for the baseline
     :param sig_level: The level of statistical significance it needs to examine
+    :param lower_sig_level: A lower level of significance, will be denoted by W
     :return: "*" If the new results are significantly smaller than the baseline, "V" if they are large and nothing if
             there is no significant difference between them
     """
@@ -43,6 +44,14 @@ def corrected_paired_students_ttest(new_score, baseline_score, k_fold, sig_level
             differences_significance = "V"
         else:
             differences_significance = "*"
+
+    # later addition
+    if p_value <= lower_sig_level:
+        if np.mean(new_score) > np.mean(baseline_score):
+            differences_significance = "W"
+        else:
+            differences_significance = "*"
+
     return differences_significance
 
 
@@ -72,8 +81,19 @@ def differences_significance(results, measure, k_folds, language, significance_l
 
 
 if __name__ == "__main__":
-    # path = r"C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline"
-    x = [85, 90, 98, 95, 100]
-    y = [70, 70, 68, 50, 60]
-    print(corrected_paired_students_ttest(x, y, 5, 0.05))
-    print(corrected_paired_students_ttest(y, x, 5, 0.05))
+    import numpy
+
+    with open(r'C:\Users\natan\PycharmProjects\TextClassification2\results\json\ref results.json', 'r') as file:
+        results = json.load(file)["results"]["accuracy_score"]["RandomForestClassifier"]
+        print(numpy.mean(results))
+
+    with open(r'C:\Users\natan\PycharmProjects\TextClassification2\results\baseline\hebrew\baseline.json', 'r') as file:
+        baseline = json.load(file)["results"]["accuracy_score"]["RandomForestClassifier"]
+        print(numpy.mean(baseline))
+
+    # convert results from fraction to percentage
+    results = [x * 100 for x in results]
+    baseline = [x * 100 for x in baseline]
+
+    # return the corrected paired students T-test
+    print(corrected_paired_students_ttest(results, baseline, 5))
